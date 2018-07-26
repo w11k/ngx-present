@@ -1,0 +1,23 @@
+<div class="slide">
+  <div class="header">
+    <div class="start">
+      <ngx-present-menu-toggle-icon></ngx-present-menu-toggle-icon>
+      <div class="slide-index">
+        <ngx-present-slide-index></ngx-present-slide-index>
+      </div>
+    </div>
+    <div class="center">
+      <div><h1>{{headline}}</h1></div>
+    </div>
+    <div class="end" *ngIf="info">
+      <div>{{info}}</div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div>
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+</div>

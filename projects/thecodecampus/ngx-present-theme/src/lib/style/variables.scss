@@ -1,0 +1,12 @@
+$tcc_orange: #ed5502;
+$tcc-gray: #1c2330;
+$tcc-gray-light: lighten($tcc-gray, 20%);
+$tcc-gray-lighter: lighten($tcc-gray, 40%);
+$tcc-gray-lightest: lighten($tcc-gray, 78%);
+$tcc-gradient-orange-start: #fc9253;
+$tcc-gradient-orange-end: #f26135;
+$tcc-gradient-gray-start: $tcc-gray;
+$tcc-gradient-gray-end: lighten($tcc-gray, 5%);
+$tcc-code-bg-1: desaturate($tcc-gray-lightest, 50%);
+$tcc-code-bg-2: darken($tcc-code-bg-1, 5%);
+$tcc-code-bg-3: darken($tcc-code-bg-1, 20%);

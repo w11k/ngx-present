@@ -1,0 +1,17 @@
+<div ngpPageTitle>Export</div>
+
+<mat-toolbar color="accent">
+  <button mat-icon-button (click)="toggleSideNav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>Export</h1>
+</mat-toolbar>
+
+<div class="slides">
+
+  <div class="slide"
+       *ngFor="let slide of slides">
+    <ngp-slide [slide]="slide"></ngp-slide>
+  </div>
+</div>
+

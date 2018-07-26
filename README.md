@@ -1,27 +1,88 @@
-# TccNgxPresent
+# ngx-present
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+ngx-present is an open source, [Angular](https://angular.io) based presentation tool developed
+by [W11K](https://w11k.de).
 
-## Development server
+At W11K we use it e.g. for our conference talks as well as for the course material
+of [theCodeCampus](https://thecodecampus.de) where we offer Angular and
+TypeScript trainings.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+* Nested Slides
+* Overview with Zoom
+* End User Help
+* Write Content as Markdown
+* Source Code Highlighting (also for Markdown) 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Project structure
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### [@w11k/ngx-present](-/projects/w11k/ngx-present)
 
-## Running unit tests
+@w11k/ngx-present is the core library. It contains some basic components like menu, help,
+overview, ... and the routing system. It does not contain any styling for your slides.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### [@thecodecampus/ngx-present-theme](./projects/thecodecampus/ngx-present-theme)
 
-## Running end-to-end tests
+@thecodecampus/ngx-present-theme is, as the name suggests, a theme for ngx-present
+with special styling for theCodeCampus. Basically it is a set of reusable
+master-slide-components which can be applied to a slide in the concrete presentation project. 
+You can use this theme as a blueprint to create your own theme.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Please note: the source of the theme is available but you are not allowed to use it as it is.
+Feel free to copy and modify it but please do not use our styling.
 
-## Further help
+### @w11k/ngx-present-demo
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+This project uses the Angular CLI as build tool. Therefore the previous mentioned
+libraries are located in the `projects` folder. The `src/app` folder contains a
+demo application where you can see how to use the libraries.
+
+
+## Installation
+
+* Create a new angular application `ng new my-presentation`
+* Install @w11k/ngx-present via `npm install @w11k/ngx-present`
+* You may want to install a theme via `npm install your-ngx-present-theme`.
+  Of course you also can use ngx-present without a theme.
+  A theme is just a way to reuse your styling in multiple presentations
+  without copy & paste.  
+
+## Usage
+
+* Each slide is an Angular component. Go on and create one.
+  All slide components get structured in an array of components or nested arrays.
+  You can nest the slides as deep as you want to. Later on this structure is used
+  for the routing and numbering of the slides. 
+* In your app module import the ngx-present module and pass the slides to it: 
+  ```
+  NgxPresentModule.withSlides(slides)
+  ```
+* Import the router module and pass your custom routes along with ngx-present's
+  routes. Minimal route configuration should look like the code below.
+  Feel free to add additional routes or change the default redirect.
+  You don't need to create routes for your slides. This is managed by ngx-present.
+  ```
+  RouterModule.forRoot([
+    ...ngxPresentRoutes,
+    { path: '**', redirectTo: 'slide'}
+  ])  
+  ```
+* In your AppComponent's template insert the ngx-present-container component.
+  This container component is designed to use the complete window (100vw and 100vh).
+  All styling and theming should be done inside of the slide components.
+  Create master slides for reusable styling.
+  ```
+  <ngx-present-container></ngx-present-container>
+  ```
+* Start your development server and open the application.
+
+
+## Run the Demo
+
+* Clone this repository
+* Run `npm install`
+* Run `npm run build:lib` and `npm run build:theme`
+* Then run `npm run start` and open [http://localhost:4200](http://localhost:4200)
+  in your browser

@@ -1,0 +1,9 @@
+@import "../style/mixins";
+
+mat-sidenav {
+  width: 250px;
+}
+
+:host, mat-sidenav-container {
+  @include fullscreen();
+}

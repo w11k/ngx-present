@@ -1,0 +1,47 @@
+<div ngpPageTitle>Overview</div>
+
+<mat-toolbar color="accent">
+  <button mat-icon-button (click)="toggleSideNav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>Overview</h1>
+  <span class="fill-remaining-space"></span>
+  <span>
+    <button mat-icon-button (click)="toogleBreak()" *ngIf="!view?.lineBreakOnFirstLevel">
+      <mat-icon>format_align_left</mat-icon>
+    </button>
+    <button mat-icon-button (click)="toogleBreak()" *ngIf="view?.lineBreakOnFirstLevel">
+      <mat-icon>format_align_justify</mat-icon>
+    </button>
+    <button mat-icon-button (click)="zoomIn()" [disabled]="view?.zoom <= view?.minZoom">
+      <mat-icon>zoom_in</mat-icon>
+    </button>
+    <button mat-icon-button (click)="resetZoom()" [disabled]="view?.zoom === view?.defaultZoom">
+      <mat-icon>search</mat-icon>
+    </button>
+    <button mat-icon-button (click)="zoomOut()" [disabled]="view?.zoom >= view?.maxZoom">
+      <mat-icon>zoom_out</mat-icon>
+    </button>
+  </span>
+</mat-toolbar>
+
+<div class="slides">
+
+  <ng-container *ngFor="let slide of slides">
+    <div class="break" *ngIf="shouldBreak(slide)"></div>
+    <div class="slide"
+         [style.width]="zoomFactor + 'vw'"
+         [style.height]="zoomFactor + 'vh'"
+         >
+      <mat-card>
+        <mat-card-content>
+          <div class="scale" [style.transform]="'scale(' + zoomFactor / 100 + ')'">
+            <ngp-slide [slide]="slide"></ngp-slide>
+          </div>
+          <a class="overlay"
+             [routerLink]="getRouterLink(slide)"></a>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,13 @@
+<mat-sidenav-container>
+  <mat-sidenav
+   (openedChange)="onSideNavClose($event)"
+  >
+    <ngx-present-sidebar-content>
+    </ngx-present-sidebar-content>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

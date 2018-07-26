@@ -1,0 +1,6 @@
+@import "../../style/variables";
+@import "../../style/mixins";
+
+.master-title {
+  @include tcc-master-title();
+}

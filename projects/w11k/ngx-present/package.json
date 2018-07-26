@@ -1,0 +1,30 @@
+{
+  "name": "@w11k/ngx-present",
+  "version": "0.2.0",
+  "description": "Angular based Presentation Tool",
+  "keywords": ["Angular", "Presentation", "Present", "PowerPoint", "Slides"],
+  "license": "MIT",
+  "author": "W11K GmbH, Germany",
+  "contributors": [
+    "Philipp Burgmer"
+  ],
+  "homepage": "https://github.com/w11k/ngx-present",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/w11k/ngx-present.git"
+  },
+  "dependencies": {
+    "@angular/cdk": "^6.0.0",
+    "@angular/material": "^6.0.0",
+    "@w11k/tydux": "^8.0.1",
+    "ng2-rx-componentdestroyed": "^3.0.0",
+    "material-design-icons": "^3.0.1"
+  },
+  "peerDependencies": {
+    "@angular/common": "^6.0.0",
+    "@angular/core": "^6.0.0",
+    "@angular/platform-browser": "^6.0.0",
+    "@angular/router": "^6.0.0",
+    "rxjs": "^6.0.0"
+  }
+}

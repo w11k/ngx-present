@@ -1,0 +1,13 @@
+.mat-nav-list .mat-list-item.active {
+  font-weight: bold;
+}
+
+div.menu {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}

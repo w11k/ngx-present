@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@import "../projects/thecodecampus/ngx-present-theme/src/lib/style/ngx-present-theme";
+@import "../projects/w11k/ngx-present/src/lib/style/mixins";
+
+@include ng-presentation-global();

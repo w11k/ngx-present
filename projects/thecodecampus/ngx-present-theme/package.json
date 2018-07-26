@@ -1,0 +1,36 @@
+{
+  "name": "@thecodecampus/ngx-present-theme",
+  "version": "0.2.0",
+  "description": "theCodeCampus theme for @w11k/ngx-present",
+  "keywords": ["Angular", "Presentation", "Present", "PowerPoint", "Slides", "theCodeCampus", "theme"],
+  "license": "UNLICENSED",
+  "author": "W11K GmbH, Germany",
+  "contributors": [
+    "Philipp Burgmer"
+  ],
+  "homepage": "https://github.com/w11k/ngx-present",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/w11k/ngx-present.git"
+  },
+  "dependencies": {
+    "@ngx-prism/core": "^2.0.1",
+    "@thecodecampus/angular-material-theme": "^2.0.0",
+    "@w11k/ngx-present": "^0.2.0",
+    "ngx-animate": "^1.0.1",
+    "ngx-markdown": "^6.1.0",
+    "lodash-es": "^4.17.10",
+    "prismjs": "^1.15.0",
+    "web-animations-js": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.112",
+    "@types/prismjs": "^1.9.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^6.0.0",
+    "@angular/core": "^6.0.0",
+    "@angular/material": "^6.0.0",
+    "@angular/platform-browser": "^6.0.0"
+  }
+}

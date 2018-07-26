@@ -1,0 +1,84 @@
+@import "variables";
+
+@mixin tcc-master-title() {
+
+  $icon-opacity: 0.2;
+
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+
+  padding: 0;
+  overflow: hidden;
+
+  background: linear-gradient(to right, $tcc-gradient-orange-start, $tcc-gradient-orange-end);
+
+  h1 {
+    margin: 0;
+    font-size: 3em;
+  }
+
+  .menu {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    color: rgba(white, $icon-opacity);
+  }
+
+  .help {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    color: rgba(white, $icon-opacity);
+  }
+
+  .top {
+    padding: 0 1.5em;
+    text-align: center;
+
+    img {
+      max-width: 100%;
+      max-height: 2em;
+      margin: 0 auto 0.5em;
+    }
+  }
+
+  .center {
+    text-align: center;
+    margin: 1.5em -2em;
+    transform: rotate(-3deg);
+    overflow: hidden;
+
+    .content {
+      background-color: $tcc-gray;
+      background: linear-gradient(to right, $tcc-gray, lighten($tcc-gray, 7%));
+
+      transform: rotate(3deg);
+      padding: 8vw 0;
+      margin: -4.5vw 0 -4.5vw;
+    }
+    h1, h1 small {
+      color: white
+    }
+  }
+
+  .bottom {
+    padding: 0 1.5em;
+    text-align: center;
+
+    .content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        margin: 0 1em;
+      }
+    }
+  }
+}

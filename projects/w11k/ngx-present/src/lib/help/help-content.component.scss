@@ -1,0 +1,30 @@
+p {
+  max-width: 600px;
+}
+
+p.presentation-navigation {
+  position: relative;
+  clear: both;
+
+  mat-icon {
+    float: left;
+    margin-right: 0.25em;
+    margin-bottom: 0.25em;
+  }
+}
+
+table.key-action {
+
+  th {
+    text-align: left;
+  }
+
+  tr td {
+    vertical-align: middle;
+    padding-right: 16px;
+  }
+
+  tr td:last-of-type {
+    padding-right: 0;
+  }
+}
