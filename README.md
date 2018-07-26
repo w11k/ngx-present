@@ -18,26 +18,26 @@ TypeScript trainings.
 
 ## Project structure
 
-### [@w11k/ngx-present](-/projects/w11k/ngx-present)
+This project consists of 3 parts: the core library, a theme library and a demo application.
+The project uses the Angular CLI as build tool.
+Therefore the previous mentioned libraries are located in the `projects` folder.
+The `src/app` folder contains a demo application where you can see how to use the libraries.
+
+### [@w11k/ngx-present](./projects/w11k/ngx-present)
 
 @w11k/ngx-present is the core library. It contains some basic components like menu, help,
 overview, ... and the routing system. It does not contain any styling for your slides.
+However it contains the styling for the contained components. 
 
 ### [@thecodecampus/ngx-present-theme](./projects/thecodecampus/ngx-present-theme)
 
 @thecodecampus/ngx-present-theme is, as the name suggests, a theme for ngx-present
 with special styling for theCodeCampus. Basically it is a set of reusable
 master-slide-components which can be applied to a slide in the concrete presentation project. 
-You can use this theme as a blueprint to create your own theme.
 
 Please note: the source of the theme is available but you are not allowed to use it as it is.
-Feel free to copy and modify it but please do not use our styling.
-
-### @w11k/ngx-present-demo
-
-This project uses the Angular CLI as build tool. Therefore the previous mentioned
-libraries are located in the `projects` folder. The `src/app` folder contains a
-demo application where you can see how to use the libraries.
+You can use this theme as a blueprint to create your own theme.
+Feel free to copy and modify it but please do not use our styling and logos.
 
 
 ## Installation
