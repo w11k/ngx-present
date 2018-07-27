@@ -48,4 +48,4 @@ import 'prismjs/components/prism-kotlin';
     SectionTitleSlideComponent,
   ]
 })
-export class NgxPresentThemeModule { }
+export class TccNgxPresentThemeModule { }

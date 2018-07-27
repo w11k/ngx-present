@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { slides } from './slides';
 import { MatSidenavModule } from '@angular/material';
-import { NgxPresentThemeModule } from '@thecodecampus/ngx-present-theme';
+import { TccNgxPresentThemeModule } from '@thecodecampus/ngx-present-theme';
 import { NgxPresentModule } from '@w11k/ngx-present';
 import { MarkdownModule } from 'ngx-markdown';
 import { PrismModule } from '@ngx-prism/core';
@@ -22,7 +22,7 @@ import { PrismModule } from '@ngx-prism/core';
   imports: [
     BrowserModule,
     NgxPresentModule.withSlides(slides),
-    NgxPresentThemeModule,
+    TccNgxPresentThemeModule,
     RouterModule.forRoot(routes),
     MatSidenavModule,
     MarkdownModule,
