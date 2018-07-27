@@ -3,6 +3,7 @@
 @mixin tcc-master-title() {
 
   $icon-opacity: 0.2;
+  $icon-opacity-hover: 0.8;
 
   position: absolute;
   width: 100vw;
@@ -27,14 +28,24 @@
     position: absolute;
     top: 15px;
     left: 15px;
-    color: rgba(white, $icon-opacity);
+    color: white;
+    opacity: $icon-opacity;
+
+    &:hover {
+      opacity: $icon-opacity-hover;
+    }
   }
 
   .help {
     position: absolute;
     bottom: 15px;
     right: 15px;
-    color: rgba(white, $icon-opacity);
+    color: white;
+    opacity: $icon-opacity;
+
+    &:hover {
+      opacity: $icon-opacity-hover;
+    }
   }
 
   .top {
