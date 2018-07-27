@@ -41,7 +41,7 @@ export class InlineMarkdownComponent {}
 @Component({
   template: `
     <tcc-master-regular headline="Inline Code Snippet">
-      <ngx-prism language="typescript" ngPreserveWhitespaces>const foo = 'bar';
+      <tcc-code language="typescript" ngPreserveWhitespaces>const foo = 'bar';
 
 // limitations:
 // 1) angular template compiler has a problem with single curly brackets
@@ -49,7 +49,7 @@ export class InlineMarkdownComponent {}
 // 2) if we want to highlight html we have to escape html-special-characters
 //
 // therefor most of the time it is easier to define the code in a property 
-// of the component class and use data-binding</ngx-prism>
+// of the component class and use data-binding</tcc-code>
     </tcc-master-regular>
   `
 })

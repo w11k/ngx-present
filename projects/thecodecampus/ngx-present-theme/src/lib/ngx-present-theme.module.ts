@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrismModule } from '@ngx-prism/core';
 import { MarkdownModule } from 'ngx-markdown';
 import { NgxPresentModule } from '@w11k/ngx-present';
+import { TccCodeComponent } from './helper/code.component';
 
 import * as Prism from 'prismjs';
 import * as marked from 'marked';
@@ -39,6 +40,7 @@ import 'prismjs/components/prism-kotlin';
     TccMasterSectionTitleComponent,
     RegularSlideWithMarkdownComponent,
     SectionTitleSlideComponent,
+    TccCodeComponent,
   ],
   exports: [
     TccMasterRegularComponent,
@@ -46,6 +48,7 @@ import 'prismjs/components/prism-kotlin';
     TccMasterSectionTitleComponent,
     RegularSlideWithMarkdownComponent,
     SectionTitleSlideComponent,
+    TccCodeComponent,
   ]
 })
 export class TccNgxPresentThemeModule { }

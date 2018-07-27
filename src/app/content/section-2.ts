@@ -8,7 +8,7 @@ export class DataBindingContentTitleComponent extends SectionTitleSlideComponent
 @Component({
   template: `
     <tcc-master-regular headline="Just Code Snippet" info="TypeScript">
-      <ngx-prism language="typescript" [code]="code | trim"></ngx-prism>
+      <tcc-code language="typescript" [code]="code"></tcc-code>
     </tcc-master-regular>
   `
 })
