@@ -12,16 +12,3 @@ export class TccMasterRegularComponent {
   @Input()
   public info: string | null;
 }
-
-@Component({
-  template: `
-    <tcc-master-regular [headline]="headline" [info]="info">
-      <markdown [data]="content"></markdown>
-    </tcc-master-regular>
-  `
-})
-export class RegularSlideWithMarkdownComponent {
-  public headline: string;
-  public info: string | undefined = undefined;
-  public content: string;
-}

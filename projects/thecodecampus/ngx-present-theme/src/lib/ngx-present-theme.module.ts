@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegularSlideWithMarkdownComponent, TccMasterRegularComponent } from './master/regular/tcc-master-regular.component';
+import { TccMasterRegularComponent } from './master/regular/tcc-master-regular.component';
 import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
 import { TccMasterTitleComponent } from './master/title/tcc-master-title.component';
-import { SectionTitleSlideComponent, TccMasterSectionTitleComponent } from './master/section-title/tcc-master-section-title.component';
+import { TccMasterSectionTitleComponent } from './master/section-title/tcc-master-section-title.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrismModule } from '@ngx-prism/core';
 import { MarkdownModule } from 'ngx-markdown';
@@ -38,16 +38,12 @@ import 'prismjs/components/prism-kotlin';
     TccMasterRegularComponent,
     TccMasterTitleComponent,
     TccMasterSectionTitleComponent,
-    RegularSlideWithMarkdownComponent,
-    SectionTitleSlideComponent,
     TccCodeComponent,
   ],
   exports: [
     TccMasterRegularComponent,
     TccMasterTitleComponent,
     TccMasterSectionTitleComponent,
-    RegularSlideWithMarkdownComponent,
-    SectionTitleSlideComponent,
     TccCodeComponent,
   ]
 })

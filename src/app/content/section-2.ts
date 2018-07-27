@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { RegularSlideWithMarkdownComponent, SectionTitleSlideComponent } from '@thecodecampus/ngx-present-theme';
 
-export class DataBindingContentTitleComponent extends SectionTitleSlideComponent {
+@Component({
+  template: `<tcc-master-section-title [headline]="headline"></tcc-master-section-title>`
+})
+export class DataBindingContentTitleComponent {
   headline = 'Data-Binding Content';
 }
 
@@ -21,7 +23,14 @@ export class Content4Component {}
 `;
 }
 
-export class MarkdownComponent extends RegularSlideWithMarkdownComponent {
+@Component({
+  template: `
+    <tcc-master-regular [headline]="headline">
+      <markdown [data]="content"></markdown>
+    </tcc-master-regular>
+  `
+})
+export class MarkdownComponent {
   headline = 'Complete Markdown Content';
 
   content = `
@@ -40,7 +49,7 @@ export class MarkdownComponent extends RegularSlideWithMarkdownComponent {
     \`\`\`
   
     \`\`\`html
-    <!-- and html -->
+    <!-- and html without escaping -->
     <div>
       <a href="https://foobar.com" target="_blank">Foobar</a>
     </div>

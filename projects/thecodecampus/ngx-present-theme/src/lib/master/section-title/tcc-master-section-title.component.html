@@ -2,16 +2,23 @@
   <div class="menu">
     <ngx-present-menu-toggle-icon></ngx-present-menu-toggle-icon>
   </div>
-  <div class="top">
-  </div>
+  <div class="top"></div>
+
   <div class="center">
     <div class="content">
       <h1 @animate>
-        <ng-content></ng-content>
+        <ng-container *ngIf="headline">
+          {{headline}}
+          <ng-container *ngIf="subHeadline">
+            <br><small>{{subHeadline}}</small>
+          </ng-container>
+        </ng-container>
+
+        <ng-content *ngIf="!headline"></ng-content>
       </h1>
     </div>
   </div>
-  <div class="bottom">
-  </div>
+
+  <div class="bottom"></div>
 
 </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { bounceIn } from 'ngx-animate/lib';
 import { transition, trigger, useAnimation } from '@angular/animations';
 
@@ -12,19 +12,10 @@ import { transition, trigger, useAnimation } from '@angular/animations';
     ])
   ]
 })
-export class TccMasterSectionTitleComponent {}
+export class TccMasterSectionTitleComponent {
+  @Input()
+  public headline: string | undefined;
 
-@Component({
-  template: `
-    <tcc-master-section-title>
-      {{headline}}
-      <ng-container *ngIf="subHeadline">
-        <br><small>{{subHeadline}}</small>
-      </ng-container>
-    </tcc-master-section-title>
-  `
-})
-export class SectionTitleSlideComponent {
-  public headline: string;
+  @Input()
   public subHeadline: string | undefined;
 }
