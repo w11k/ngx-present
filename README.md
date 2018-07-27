@@ -7,6 +7,7 @@ At W11K we use it e.g. for our conference talks as well as for the course materi
 of [theCodeCampus](https://thecodecampus.de) where we offer Angular and
 TypeScript trainings.
 
+
 ## Features
 
 * Nested Slides
@@ -49,9 +50,11 @@ Feel free to copy and modify it but please do not use our styling and logos.
   A theme is just a way to reuse your styling in multiple presentations
   without copy & paste.  
 
+
 ## Usage
 
-* Each slide is an Angular component. Go on and create one.
+* Each slide is an Angular component. Go on and create one. Do not declare this
+  component on any module directly. 
   All slide components get structured in an array of components or nested arrays.
   You can nest the slides as deep as you want to. Later on this structure is used
   for the routing and numbering of the slides. 
@@ -59,10 +62,19 @@ Feel free to copy and modify it but please do not use our styling and logos.
   ```
   NgxPresentModule.withSlides(slides)
   ```
+* Add the slide components to app module's declarations and entryComponents.
+  These to parts of the module decoration typically look like this:
+  ```
+  declarations: [AppComponent, ...slides],
+  entryComponents: [...slides],
+  ``` 
 * Import the router module and pass your custom routes along with ngx-present's
   routes. Minimal route configuration should look like the code below.
   Feel free to add additional routes or change the default redirect.
   You don't need to create routes for your slides. This is managed by ngx-present.
+  ```
+  import { ngxPresentRoutes } from '@w11k/ngx-present';
+  ```
   ```
   RouterModule.forRoot([
     ...ngxPresentRoutes,
@@ -84,5 +96,5 @@ Feel free to copy and modify it but please do not use our styling and logos.
 * Clone this repository
 * Run `npm install`
 * Run `npm run build:lib` and `npm run build:theme`
-* Then run `npm run start` and open [http://localhost:4200](http://localhost:4200)
-  in your browser
+* Then run `npm run start` and open
+  [http://localhost:4200](http://localhost:4200) in your browser
