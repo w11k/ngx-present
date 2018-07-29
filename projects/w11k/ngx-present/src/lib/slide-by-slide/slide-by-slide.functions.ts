@@ -13,13 +13,16 @@ export function calculateCoordinates(slides: Slide[], currentSlide: Slide, move:
 
   const newCoordinates: Coordinates = currentCoordinates.slice(0, coordinatesToKeepAbs);
 
-  if (coordinatesToKeepAbs < currentCoordinates.length && move > 0) {
+  if (move > 0 && coordinatesToKeepAbs < currentCoordinates.length) {
     newCoordinates.push(currentCoordinates[coordinatesToKeepAbs] + move);
   }
   else if (move > 0) {
     newCoordinates.push(move);
   }
-  else if (coordinatesToKeepAbs < currentCoordinates.length && move < 0) {
+  else if (move < 0 && currentCoordinates[coordinatesToKeepAbs + 1] !== undefined && currentCoordinates[coordinatesToKeepAbs + 1] > 1) {
+    newCoordinates.push(currentCoordinates[coordinatesToKeepAbs] + move + 1);
+  }
+  else if (move < 0 && coordinatesToKeepAbs < currentCoordinates.length) {
     newCoordinates.push(max(1, currentCoordinates[coordinatesToKeepAbs] + move));
   }
   else if (move < 0) {
