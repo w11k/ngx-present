@@ -12,11 +12,11 @@ interface SlideLink {
     <tcc-master-regular headline="Intro">
       <ul>
         <li *ngFor="let link of links">
-          <a routerLink [ngxPresentSlideLink]="link.component">{{link.name}}</a>
+          <a class="invisible" routerLink [ngxPresentSlideLink]="link.component">{{link.name}}</a>
         </li>
       </ul>
     </tcc-master-regular>
-  `
+  `,
 })
 export class IntroComponent {
   public links: SlideLink[] = [

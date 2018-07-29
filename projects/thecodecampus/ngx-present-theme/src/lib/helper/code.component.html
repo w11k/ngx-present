@@ -1,0 +1,6 @@
+<div class="code-container">
+  <p *ngIf="headline">{{headline}}</p>
+  <ngx-prism [language]="language" [code]="code | trim">
+    <ng-content></ng-content>
+  </ngx-prism>
+</div>

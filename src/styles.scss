@@ -3,7 +3,8 @@ body {
   padding: 0;
 }
 
-@import "../projects/thecodecampus/ngx-present-theme/src/lib/style/ngx-present-theme";
+@import "../projects/thecodecampus/ngx-present-theme/src/lib/style/ngx-present";
 @import "../projects/w11k/ngx-present/src/lib/style/mixins";
 
-@include ng-presentation-global();
+@include ngx-present();
+

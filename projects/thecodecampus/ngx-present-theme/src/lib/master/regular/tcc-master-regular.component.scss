@@ -2,134 +2,125 @@
 @import "../../style/mixins";
 @import "../../style/functions";
 
-.slide {
-  width: 100vw;
-  height: 100vh;
+tcc-master-regular {
 
-  display: flex;
-  flex-direction: column;
-
-  $header-height: 70px;
-
-  > .header {
-    $slide-padding-horizontal: 60px;
-    $slide-padding-vertical: 30px;
-
-    $header-skew: 38deg;
-    $header-skew-offset: (tan($header-skew) * $header-height) / 2;
-
-    position: fixed;
-    z-index: 9;
-    height: $header-height;
+  .slide {
     width: 100vw;
-
-    background: linear-gradient(to right, $tcc-gradient-orange-start, $tcc-gradient-orange-end);
+    height: 100vh;
 
     display: flex;
-    align-items: stretch;
+    flex-direction: column;
 
-    box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12);
+    $header-height: 70px;
+    font-size: 36px;
 
-    .start {
-      background: $tcc-gray;
-      margin: 0 $header-skew-offset 0 ($header-skew-offset * -1);
-      padding: 0 calc(#{$header-skew-offset} + 2vw) 0 calc(#{$header-skew-offset} + 15px);
-      transform: skewX(-$header-skew);
+    > .header {
+      $slide-padding-horizontal: 60px;
+      $slide-padding-vertical: 30px;
+
+      $header-skew: 38deg;
+      $header-skew-offset: (tan($header-skew) * $header-height) / 2;
+
+      position: fixed;
+      z-index: 9;
+      height: $header-height;
+      width: 100vw;
+
+      background: linear-gradient(93.42deg, $tcc-gradient-orange-start, $tcc-gradient-orange-end);
 
       display: flex;
-      justify-content: flex-end;
-      align-items: center;
+      align-items: stretch;
 
-      > * {
-        transform: skewX($header-skew);
-        color: #fff;
-        //font-size: 0.6em;
-      }
+      box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12);
 
-      > .slide-index {
-        min-width: 3.6em;
-        padding: 0 0 0 1vw;
-        text-align: right;
-        font-size: 0.7em;
+      .start {
+        margin: 0 $header-skew-offset 0 ($header-skew-offset * -1);
+        padding: 0 calc(#{$header-skew-offset} + 2vw) 0 calc(#{$header-skew-offset} + 15px);
+        transform: skewX(-$header-skew);
+
+        background: $tcc-gray;
         color: white;
+        font-size: 0.62em;
+
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        > * {
+          transform: skewX($header-skew);
+        }
+
+        > .slide-index {
+          min-width: 3.6em;
+          padding: 0 0 0 1vw;
+          text-align: right;
+        }
+
       }
 
-    }
-
-    .center {
-      flex: auto;
-
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-
-
-      > div, > span {
-        padding-left: 0.5em;
-        padding-right: $slide-padding-horizontal;
-        overflow: hidden;
-
+      .center {
         flex: auto;
 
-        h2 {
-          color: white;
-          padding: 0;
-          margin: 0;
-          font-size: 1.2em;
-          font-weight: 200;
-          line-height: 1.3;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
 
-          white-space: nowrap;
+
+        > div, > span {
+          padding-left: 0.5em;
+          padding-right: $slide-padding-horizontal;
+          overflow: hidden;
+
+          flex: auto;
+
+          h1, h2, h3, h4, h5, h6, h7 {
+            padding: 0;
+            margin: 0;
+            font-size: 1em;
+            //font-weight: 200;
+            //line-height: 1.3;
+
+            white-space: nowrap;
+          }
+        }
+      }
+
+      .end {
+        flex: 0;
+
+        box-sizing: border-box;
+        margin: 0 ($header-skew-offset * -1) 0 ($header-skew-offset);
+        padding: 0 calc(#{$header-skew-offset * 2} + 2vw) 0 calc(#{$header-skew-offset} + 2vw);
+        transform: skewX(-$header-skew);
+        white-space: nowrap;
+
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        background: $tcc-gray;
+        color: #fff;
+
+        > * {
+          transform: skewX($header-skew);
+          font-size: 0.62em;
         }
       }
     }
 
-    .end {
-      box-sizing: border-box;
-      background: $tcc-gray;
-      flex: 0;
-      margin: 0 ($header-skew-offset * -1) 0 ($header-skew-offset);
-      padding: 0 calc(#{$header-skew-offset * 2} + 2vw) 0 calc(#{$header-skew-offset} + 2vw);
-      transform: skewX(-$header-skew);
-      white-space: nowrap;
-
+    .content {
+      flex: 1 0 auto;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-evenly;
       align-items: center;
-
-
+      padding: 32px;
+      margin-top: $header-height;
 
       > * {
-        transform: skewX($header-skew);
-        color: #fff;
-        font-size: 0.7em;
+        margin: 0 32px;
       }
+
+      @include tcc-regular-content();
     }
   }
-
-  .content {
-    flex: 1 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 60px;
-    margin-top: $header-height;
-  }
-
-  .footer {
-    padding: 4px;
-
-    button {
-      opacity: 0.2;
-
-      &:hover {
-        opacity: 1;
-      }
-    }
-  }
-}
-
-:host {
-  width: 100%;
-  height: 100%;
 }

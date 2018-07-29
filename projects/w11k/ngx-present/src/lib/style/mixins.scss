@@ -7,8 +7,8 @@
   overflow: hidden;
 }
 
-@mixin ng-presentation-global() {
-  html, body, ng-presentation, app-root {
+@mixin ngx-present() {
+  html, body, ngx-present-container, app-root {
     margin: 0;
     padding: 0;
     @include fullscreen();

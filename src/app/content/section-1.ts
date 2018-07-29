@@ -12,6 +12,21 @@ export class InlineContentTitleComponent {}
 @Component({
   template: `
     <tcc-master-regular headline="Inline HTML Content">
+      <ul class="as-headlines">
+        <li>Headline 1
+          <ul>
+            <li>Content 1</li>
+            <li>Content 2</li>
+          </ul>
+        </li>
+        <li>Headline 2
+          <ul>
+            <li>Content 1</li>
+            <li>Content 2</li>
+          </ul>
+        </li>
+      </ul>
+      
       <ul>
         <li>First</li>
         <li>Second</li>
@@ -25,6 +40,17 @@ export class InlineHtmlComponent {}
 @Component({
   template: `
     <tcc-master-regular headline="Inline Markdown Content">
+      <div class="headline-list">
+        <markdown ngPreserveWhitespaces>
+          * Headline 1
+            * Content 1
+            * Content 2
+          * Headline 2
+            * Content 1
+            * Content 2
+        </markdown>
+      </div>
+
       <markdown ngPreserveWhitespaces>
         * First
           * Sub 1

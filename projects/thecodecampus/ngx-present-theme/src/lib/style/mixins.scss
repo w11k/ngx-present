@@ -1,5 +1,161 @@
 @import "variables";
 
+@mixin tcc-lists {
+  ul, ol {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+
+    > li {
+      padding: 0 0 0 1.4em;
+      margin-bottom: 0.7em;
+
+      ul {
+        li {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  ul, ol {
+
+    > li {
+
+      &:before {
+        position: absolute;
+        content: "<>";
+        font-weight: 200;
+        color: $tcc_orange;
+        margin-left: -1.4em;
+      }
+
+      .w11k-pretty-print, ul li .w11k-pretty-print {
+        margin-left: -1.4em;
+
+        & + ul {
+          margin-top: -0.5em;
+        }
+      }
+
+      ul, ol {
+        list-style: none;
+        margin-bottom: 0.7em;
+        margin-left: 0;
+        padding-left: 0;
+
+        & + * {
+          margin-top: -0.5em;
+        }
+
+        > li {
+          padding: 0 0 0 0.8em;
+          margin-bottom: 0;
+          font-weight: 200;
+
+          &:before {
+            position: absolute;
+            content: '-';
+            color: $tcc_orange;
+            margin-left: -0.8em;
+            padding-left: 0.1em;
+          }
+        }
+      }
+      ol {
+        counter-reset: sub-ol-counter;
+
+        > li {
+          counter-increment: sub-ol-counter;
+
+          &:before {
+            font-size: 0.9em;
+            margin-left: -0.9em;
+            padding-left: 0;
+            padding-top: 0.1em;
+            content: counter(sub-ol-counter) ".";
+          }
+        }
+      }
+    }
+  }
+
+  ol, ul.dashed {
+    counter-reset: ol-counter;
+    list-style-type: none;
+
+    > li {
+      counter-increment: ol-counter;
+      padding-left: 2.2em;
+
+      &:before {
+        position: absolute;
+        margin-left: -2.2em;
+        color: $tcc-orange;
+        font-weight: 200;
+        content: "<" counter(ol-counter) ">";
+      }
+    }
+  }
+
+  ul.dashed > li:before {
+    content: "</>";
+  }
+
+  ul + ul {
+    margin-top: 2em;
+  }
+
+  ul.as-headlines, ul.as-headline, .headline-list ul {
+
+    > li {
+      font-weight: bold;
+
+      &:first-of-type:before, &:last-of-type:after, &:before, &:after {
+        content: "";
+      }
+
+      > ul {
+        list-style: none;
+        margin-left: -1.4em;
+        padding-left: 0;
+        margin-bottom: 0;
+
+        > li {
+          position: relative;
+          padding-left: 2.4em;
+          text-indent: -1em;
+          margin-bottom: 0;
+
+          font-size: 1em;
+          font-weight: 200;
+
+          &:before, &:after {
+            content: "";
+          }
+        }
+
+        > li:first-of-type {
+
+          &:before {
+            position: absolute;
+            content: "<>";
+            color: $tcc_orange;
+            margin-left: -0.4em;
+          }
+        }
+
+        > li:last-of-type:not(.as-headline) {
+          &:after {
+            content: " </>";
+            color: $tcc_orange;
+          }
+        }
+      }
+    }
+  }
+}
+
 @mixin tcc-master-title() {
 
   $icon-opacity: 0.2;
@@ -17,11 +173,16 @@
   padding: 0;
   overflow: hidden;
 
-  background: linear-gradient(to right, $tcc-gradient-orange-start, $tcc-gradient-orange-end);
+  background: $tcc-gradient-orange;
 
-  h1 {
+  h1, h2 {
     margin: 0;
-    font-size: 3em;
+    color: #ffffff;
+    font-size: $tcc-title-font-size;
+
+    small {
+      font-size: 0.62em;
+    }
   }
 
   .menu {
@@ -61,18 +222,18 @@
 
   .center {
     text-align: center;
-    margin: 1.5em -2em;
+    margin: 1.5em -3em;
     transform: rotate(-3deg);
     overflow: hidden;
 
     .content {
-      background-color: $tcc-gray;
-      background: linear-gradient(to right, $tcc-gray, lighten($tcc-gray, 7%));
+      background: $tcc-gradient-gray;
 
       transform: rotate(3deg);
       padding: 8vw 0;
       margin: -4.5vw 0 -4.5vw;
     }
+
     h1, h1 small {
       color: white
     }
@@ -91,5 +252,43 @@
         margin: 0 1em;
       }
     }
+  }
+}
+
+@mixin tcc-regular-content {
+  @include tcc-lists();
+
+  a {
+    color: $tcc_orange;
+    text-decoration: none;
+
+    &[href^="#"] {
+      color: $tcc-gray;
+    }
+
+    &[href^="http"], &[href^="mailto"] {
+      color: $tcc_orange;
+      text-decoration: underline;
+    }
+
+    &.invisible {
+      color: $tcc-gray;
+    }
+  }
+
+  figure {
+    figcaption {
+      text-align: right;
+      color: $tcc-gray-lighter;
+      font-weight: 200;
+      font-size: 0.38em;
+    }
+  }
+
+  pre[class*="language-"] {
+    padding: (1 - $tcc-code-padding) $tcc-code-padding;
+    font-size: $tcc-code-font-size;
+    background: $tcc-gradient-gray;
+    margin: 0.38em 0;
   }
 }

@@ -7,6 +7,22 @@ export class DataBindingContentTitleComponent {
   headline = 'Data-Binding Content';
 }
 
+const sharedCodeExample = `
+@Component({
+  templateUrl: './example.component.html'
+})
+export class ExampleComponent implements OnInit, OnDestroy {
+  @Input()
+  public prop: string;
+  
+  constructor(private readonly service: AService) {}
+  
+  ngOnInit() {}
+  
+  ngOnDestroy() {} 
+}
+`;
+
 @Component({
   template: `
     <tcc-master-regular headline="Just Code Snippet" info="TypeScript">
@@ -15,12 +31,30 @@ export class DataBindingContentTitleComponent {
   `
 })
 export class CodeSnippetComponent {
-  public code = `
+  public code = sharedCodeExample;
+}
+
 @Component({
-  templateUrl: './content-4.component.html'
+  template: `
+    <tcc-master-regular headline="List and Code Snippet" info="TypeScript">
+      <markdown ngPreserveWhitespaces>
+        * First is very important
+        * Second too of course
+        * Third maybe less important
+        * Fourth is unimportant
+        * Fifth is the last because it is so important
+      </markdown>
+
+      <div>
+        <tcc-code language="typescript" [code]="codeTs" headline="./example.component.ts"></tcc-code>
+        <tcc-code language="typescript" [code]="codeHtml" headline="./example.component.html"></tcc-code>
+      </div>
+    </tcc-master-regular>
+  `
 })
-export class Content4Component {}
-`;
+export class ListAndCodeSnippetComponent {
+  public codeTs = sharedCodeExample;
+  public codeHtml = `<div>{{prop}}</div>`;
 }
 
 @Component({
@@ -60,5 +94,6 @@ export class MarkdownComponent {
 export const section2 = [
   DataBindingContentTitleComponent,
   CodeSnippetComponent,
+  ListAndCodeSnippetComponent,
   MarkdownComponent,
 ];

@@ -1,12 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'tcc-code',
-  template: `
-    <ngx-prism [language]="language" [code]="code | trim">
-      <ng-content></ng-content>
-    </ngx-prism>
-  `
+  templateUrl: './code.component.html',
+  styleUrls: ['./code.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TccCodeComponent {
   @Input()
@@ -14,4 +12,7 @@ export class TccCodeComponent {
 
   @Input()
   public code: string;
+
+  @Input()
+  public headline: string | undefined;
 }

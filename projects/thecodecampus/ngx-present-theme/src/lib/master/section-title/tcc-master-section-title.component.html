@@ -6,7 +6,7 @@
 
   <div class="center">
     <div class="content">
-      <h1 @animate>
+      <h2 @animate>
         <ng-container *ngIf="headline">
           {{headline}}
           <ng-container *ngIf="subHeadline">
@@ -15,7 +15,7 @@
         </ng-container>
 
         <ng-content *ngIf="!headline"></ng-content>
-      </h1>
+      </h2>
     </div>
   </div>
 
