@@ -7,7 +7,7 @@ import { Coordinates, Slide } from '../core/presentation.types';
 import { untilComponentDestroyed } from 'ng2-rx-componentdestroyed';
 import { delay, distinctUntilChanged, map } from 'rxjs/operators';
 import { SlideBySlideService } from './slide-by-slide.service';
-import { equalCoordinates, routeParamsToCoordinate } from './slide-by-slide.functions';
+import { coordinatesToString, equalCoordinates, routeParamsToCoordinate } from './slide-by-slide.functions';
 import { AdvancedTitleService } from '../core/title.service';
 
 
@@ -50,7 +50,7 @@ export class SlideBySlideRouteComponent implements OnInit, OnDestroy {
       )
       .subscribe(slide => {
         if (slide !== null) {
-          return this.title.prefixTitle(slide.coordinates.join(' / '));
+          return this.title.prefixTitle(coordinatesToString(slide.coordinates));
         }
       });
 

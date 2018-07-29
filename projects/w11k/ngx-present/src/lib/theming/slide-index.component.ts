@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ActivatedSlide } from '../slide/slide.service';
 import { Coordinates } from '../core/presentation.types';
+import { coordinatesToString } from '../slide-by-slide/slide-by-slide.functions';
 
 @Component({
   selector: 'ngx-present-slide-index',
@@ -15,7 +16,7 @@ export class SlideIndexComponent implements OnInit {
 
   ngOnInit() {
     this.coordinates$ = this.slide.coordinates.pipe(
-      map((coordinates: Coordinates) => coordinates.join('.')),
+      map((coordinates: Coordinates) => coordinatesToString(coordinates )),
     );
   }
 }
