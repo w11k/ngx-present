@@ -1,5 +1,12 @@
 @import '~prismjs/themes/prism-tomorrow.css';
 @import '~material-design-icons/iconfont/material-icons.css';
-@import 'angular-material-theme';
 
+@import '~@thecodecampus/angular-material-theme/src/styling/theme';
 
+@include tcc-angular-material-theme();
+
+$custom-typography: mat-typography-config(
+  $font-family: $tcc-font-family-quoted
+);
+
+@include angular-material-typography($custom-typography);
