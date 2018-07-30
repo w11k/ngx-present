@@ -41,6 +41,9 @@ import 'prismjs/components/prism-kotlin';
     TccCodeComponent,
   ],
   exports: [
+    MarkdownModule,
+    PrismModule,
+
     TccMasterRegularComponent,
     TccMasterTitleComponent,
     TccMasterSectionTitleComponent,
