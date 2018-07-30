@@ -1,21 +1,13 @@
 <div class="menu">
   <mat-nav-list (click)="closeSideNav()">
     <a mat-list-item
-       [routerLink]="['slide']"
+       routerLink="slide"
        routerLinkActive="active">Slides</a>
     <a mat-list-item
-       [routerLink]="['overview']"
+       routerLink="overview"
        routerLinkActive="active">Overview</a>
     <a mat-list-item
-       [routerLink]="['help']"
+       routerLink="help"
        routerLinkActive="active">Help</a>
-    <!--<mat-divider></mat-divider>-->
   </mat-nav-list>
-  <!--<span class="fill-remaining-space"></span>-->
-  <!--<mat-nav-list (click)="closeSideNav()">-->
-    <!--<mat-divider></mat-divider>-->
-    <!--<a mat-list-item-->
-       <!--[routerLink]="['export']"-->
-       <!--routerLinkActive="active">Export</a>-->
-  <!--</mat-nav-list>-->
 </div>
