@@ -102,7 +102,7 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
 }
 
 @Injectable()
-export class NavigateStepForward implements KeyboardEventProcessor {
+export class NavigateSectionForward implements KeyboardEventProcessor {
   constructor(private readonly service: SlideBySlideService) {}
 
   init(events$: Observable<KeyboardEvent>) {
@@ -113,7 +113,6 @@ export class NavigateStepForward implements KeyboardEventProcessor {
         filter(event => event.keyCode === 39)
       )
       .subscribe(() => {
-        // console.debug('NavigateStepForward: dispatch navigateToNext');
         this.service.navigateToNext(-2);
       });
   }
@@ -131,14 +130,13 @@ export class NavigateSlideForward implements KeyboardEventProcessor {
         filter(event => event.keyCode === 40 || event.keyCode === 34)
       )
       .subscribe(() => {
-        // console.debug('NavigateSlideForward: dispatch navigateToNext');
         this.service.navigateToNext(-1);
       });
   }
 }
 
 @Injectable()
-export class NavigateStepBackward implements KeyboardEventProcessor {
+export class NavigateSectionBackward implements KeyboardEventProcessor {
   constructor(private readonly service: SlideBySlideService) {}
 
   init(events$: Observable<KeyboardEvent>) {
@@ -149,7 +147,6 @@ export class NavigateStepBackward implements KeyboardEventProcessor {
         filter(event => event.keyCode === 37)
       )
       .subscribe(() => {
-        // console.debug('NavigateStepBackward: dispatch navigateToPrevious');
         this.service.navigateToPrevious(-2);
       });
   }
@@ -167,7 +164,6 @@ export class NavigateSlideBackward implements KeyboardEventProcessor {
         filter(event => event.keyCode === 38 || event.keyCode === 33)
       )
       .subscribe(() => {
-        // console.debug('NavigateStepBackward: dispatch navigateToPrevious');
         this.service.navigateToPrevious(-1);
       });
   }

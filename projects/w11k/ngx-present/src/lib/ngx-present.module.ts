@@ -23,8 +23,8 @@ import { SlideBySlideRouteComponent } from './slide-by-slide/slide-by-slide-rout
 import {
   NavigateSlideBackward,
   NavigateSlideForward,
-  NavigateStepBackward,
-  NavigateStepForward,
+  NavigateSectionBackward,
+  NavigateSectionForward,
   NavigateToFirstSlide
 } from './slide-by-slide/slide-by-slide.service';
 import { DynamicComponent } from './dynamic/dynamic.component';
@@ -86,9 +86,9 @@ export class NgxPresentModule {
     return {
       ngModule: NgxPresentModule,
       providers: [
-        { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateStepForward, multi: true},
+        { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateSectionForward, multi: true},
         { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateSlideForward, multi: true},
-        { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateStepBackward, multi: true},
+        { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateSectionBackward, multi: true},
         { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateSlideBackward, multi: true},
         { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateToFirstSlide, multi: true},
         { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: ToggleSideNav, multi: true},
