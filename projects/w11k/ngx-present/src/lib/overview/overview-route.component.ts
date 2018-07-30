@@ -9,7 +9,7 @@ import { flattenDeep } from '../core/utils';
 import { from, Observable, of } from 'rxjs';
 
 @Component({
-  selector: 'ngp-ten-thousand-foot-route',
+  selector: 'ngx-present-overview-route',
   templateUrl: './overview-route.component.html',
   styleUrls: ['./overview-route.component.scss']
 })
