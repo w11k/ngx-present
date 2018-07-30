@@ -1,6 +1,6 @@
 {
   "name": "@thecodecampus/ngx-present-theme",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "theCodeCampus theme for @w11k/ngx-present",
   "keywords": ["Angular", "Presentation", "Present", "PowerPoint", "Slides", "theCodeCampus", "theme"],
   "license": "UNLICENSED",
@@ -16,7 +16,7 @@
   "dependencies": {
     "@ngx-prism/core": "^2.0.1",
     "@thecodecampus/angular-material-theme": "^2.0.0",
-    "@w11k/ngx-present": "^0.2.0",
+    "@w11k/ngx-present": "^0.3.1",
     "ngx-animate": "^1.0.1",
     "ngx-markdown": "^6.1.0",
     "lodash-es": "^4.17.10",
