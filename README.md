@@ -43,7 +43,7 @@ Feel free to copy and modify it but please do not use our styling and logos.
 
 ## Installation
 
-* Create a new angular application `ng new my-presentation`
+* Create a new angular application `ng new my-presentation --style=scss`
 * Install @w11k/ngx-present via `npm install @w11k/ngx-present`
 * You may want to install a theme via `npm install your-ngx-present-theme`.
   Of course you also can use ngx-present without a theme.
@@ -87,6 +87,13 @@ Feel free to copy and modify it but please do not use our styling and logos.
   Create master slides for reusable styling.
   ```
   <ngx-present-container></ngx-present-container>
+  ```
+* Include global styling and maybe a theme in your style.scss
+  ```
+  @import "~@w11k/ngx-present/style/ngx-present";
+  @import "~@thecodecampus/ngx-present-theme/style/ngx-present";
+  
+  @include ngx-present();
   ```
 * Start your development server and open the application.
 
