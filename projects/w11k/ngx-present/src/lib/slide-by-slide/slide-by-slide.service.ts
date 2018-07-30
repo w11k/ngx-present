@@ -54,13 +54,35 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
   }
 
   navigateToNext(coordinatesToKeep: number) {
-    const next = calculateCoordinates(this.state.slides, this.state.currentSlide, 1, coordinatesToKeep, this.state.coordinatesMaxDepth);
-    this.navigateTo(next);
+    this.nextSlide(coordinatesToKeep)
+      .pipe(take(1))
+      .subscribe(slide => this.navigateTo(slide));
   }
 
   navigateToPrevious(coordinatesToKeep: number) {
-    const next = calculateCoordinates(this.state.slides, this.state.currentSlide, -1, coordinatesToKeep, this.state.coordinatesMaxDepth);
-    this.navigateTo(next);
+    this.previousSlide(coordinatesToKeep)
+      .pipe(take(1))
+      .subscribe(slide => this.navigateTo(slide));
+  }
+
+  previousSlide(coordinatesToKeep: number): Observable<Slide> {
+    return this.select()
+      .unbounded()
+      .pipe(
+        filter(x => x.currentSlide !== null),
+        filter(x => x.slides.length !== 0),
+        map(x => calculateCoordinates(x.slides, x.currentSlide, -1, coordinatesToKeep, x.coordinatesMaxDepth))
+      );
+  }
+
+  nextSlide(coordinatesToKeep: number): Observable<Slide> {
+    return this.select()
+      .unbounded()
+      .pipe(
+        filter(x => x.currentSlide !== null),
+        filter(x => x.slides.length !== 0),
+        map(x => calculateCoordinates(x.slides, x.currentSlide, 1, coordinatesToKeep, x.coordinatesMaxDepth))
+      );
   }
 
   navigateTo(target: Coordinates | Slide): boolean {
@@ -69,7 +91,7 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
     if (target instanceof Slide) {
       slide = target;
     } else {
-      slide = this.state.slides.find(slide => equalCoordinates(target, slide.coordinates));
+      slide = this.state.slides.find(x => equalCoordinates(target, x.coordinates));
     }
 
     if (slide) {
@@ -81,13 +103,18 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
   }
 
   navigateToFirst() {
-    this.selectNonNil(state => state.slides)
+    this.firstSlide()
+      .pipe(first())
+      .subscribe(slide => this.mutate.setCurrentSlide(slide));
+  }
+
+  firstSlide(): Observable<Slide> {
+    return this.selectNonNil(state => state.slides)
       .unbounded()
       .pipe(
         filter(slides => slides.length > 0),
-        first()
-      )
-      .subscribe(slides => this.mutate.setCurrentSlide(slides[0]));
+        map(slides => slides[0])
+      );
   }
 
   isValidCoordinate(coordinates: Coordinates): Observable<boolean> {
