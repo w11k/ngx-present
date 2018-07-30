@@ -1,10 +1,4 @@
-body {
-  margin: 0;
-  padding: 0;
-}
-
 @import "../projects/thecodecampus/ngx-present-theme/src/lib/style/ngx-present";
-@import "../projects/w11k/ngx-present/src/lib/style/mixins";
+@import "../projects/w11k/ngx-present/src/lib/style/ngx-present";
 
 @include ngx-present();
-
