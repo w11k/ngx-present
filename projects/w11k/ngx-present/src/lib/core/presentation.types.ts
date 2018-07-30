@@ -19,8 +19,15 @@ export class Slide {
 }
 
 export class PresentationState {
+
+  public id: string;
+
   constructor(public slides: Slides,
               public sideNavOpen = false) {
+    const id = Math.random().toString(36).substr(2, 9);
+    const chunks = id.match(/.{1,3}/g);
+
+    this.id = chunks.join('-');
   }
 }
 
@@ -44,6 +51,10 @@ export class PresentationMutator extends Mutator<PresentationState> {
 
   openSideNav() {
     this.state.sideNavOpen = true;
+  }
+
+  setId(id: string) {
+    this.state.id = id;
   }
 }
 

@@ -1,18 +1,16 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EventService } from '../core/event.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { Coordinates, Slide } from '../core/presentation.types';
-import { untilComponentDestroyed } from 'ng2-rx-componentdestroyed';
-import { delay, distinctUntilChanged, map } from 'rxjs/operators';
+import { delay, distinctUntilChanged, map, take } from 'rxjs/operators';
 import { SlideBySlideService } from './slide-by-slide.service';
-import { coordinatesToString, equalCoordinates, routeParamsToCoordinate } from './slide-by-slide.functions';
+import { coordinatesToString, routeParamsToCoordinate } from './slide-by-slide.functions';
 import { AdvancedTitleService } from '../core/title.service';
 
-
 @Component({
-  selector: 'ngp-slide-by-slide-route',
+  selector: 'ngx-present-slide-by-slide-route',
   templateUrl: './slide-by-slide-route.component.html',
   styleUrls: ['./slide-by-slide-route.component.scss']
 })
@@ -21,24 +19,29 @@ export class SlideBySlideRouteComponent implements OnInit, OnDestroy {
   public slide$: Observable<Slide>;
   public coordinates$: Observable<Coordinates>;
 
-  constructor(private eventProcessor: EventService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private title: AdvancedTitleService,
-              private service: SlideBySlideService) { }
+  constructor(private readonly events: EventService,
+              private readonly route: ActivatedRoute,
+              private readonly router: Router,
+              private readonly title: AdvancedTitleService,
+              private readonly service: SlideBySlideService) { }
 
   ngOnInit() {
+    this.service.selectNonNil(state => state.currentSlide)
+      .bounded(toAngularComponent(this))
+      .pipe(
+        distinctUntilChanged()
+      )
+      .subscribe(slide => {
+        this.router.navigate(['slide', ...slide.coordinates]);
+      });
+
     this.route.params
       .pipe(
+        take(1),
         map(params => routeParamsToCoordinate(params)),
-        distinctUntilChanged((a, b) => equalCoordinates(a, b)),
-        map(coordinates => this.service.navigateTo(coordinates)),
-        untilComponentDestroyed(this)
       )
-      .subscribe(navigated => {
-        if (!navigated) {
-          this.service.navigateToFirst();
-        }
+      .subscribe(coordinates => {
+        this.service.navigateTo(coordinates);
       });
 
     this.slide$ = this.service.select(state => state.currentSlide)
@@ -57,11 +60,6 @@ export class SlideBySlideRouteComponent implements OnInit, OnDestroy {
     this.coordinates$ = this.service
       .select(state => state.currentSlide && state.currentSlide.coordinates)
       .bounded(toAngularComponent(this));
-  }
-
-  @HostListener('document:keydown', ['$event'])
-  onKeyPressed(event: KeyboardEvent) {
-    this.eventProcessor.processKeyboardEvent(event);
   }
 
   ngOnDestroy(): void {

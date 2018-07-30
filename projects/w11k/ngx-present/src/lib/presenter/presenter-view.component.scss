@@ -1,0 +1,57 @@
+@mixin slide-card($width, $height, $scale) {
+  mat-card {
+    width: $width;
+    height: $height;
+    box-sizing: border-box;
+    padding: 0;
+
+    mat-card-content {
+      width: $width;
+      height: $height;
+      position: relative;
+      overflow: hidden;
+
+      > .scale {
+        transform: scale($scale);
+        transform-origin: 0 0;
+      }
+
+      > .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+      }
+    }
+  }
+}
+
+.slides {
+
+  margin: 1vh 1vh;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  .currentSlide {
+    @include slide-card(65vw, 65vh, 0.651);
+  }
+
+  .preview {
+    margin-top: 1vh;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .nextSlide {
+    @include slide-card(32vw, 32vh, 0.321);
+  }
+
+  .nextSection {
+    margin-left: 1vw;
+    @include slide-card(32vw, 32vh, 0.321);
+  }
+}

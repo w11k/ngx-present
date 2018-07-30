@@ -1,9 +1,8 @@
 import { Coordinates, Slide, Slides } from '../core/presentation.types';
 import { Mutator, Store } from '@w11k/tydux';
-import { filter, first, map } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { calculateCoordinates, equalCoordinates, isValidCoordinate } from './slide-by-slide.functions';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { Injectable, Injector } from '@angular/core';
 import { filterNonNavigationEvent, KeyboardEventProcessor } from '../core/event.service';
 import { PresentationService } from '../core/presentation.service';
@@ -38,19 +37,18 @@ export class SlideBySlideMutator extends Mutator<SlideBySlideState> {
 })
 export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlideState> {
 
-  constructor(injector: Injector, router: Router, private readonly presentation: PresentationService) {
+  constructor(injector: Injector, private readonly presentation: PresentationService) {
     super('SlideBySlide', new SlideBySlideMutator(), new SlideBySlideState());
 
     this.presentation.select(state => state.slides)
       .unbounded()
       .subscribe(slides => this.mutate.setSlides(slides));
+  }
 
-    this.selectNonNil(state => state.currentSlide)
-      .unbounded()
-      .subscribe(slide => {
-        // console.debug('PresentationService: received new coordinate from store, going to navigate via router', slide.coordinates);
-        router.navigate(['slide', ...slide.coordinates]);
-      });
+  init() {
+    if (!this.state.currentSlide) {
+      this.navigateToFirst();
+    }
   }
 
   navigateToNext(coordinatesToKeep: number) {
@@ -104,7 +102,7 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
 
   navigateToFirst() {
     this.firstSlide()
-      .pipe(first())
+      .pipe(take(1))
       .subscribe(slide => this.mutate.setCurrentSlide(slide));
   }
 
@@ -122,8 +120,7 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
       .unbounded()
       .pipe(
         filter(slides => slides.length > 0),
-        map(slides => isValidCoordinate(slides, coordinates)),
-        first()
+        map(slides => isValidCoordinate(slides, coordinates))
       );
   }
 }

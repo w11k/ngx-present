@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnDestroy, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { PresentationService } from '../core/presentation.service';
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
+import { EventService } from '../core/event.service';
 
 @Component({
   selector: 'ngx-present-container',
@@ -12,7 +13,8 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatSidenav)
   private sideNav: MatSidenav;
 
-  constructor(private presentation: PresentationService) {
+  constructor(private readonly presentation: PresentationService,
+              private readonly events: EventService) {
   }
 
   ngAfterViewInit(): void {
@@ -36,5 +38,10 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {}
+
+  @HostListener('document:keydown', ['$event'])
+  onKeyPressed(event: KeyboardEvent) {
+    this.events.processKeyboardEvent(event);
+  }
 
 }

@@ -19,6 +19,7 @@ export class PresentationService extends Store<PresentationMutator, Presentation
 
     const slides: Slides = componentsToSlideTree(slideComponents);
     this.mutate.setSlides(slides);
+
   }
 
   toggleSideNav() {
@@ -27,6 +28,10 @@ export class PresentationService extends Store<PresentationMutator, Presentation
 
   closeSideNav() {
     this.mutate.closeSideNav();
+  }
+
+  setId(id: string) {
+    this.mutate.setId(id);
   }
 }
 

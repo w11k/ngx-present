@@ -1,0 +1,43 @@
+<div class="content">
+  <div class="slides">
+    <div class="currentSlide">
+      <mat-card>
+        <mat-card-content>
+          <div class="scale">
+            <ngp-slide [slide]="currentSlide"></ngp-slide>
+          </div>
+          <div class="overlay"></div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="preview">
+      <div class="nextSlide">
+        <mat-card>
+          <mat-card-content>
+            <div class="scale">
+              <ngp-slide [slide]="nextSlide"></ngp-slide>
+            </div>
+            <div class="overlay"></div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="nextSection">
+        <mat-card>
+          <mat-card-content>
+            <div class="scale">
+              <ngp-slide [slide]="nextSection"></ngp-slide>
+            </div>
+            <div class="overlay"></div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="speaker-note">
+
+  </div>
+</div>

@@ -7,6 +7,10 @@
        routerLink="overview"
        routerLinkActive="active">Overview</a>
     <a mat-list-item
+       (click)="startP2P()"
+       routerLink="presenter"
+       [queryParams]="{ id: id }">Presenter</a>
+    <a mat-list-item
        routerLink="help"
        routerLinkActive="active">Help</a>
   </mat-nav-list>

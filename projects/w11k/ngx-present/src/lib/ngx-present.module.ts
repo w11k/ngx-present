@@ -18,7 +18,6 @@ import { ContainerComponent } from './presentation/container.component';
 import { HelpContentComponent } from './help/help-content.component';
 import { PageTitleDirective } from './core/page-title.directive';
 import { SlideComponents } from './core/presentation.types';
-import { EmptyComponent } from './ngx-present.routes';
 import { SlideBySlideRouteComponent } from './slide-by-slide/slide-by-slide-route.component';
 import {
   NavigateSlideBackward,
@@ -37,6 +36,8 @@ import { TrimPipe } from './core/trim.pipe';
 import { MenuToggleIconComponent } from './theming/menu-toggle-icon.component';
 import { SlideIndexComponent } from './theming/slide-index.component';
 import { HelpDialogIconComponent } from './theming/help-dialog-icon.component';
+import { PresenterRouteComponent } from './presenter/presenter-route.component';
+import { PresenterViewComponent } from './presenter/presenter-view.component';
 
 @NgModule({
   imports: [
@@ -60,7 +61,6 @@ import { HelpDialogIconComponent } from './theming/help-dialog-icon.component';
     HelpContentComponent,
     HelpRouteComponent,
     PageTitleDirective,
-    EmptyComponent,
     SideBarContentComponent,
     HelpDialogComponent,
     SlideLinkDirective,
@@ -68,6 +68,8 @@ import { HelpDialogIconComponent } from './theming/help-dialog-icon.component';
     MenuToggleIconComponent,
     SlideIndexComponent,
     HelpDialogIconComponent,
+    PresenterRouteComponent,
+    PresenterViewComponent
   ],
   entryComponents: [
     HelpDialogComponent,
