@@ -27,7 +27,7 @@ export class SlideBySlideMutator extends Mutator<SlideBySlideState> {
   }
 
   setSlides(slides: Slides) {
-    this.state.coordinatesMaxDepth = maxDepth(slides, 0);
+    this.state.coordinatesMaxDepth = maxDepth(slides);
     this.state.slides = flattenDeep(slides);
   }
 }

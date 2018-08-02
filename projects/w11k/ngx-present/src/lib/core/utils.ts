@@ -1,6 +1,6 @@
 import { ListOfRecursiveArraysOrValues } from './presentation.types';
 
-export function maxDepth<T>(value: ListOfRecursiveArraysOrValues<T>, currentDepth): number {
+export function maxDepth<T>(value: ListOfRecursiveArraysOrValues<T>, currentDepth = 0): number {
   return value.reduce((depth, val) => {
     if (Array.isArray(val)) {
       const newDepth = maxDepth(val, currentDepth + 1);
@@ -13,14 +13,12 @@ export function maxDepth<T>(value: ListOfRecursiveArraysOrValues<T>, currentDept
 
 export function min(a: number, b: number, ...c: number[]): number {
   const values = [a, b, ...c];
-  const result = values.reduce((x, y) => x > y ? y : x);
-  return result;
+  return values.reduce((x, y) => x > y ? y : x);
 }
 
 export function max(a: number, b: number, ...c: number[]): number {
   const values = [a, b, ...c];
-  const result = values.reduce((x, y) => x > y ? x : y);
-  return result;
+  return values.reduce((x, y) => x > y ? x : y);
 }
 
 export function flattenDeep<T>(value: ListOfRecursiveArraysOrValues<T>, result: T[] = []): T[] {
