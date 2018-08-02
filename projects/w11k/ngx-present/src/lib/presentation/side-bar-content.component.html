@@ -7,10 +7,6 @@
        routerLink="overview"
        routerLinkActive="active">Overview</a>
     <a mat-list-item
-       (click)="startP2P()"
-       routerLink="presenter"
-       [queryParams]="{ id: id }">Presenter</a>
-    <a mat-list-item
        routerLink="help"
        routerLinkActive="active">Help</a>
   </mat-nav-list>
@@ -19,4 +15,12 @@
     <h2>Table of Content</h2>
     <ngx-present-table-of-content [showCoordinates]="showCoordinates$ | async"></ngx-present-table-of-content>
   </div>
+  <span class="fill-remaining-space"></span>
+  <mat-divider></mat-divider>
+  <mat-nav-list (click)="closeSideNav()">
+    <a mat-list-item
+       (click)="startP2P()"
+       routerLink="presenter"
+       [queryParams]="{ id: id }">Presenter</a>
+  </mat-nav-list>
 </div>
