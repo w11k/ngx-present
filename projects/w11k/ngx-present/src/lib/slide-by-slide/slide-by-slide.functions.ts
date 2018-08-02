@@ -150,6 +150,6 @@ export function isValidCoordinate(slides: Slide | RecursiveArray<Slide>, coordin
   return true;
 }
 
-export function coordinatesToString(coordinates: Coordinates): string {
-  return coordinates.join('.');
+export function coordinatesToString(coordinates: Coordinates, length?: number, separator = '.'): string {
+  return coordinates.slice(0, length).join(separator);
 }
