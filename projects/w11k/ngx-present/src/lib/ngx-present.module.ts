@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SLIDES } from './core/presentation.service';
+import { NGX_PRESENT_CONFIG, SLIDES } from './core/presentation.service';
 import { KEYBOARD_EVENT_PROCESSOR_TOKEN, ToggleSideNav } from './core/event.service';
 import { OverviewRouteComponent } from './overview/overview-route.component';
 import { ExportRouteComponent } from './export/export-route.component';
@@ -17,13 +17,13 @@ import {
 import { ContainerComponent } from './presentation/container.component';
 import { HelpContentComponent } from './help/help-content.component';
 import { PageTitleDirective } from './core/page-title.directive';
-import { SlideComponents } from './core/presentation.types';
+import { NgxPresentConfig, SlideComponents } from './core/presentation.types';
 import { SlideBySlideRouteComponent } from './slide-by-slide/slide-by-slide-route.component';
 import {
-  NavigateSlideBackward,
-  NavigateSlideForward,
   NavigateSectionBackward,
   NavigateSectionForward,
+  NavigateSlideBackward,
+  NavigateSlideForward,
   NavigateToFirstSlide
 } from './slide-by-slide/slide-by-slide.service';
 import { DynamicComponent } from './dynamic/dynamic.component';
@@ -38,6 +38,8 @@ import { SlideIndexComponent } from './theming/slide-index.component';
 import { HelpDialogIconComponent } from './theming/help-dialog-icon.component';
 import { PresenterRouteComponent } from './presenter/presenter-route.component';
 import { PresenterViewComponent } from './presenter/presenter-view.component';
+import { TableOfContentComponent, TableOfContentViewComponent } from './theming/table-of-content';
+import { RecursivePartial } from './core/common-types';
 
 @NgModule({
   imports: [
@@ -69,7 +71,9 @@ import { PresenterViewComponent } from './presenter/presenter-view.component';
     SlideIndexComponent,
     HelpDialogIconComponent,
     PresenterRouteComponent,
-    PresenterViewComponent
+    PresenterViewComponent,
+    TableOfContentComponent,
+    TableOfContentViewComponent,
   ],
   entryComponents: [
     HelpDialogComponent,
@@ -81,13 +85,15 @@ import { PresenterViewComponent } from './presenter/presenter-view.component';
     MenuToggleIconComponent,
     SlideIndexComponent,
     HelpDialogIconComponent,
+    TableOfContentComponent,
   ]
 })
 export class NgxPresentModule {
-  static withSlides(slides: SlideComponents): ModuleWithProviders {
+  static withSlides(slides: SlideComponents, config: RecursivePartial<NgxPresentConfig> = {}): ModuleWithProviders {
     return {
       ngModule: NgxPresentModule,
       providers: [
+        { provide: NGX_PRESENT_CONFIG, useValue: config},
         { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateSectionForward, multi: true},
         { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateSlideForward, multi: true},
         { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateSectionBackward, multi: true},

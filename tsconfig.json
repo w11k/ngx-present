@@ -20,20 +20,8 @@
       "@w11k/ngx-present": [
         "dist/w11k/ngx-present"
       ],
-      "@w11k/ngx-present/*": [
-        "dist/w11k/ngx-present/*"
-      ],
       "@thecodecampus/ngx-present-theme": [
         "dist/thecodecampus/ngx-present-theme"
-      ],
-      "@thecodecampus/ngx-present-theme/*": [
-        "dist/thecodecampus/ngx-present-theme/*"
-      ],
-      "@thecodecampus/ngx-present-wrapper": [
-        "dist/thecodecampus/ngx-present-wrapper"
-      ],
-      "@thecodecampus/ngx-present-wrapper/*": [
-        "dist/thecodecampus/ngx-present-wrapper/*"
       ]
     }
   }

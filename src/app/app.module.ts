@@ -8,6 +8,14 @@ import { slides } from './slides';
 import { TccNgxPresentThemeModule } from '@thecodecampus/ngx-present-theme';
 import { NgxPresentModule } from '@w11k/ngx-present';
 
+const config = {
+  sidebar: {
+    tableOfContent: {
+      showCoordinates: false
+    }
+  }
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +26,7 @@ import { NgxPresentModule } from '@w11k/ngx-present';
   ],
   imports: [
     BrowserModule,
-    NgxPresentModule.withSlides(slides),
+    NgxPresentModule.withSlides(slides, config),
     TccNgxPresentThemeModule,
     RouterModule.forRoot(routes),
   ],

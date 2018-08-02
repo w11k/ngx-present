@@ -1,11 +1,11 @@
 import {TitleComponent} from './intro/title.component';
-import {IntroComponent} from './intro/intro.component';
+import {TableOfContentComponent} from './intro/table-of-content.component';
 import { section1 } from './content/section-1';
 import { section2 } from './content/section-2';
 
 export const intro = [
   TitleComponent,
-  IntroComponent,
+  TableOfContentComponent,
 ];
 
 export const slides = [

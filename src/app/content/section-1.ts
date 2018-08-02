@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+import { TableOfContentEntry } from '@w11k/ngx-present';
 
+@TableOfContentEntry({
+  linkName: 'Inline Content'
+})
 @Component({
   template: `
     <tcc-master-section-title>
@@ -81,9 +85,22 @@ export class InlineMarkdownComponent {}
 })
 export class InlineCodeSnippetComponent {}
 
+@TableOfContentEntry({
+  linkName: 'Sub Section'
+})
+@Component({
+  template: `
+    <tcc-master-section-title>
+      Sub Section
+    </tcc-master-section-title>
+  `,
+})
+export class SubSectionTitleComponent {}
+
 export const section1 = [
   InlineContentTitleComponent,
   InlineHtmlComponent,
   InlineMarkdownComponent,
   InlineCodeSnippetComponent,
+  [SubSectionTitleComponent],
 ];

@@ -1,8 +1,13 @@
-import { Coordinates, RecursiveArray, Slide } from '../core/presentation.types';
+import { Coordinates, Slide } from '../core/presentation.types';
 import { Params } from '@angular/router';
-import { max, min } from '../core/utils';
+import { max, min} from '../core/utils';
+import { RecursiveArray } from '../core/common-types';
 
-export function calculateCoordinates(slides: Slide[], currentSlide: Slide, move: number, coordinatesToKeep: number, coordinatesMaxDepth: number): Slide {
+export function calculateCoordinates(slides: Slide[],
+                                     currentSlide: Slide,
+                                     move: number,
+                                     coordinatesToKeep: number,
+                                     coordinatesMaxDepth: number): Slide {
   if (move === 0) {
     return currentSlide;
   }

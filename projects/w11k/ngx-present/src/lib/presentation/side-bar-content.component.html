@@ -14,4 +14,9 @@
        routerLink="help"
        routerLinkActive="active">Help</a>
   </mat-nav-list>
+  <mat-divider></mat-divider>
+  <div class="mat-nav-list table-of-content" *ngIf="showTableOfContent$ | async">
+    <h2>Table of Content</h2>
+    <ngx-present-table-of-content [showCoordinates]="showCoordinates$ | async"></ngx-present-table-of-content>
+  </div>
 </div>

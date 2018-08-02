@@ -1,5 +1,6 @@
 import { Type } from '@angular/core';
-import { Coordinates, RecursiveArray, Slide, SlideComponents, Slides } from './presentation.types';
+import { Coordinates, Slide, SlideComponents, Slides } from './presentation.types';
+import { RecursiveArray } from './common-types';
 
 export function componentToSlide(component: Type<any>, coordinates: Coordinates, index: number): Slide {
   return new Slide(component, coordinates, index);

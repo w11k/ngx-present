@@ -1,9 +1,7 @@
 import { Type } from '@angular/core';
 import { Mutator } from '@w11k/tydux';
-
-// copied from lodash
-export interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
-export interface ListOfRecursiveArraysOrValues<T> extends Array<T|RecursiveArray<T>> {}
+import { merge } from './utils';
+import { ListOfRecursiveArraysOrValues, RecursivePartial } from './common-types';
 
 export type SlideComponents = ListOfRecursiveArraysOrValues<Type<any>>;
 
@@ -18,12 +16,26 @@ export class Slide {
   }
 }
 
+export const ngxPresentDefaultConfig = {
+  sidebar: {
+    tableOfContent: {
+      enabled: true,
+      showCoordinates: true,
+      separator: ')'
+    }
+  }
+};
+
+export type NgxPresentConfig = typeof ngxPresentDefaultConfig;
+
 export class PresentationState {
 
   public id: string;
+  public config: NgxPresentConfig = ngxPresentDefaultConfig;
+  public slides: Slides = [];
+  public sideNavOpen = false;
 
-  constructor(public slides: Slides,
-              public sideNavOpen = false) {
+  constructor() {
     const id = Math.random().toString(36).substr(2, 9);
     const chunks = id.match(/.{1,3}/g);
 
@@ -39,6 +51,10 @@ export class PresentationMutator extends Mutator<PresentationState> {
 
   setSlides(slides: Slides) {
     this.state.slides = slides;
+  }
+
+  mergeConfig(config: RecursivePartial<NgxPresentConfig>) {
+    this.state.config = merge(this.state.config, config);
   }
 
   toggleSideNav() {

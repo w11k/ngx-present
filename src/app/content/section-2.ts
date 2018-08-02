@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
+import { TableOfContentEntry } from '@w11k/ngx-present';
 
+@TableOfContentEntry({
+  linkName: DataBindingContentTitleComponent.headline
+})
 @Component({
   template: `<tcc-master-section-title [headline]="headline"></tcc-master-section-title>`
 })
 export class DataBindingContentTitleComponent {
-  headline = 'Data-Binding Content';
+  static headline = 'Data-Binding Content';
+  headline = DataBindingContentTitleComponent.headline;
 }
 
 const sharedCodeExample = `
@@ -17,7 +22,9 @@ export class ExampleComponent implements OnInit, OnDestroy {
   
   constructor(private readonly service: AService) {}
   
-  ngOnInit() {}
+  ngOnInit() {
+    const foobar = \`\`;
+  }
   
   ngOnDestroy() {} 
 }
@@ -31,8 +38,25 @@ export class ExampleComponent implements OnInit, OnDestroy {
   `
 })
 export class CodeSnippetComponent {
-  public code = sharedCodeExample;
+  public code = `
+  @Component({
+  templateUrl: './example.component.html'
+})
+export class ExampleComponent implements OnInit, OnDestroy {
+  @Input()
+  public prop: string;
+  
+  constructor(private readonly service: AService) {}
+  
+  ngOnInit() {
+    const foobar = \`\`;
+  }
+  
+  ngOnDestroy() {} 
 }
+`;
+}
+
 
 @Component({
   template: `

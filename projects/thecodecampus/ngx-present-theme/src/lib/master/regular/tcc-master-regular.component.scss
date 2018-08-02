@@ -121,6 +121,7 @@ tcc-master-regular {
       }
 
       @include tcc-regular-content();
+      @include tcc-table-of-content();
     }
   }
 }
