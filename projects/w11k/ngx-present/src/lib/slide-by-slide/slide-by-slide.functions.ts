@@ -34,8 +34,10 @@ export function calculateCoordinates(slides: Slide[],
     newCoordinates.push(1);
   }
 
-  while (newCoordinates.length < coordinatesMaxDepth) {
-    newCoordinates.push(1);
+  if (move < 0) {
+    while (newCoordinates.length < coordinatesMaxDepth) {
+      newCoordinates.push(1);
+    }
   }
 
   let arrayToSearchIn: Slide[];
