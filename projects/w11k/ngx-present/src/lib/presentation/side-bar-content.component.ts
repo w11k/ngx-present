@@ -14,7 +14,7 @@ export class SideBarContentComponent implements OnInit, OnDestroy {
 
   closeSideNav() {
     setTimeout(() => {
-      this.presentation.toggleSideNav();
+      this.presentation.dispatch.toggleSideNav();
     }, 250);
   }
 

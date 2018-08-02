@@ -22,16 +22,7 @@ export class PresentationService extends Store<PresentationMutator, Presentation
 
   }
 
-  toggleSideNav() {
-    this.mutate.toggleSideNav();
-  }
-
-  closeSideNav() {
-    this.mutate.closeSideNav();
-  }
-
-  setId(id: string) {
-    this.mutate.setId(id);
-  }
+  // make mutate public
+  dispatch = this.mutate;
 }
 

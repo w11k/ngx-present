@@ -18,7 +18,7 @@ export class HelpContentComponent implements OnInit, OnDestroy {
   }
 
   toggleSideNav() {
-    this.presentation.toggleSideNav();
+    this.presentation.dispatch.toggleSideNav();
   }
 
 }

@@ -18,7 +18,7 @@ export class HelpRouteComponent implements OnInit, OnDestroy {
   }
 
   toggleSideNav() {
-    this.presentation.toggleSideNav();
+    this.presentation.dispatch.toggleSideNav();
   }
 
 }

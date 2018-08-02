@@ -33,7 +33,7 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
 
   onSideNavClose(opened: boolean) {
     if (!opened) {
-      this.presentation.closeSideNav();
+      this.presentation.dispatch.closeSideNav();
     }
   }
 

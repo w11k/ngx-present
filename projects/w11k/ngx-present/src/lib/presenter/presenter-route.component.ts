@@ -28,7 +28,7 @@ export class PresenterRouteComponent implements OnInit, OnDestroy {
         map(params => params.get('id')),
         takeUntil(componentDestroyed(this))
       )
-      .subscribe(id => this.presentation.setId(id));
+      .subscribe(id => this.presentation.dispatch.setId(id));
 
     this.slides.init();
 

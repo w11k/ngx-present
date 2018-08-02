@@ -56,7 +56,7 @@ export class OverviewRouteComponent implements OnInit, OnDestroy {
   }
 
   toggleSideNav() {
-    this.presentation.toggleSideNav();
+    this.presentation.dispatch.toggleSideNav();
   }
 
   zoomIn() {

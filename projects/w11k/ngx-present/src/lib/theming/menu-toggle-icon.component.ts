@@ -13,6 +13,6 @@ export class MenuToggleIconComponent {
   constructor(private readonly presentation: PresentationService) {}
 
   toggleSideNav() {
-    this.presentation.toggleSideNav();
+    this.presentation.dispatch.toggleSideNav();
   }
 }

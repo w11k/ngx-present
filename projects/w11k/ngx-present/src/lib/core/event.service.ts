@@ -38,7 +38,7 @@ export class ToggleSideNav implements KeyboardEventProcessor {
         filter(event => event.keyCode === 77)
       )
       .subscribe(() => {
-        this.service.toggleSideNav();
+        this.service.dispatch.toggleSideNav();
       });
   }
 }
