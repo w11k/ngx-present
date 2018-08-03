@@ -1,12 +1,13 @@
 import { Coordinates, Slide, Slides } from '../core/presentation.types';
-import { Mutator, Store } from '@w11k/tydux';
+import { Mutator, Store, ObservableSelection } from '@w11k/tydux';
 import { filter, map, take } from 'rxjs/operators';
 import { calculateCoordinates, equalCoordinates, isValidCoordinate } from './slide-by-slide.functions';
 import { Observable } from 'rxjs';
-import { Injectable, Injector } from '@angular/core';
+import { Injectable, Injector, OnDestroy } from '@angular/core';
 import { filterNonNavigationEvent, KeyboardEventProcessor } from '../core/event.service';
 import { PresentationService } from '../core/presentation.service';
 import { flattenDeep, maxDepth } from '../core/utils';
+import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 
 export class SlideBySlideState {
   public coordinatesMaxDepth = 0;
@@ -35,13 +36,13 @@ export class SlideBySlideMutator extends Mutator<SlideBySlideState> {
 @Injectable({
   providedIn: 'root'
 })
-export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlideState> {
+export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlideState> implements OnDestroy {
 
   constructor(injector: Injector, private readonly presentation: PresentationService) {
     super('SlideBySlide', new SlideBySlideMutator(), new SlideBySlideState());
 
     this.presentation.select(state => state.slides)
-      .unbounded()
+      .bounded(toAngularComponent(this))
       .subscribe(slides => this.mutate.setSlides(slides));
   }
 
@@ -53,19 +54,20 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
 
   navigateToNext(coordinatesToKeep: number) {
     this.nextSlide(coordinatesToKeep)
+      .unbounded()
       .pipe(take(1))
       .subscribe(slide => this.navigateTo(slide));
   }
 
   navigateToPrevious(coordinatesToKeep: number) {
     this.previousSlide(coordinatesToKeep)
+      .unbounded()
       .pipe(take(1))
       .subscribe(slide => this.navigateTo(slide));
   }
 
-  previousSlide(coordinatesToKeep: number): Observable<Slide> {
+  previousSlide(coordinatesToKeep: number): ObservableSelection<Slide> {
     return this.select()
-      .unbounded()
       .pipe(
         filter(x => x.currentSlide !== null),
         filter(x => x.slides.length !== 0),
@@ -73,9 +75,8 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
       );
   }
 
-  nextSlide(coordinatesToKeep: number): Observable<Slide> {
+  nextSlide(coordinatesToKeep: number): ObservableSelection<Slide> {
     return this.select()
-      .unbounded()
       .pipe(
         filter(x => x.currentSlide !== null),
         filter(x => x.slides.length !== 0),
@@ -102,26 +103,28 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
 
   navigateToFirst() {
     this.firstSlide()
+      .unbounded()
       .pipe(take(1))
       .subscribe(slide => this.mutate.setCurrentSlide(slide));
   }
 
-  firstSlide(): Observable<Slide> {
+  firstSlide(): ObservableSelection<Slide> {
     return this.selectNonNil(state => state.slides)
-      .unbounded()
       .pipe(
         filter(slides => slides.length > 0),
         map(slides => slides[0])
       );
   }
 
-  isValidCoordinate(coordinates: Coordinates): Observable<boolean> {
+  isValidCoordinate(coordinates: Coordinates): ObservableSelection<boolean> {
     return this.presentation.selectNonNil(state => state.slides)
-      .unbounded()
       .pipe(
         filter(slides => slides.length > 0),
         map(slides => isValidCoordinate(slides, coordinates))
       );
+  }
+
+  ngOnDestroy(): void {
   }
 }
 

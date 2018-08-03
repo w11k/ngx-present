@@ -6,7 +6,6 @@ import { map, takeUntil } from 'rxjs/operators';
 import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
 import { Observable } from 'rxjs';
 import { Slide } from '../core/presentation.types';
-import { untilComponentDestroyed } from 'ng2-rx-componentdestroyed';
 
 @Component({
   selector: 'ngx-present-presenter-route',
@@ -36,10 +35,10 @@ export class PresenterRouteComponent implements OnInit, OnDestroy {
       .bounded(toAngularComponent(this));
 
     this.nextSlide$ = this.slides.nextSlide(-1)
-      .pipe(untilComponentDestroyed(this));
+      .bounded(toAngularComponent(this));
 
     this.nextSection$ = this.slides.nextSlide(-2)
-      .pipe(untilComponentDestroyed(this));
+      .bounded(toAngularComponent(this));
   }
 
   ngOnDestroy(): void {

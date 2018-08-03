@@ -17,9 +17,8 @@ export class SlidesGuardService implements CanActivate {
     const coordinates = routeParamsToCoordinate(route.params);
 
     const isValid = this.service.isValidCoordinate(coordinates)
-      .pipe(
-        take(1)
-      );
+      .unbounded()
+      .pipe(take(1));
 
     isValid
       .pipe(
@@ -28,7 +27,7 @@ export class SlidesGuardService implements CanActivate {
           if (this.service.state.currentSlide) {
             return of(this.service.state.currentSlide);
           } else {
-            return this.service.firstSlide().pipe(take(1));
+            return this.service.firstSlide().unbounded().pipe(take(1));
           }
         })
       )
