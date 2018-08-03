@@ -1,6 +1,5 @@
 // copied from lodash
 
-import { ListOfRecursiveArraysOrValues } from './common-types';
 
 export function maxDepth<T>(value: ListOfRecursiveArraysOrValues<T>, currentDepth = 0): number {
   return value.reduce((depth, val) => {

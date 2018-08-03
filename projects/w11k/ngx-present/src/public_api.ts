@@ -11,7 +11,6 @@ export * from './lib/core/page-title.directive';
 export * from './lib/core/presentation.service';
 export * from './lib/core/presentation.types';
 export * from './lib/core/title.service';
-export * from './lib/core/common-types';
 export * from './lib/core/utils';
 export * from './lib/slide/slide.service';
 export * from './lib/slide-by-slide/slide-by-slide.functions';

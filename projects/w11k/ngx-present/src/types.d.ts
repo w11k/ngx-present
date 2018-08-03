@@ -21,3 +21,16 @@ declare namespace tydux_types {
 //   };
 //
 // }
+
+declare interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {
+}
+
+declare interface ListOfRecursiveArraysOrValues<T> extends Array<T | RecursiveArray<T>> {
+}
+
+declare type RecursivePartial<T> = {
+  [P in keyof T]?:
+  T[P] extends (infer U)[] ? RecursivePartial<U>[] :
+    T[P] extends object ? RecursivePartial<T[P]> :
+      T[P];
+};

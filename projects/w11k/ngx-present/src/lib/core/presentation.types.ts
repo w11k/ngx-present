@@ -1,7 +1,6 @@
 import { Type } from '@angular/core';
 import { Mutator } from '@w11k/tydux';
 import { merge } from './utils';
-import { ListOfRecursiveArraysOrValues, RecursivePartial } from './common-types';
 
 export type SlideComponents = ListOfRecursiveArraysOrValues<Type<any>>;
 

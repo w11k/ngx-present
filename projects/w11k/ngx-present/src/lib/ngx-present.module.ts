@@ -39,7 +39,6 @@ import { HelpDialogIconComponent } from './theming/help-dialog-icon.component';
 import { PresenterRouteComponent } from './presenter/presenter-route.component';
 import { PresenterViewComponent } from './presenter/presenter-view.component';
 import { TableOfContentComponent, TableOfContentViewComponent } from './theming/table-of-content';
-import { RecursivePartial } from './core/common-types';
 
 @NgModule({
   imports: [

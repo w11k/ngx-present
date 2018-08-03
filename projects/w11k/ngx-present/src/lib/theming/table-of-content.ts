@@ -5,8 +5,6 @@ import { PresentationService } from '../core/presentation.service';
 import { filterDeep, mapDeep} from '../core/utils';
 import { coordinatesToString } from '../slide-by-slide/slide-by-slide.functions';
 import { BehaviorSubject, combineLatest } from 'rxjs';
-import { ListOfRecursiveArraysOrValues} from '../core/common-types';
-import { RecursiveArray } from '../core/common-types';
 
 const metadataKey = Symbol('TableOfContentEntry');
 
