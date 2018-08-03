@@ -15,8 +15,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "dev": "rimraf .dist && npm run build:lib && npm run build:theme && npm run start",
-    "build": "rimraf .dist && npm run build:lib && npm run build:theme && npm run build:app",
+    "dev": "rimraf ./dist && npm run build:lib && npm run build:theme && npm run start",
+    "build": "rimraf ./dist && npm run build:lib && npm run build:theme && npm run build:app",
     "build:app": "ng build --prod",
     "build:lib": "ng build ngx-present && npm run build:lib-styles && npm run build:lib-assets",
     "build:lib-styles": "cpx \"./projects/w11k/ngx-present/src/lib/style/**/*\" \"./dist/w11k/ngx-present/style\"",
