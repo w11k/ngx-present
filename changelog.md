@@ -1,5 +1,9 @@
 # ngx-present Changelog
 
+## 0.4.1
+
+* fix strange compile error
+
 ## 0.4.0
 
 * fix navigation race condition
