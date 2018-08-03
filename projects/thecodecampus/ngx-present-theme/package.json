@@ -2,7 +2,7 @@
   "name": "@thecodecampus/ngx-present-theme",
   "version": "0.3.1",
   "description": "theCodeCampus theme for @w11k/ngx-present",
-  "keywords": ["Angular", "Presentation", "Present", "PowerPoint", "Slides", "theCodeCampus", "theme"],
+  "keywords": ["ngx-present", "theCodeCampus", "theme"],
   "license": "UNLICENSED",
   "author": "W11K GmbH, Germany",
   "contributors": [

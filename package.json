@@ -11,13 +11,7 @@
     "type": "git",
     "url": "https://github.com/w11k/ngx-present.git"
   },
-  "keywords": [
-    "Angular",
-    "Presentation",
-    "Present",
-    "PowerPoint",
-    "Slides"
-  ],
+  "keywords": [],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
