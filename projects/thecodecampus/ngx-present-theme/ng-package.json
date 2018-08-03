@@ -8,7 +8,6 @@
   "whitelistedNonPeerDependencies": [
     "@ngx-prism/core",
     "@thecodecampus/angular-material-theme",
-    "@w11k/ngx-present",
     "ngx-animate",
     "ngx-markdown",
     "lodash-es",
