@@ -4,10 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { Coordinates, Slide } from '../core/presentation.types';
-import { delay, distinctUntilChanged, map, take } from 'rxjs/operators';
+import { delay, distinctUntilChanged, map, skip, skipUntil } from 'rxjs/operators';
 import { SlideBySlideService } from './slide-by-slide.service';
-import { coordinatesToString, routeParamsToCoordinate } from './slide-by-slide.functions';
+import { coordinatesToString, equalCoordinates, routeParamsToCoordinate } from './slide-by-slide.functions';
 import { AdvancedTitleService } from '../core/title.service';
+import { untilComponentDestroyed } from 'ng2-rx-componentdestroyed';
+
 
 @Component({
   selector: 'ngx-present-slide-by-slide-route',
@@ -26,23 +28,30 @@ export class SlideBySlideRouteComponent implements OnInit, OnDestroy {
               private readonly service: SlideBySlideService) { }
 
   ngOnInit() {
-    this.service.selectNonNil(state => state.currentSlide)
+
+    const coordinatesFromRoute$ = this.route.params
+      .pipe(
+        untilComponentDestroyed(this),
+        map(params => routeParamsToCoordinate(params)),
+        distinctUntilChanged((a, b) => equalCoordinates(a, b))
+      );
+
+    coordinatesFromRoute$.subscribe(x => {
+      this.service.navigateTo(x);
+    });
+
+    const currentSlide$ = this.service
+      .selectNonNil(state => state.currentSlide)
       .bounded(toAngularComponent(this))
       .pipe(
-        distinctUntilChanged()
-      )
-      .subscribe(slide => {
-        this.router.navigate(['slide', ...slide.coordinates]);
-      });
+        distinctUntilChanged(),
+        skip(1),
+        skipUntil(coordinatesFromRoute$),
+      );
 
-    this.route.params
-      .pipe(
-        take(1),
-        map(params => routeParamsToCoordinate(params)),
-      )
-      .subscribe(coordinates => {
-        this.service.navigateTo(coordinates);
-      });
+    currentSlide$.subscribe(x => {
+      this.router.navigate(['slide', ...x.coordinates]);
+    });
 
     this.slide$ = this.service.select(state => state.currentSlide)
       .bounded(toAngularComponent(this));
