@@ -1,5 +1,18 @@
 # ngx-present Changelog
 
+## 0.4.0
+
+* fix navigation race condition
+* fix navigation to slide via link
+* add table-of-content component and use it in side bar. could be use on a slide too
+
+### Breaking Changes
+
+* tcc theme styling is now encapsulated as a mixin. please include it in your style.scss
+  ```
+  @include ngx-present-tcc-theme();
+  ``` 
+
 ## 0.3.1
 
 * fix installed ngx-present version in tcc-theme
