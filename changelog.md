@@ -1,5 +1,19 @@
 # ngx-present Changelog
 
+## 0.4.4
+
+* improve help
+* allow markdown in pre-tag
+* improve readme
+
+## 0.4.3
+
+* fix publishing
+
+## 0.4.2
+
+* fix table-of-content styling
+
 ## 0.4.1
 
 * fix strange compile error
