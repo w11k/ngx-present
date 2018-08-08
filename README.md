@@ -57,7 +57,11 @@ Feel free to copy and modify it but please do not use our styling and logos.
   component on any module directly. 
   All slide components get structured in an array of components or nested arrays.
   You can nest the slides as deep as you want to. Later on this structure is used
-  for the routing and numbering of the slides. 
+  for the routing and numbering of the slides.
+  ```
+  const section: SlideComponents = [SectionTitleComponent, SectionContentComponent];
+  const slides: SlideComponents = [SlideOneComponent, SlideTwoComponent, section];
+  ``` 
 * In your app module import the ngx-present module and pass the slides to it: 
   ```
   NgxPresentModule.withSlides(slides)
@@ -94,6 +98,8 @@ Feel free to copy and modify it but please do not use our styling and logos.
   @import "~@thecodecampus/ngx-present-theme/style/ngx-present";
   
   @include ngx-present();
+  @include ngx-present-tcc-theme();
+
   ```
 * Start your development server and open the application.
 
