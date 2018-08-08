@@ -8,6 +8,8 @@ tcc-master-regular {
     width: 100vw;
     height: 100vh;
 
+    position: relative;
+
     display: flex;
     flex-direction: column;
 
@@ -65,7 +67,6 @@ tcc-master-regular {
         justify-content: flex-start;
         align-items: center;
 
-
         > div, > span {
           padding-left: 0.5em;
           padding-right: $slide-padding-horizontal;
@@ -77,6 +78,7 @@ tcc-master-regular {
             padding: 0;
             margin: 0;
             font-size: 1em;
+            color: white;
             //font-weight: 200;
             //line-height: 1.3;
 
@@ -123,5 +125,7 @@ tcc-master-regular {
       @include tcc-regular-content();
       @include tcc-table-of-content();
     }
+
+    @include tcc-help-icon($tcc-gray);
   }
 }

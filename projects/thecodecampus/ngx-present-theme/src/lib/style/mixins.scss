@@ -29,6 +29,20 @@
   }
 }
 
+@mixin tcc-help-icon($color: white) {
+  ngx-present-help-dialog-icon {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    color: $color;
+    opacity: $icon-opacity;
+
+    &:hover {
+      opacity: $icon-opacity-hover;
+    }
+  }
+}
+
 @mixin tcc-lists {
   ul, ol {
     list-style: none;
@@ -187,9 +201,6 @@
 
 @mixin tcc-master-title() {
 
-  $icon-opacity: 0.2;
-  $icon-opacity-hover: 0.8;
-
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -226,17 +237,7 @@
     }
   }
 
-  .help {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    color: white;
-    opacity: $icon-opacity;
-
-    &:hover {
-      opacity: $icon-opacity-hover;
-    }
-  }
+  @include tcc-help-icon();
 
   .top {
     padding: 0 1.5em;
