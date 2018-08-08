@@ -12,7 +12,10 @@ import {
 
 export const NGX_PRESENT_CONFIG = new InjectionToken<NgxPresentConfig>('NgxPresentConfig');
 
-export const SLIDES = new InjectionToken<SlideComponents>('SLIDES');
+// causing a strange compiler error: generates invalid d.ts file
+// export const SLIDES = new InjectionToken<SlideComponents>('SLIDES');
+// workaround: use any here and explicit typing when getting the value from the injector
+export const SLIDES = new InjectionToken<any>('SLIDES');
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +26,7 @@ export class PresentationService extends Store<PresentationMutator, Presentation
   constructor(injector: Injector) {
     super('Presentation', new PresentationMutator(), new PresentationState());
 
-    const slideComponents = injector.get(SLIDES);
+    const slideComponents: SlideComponents = injector.get(SLIDES);
     const config = injector.get(NGX_PRESENT_CONFIG);
 
     const slides: Slides = componentsToSlideTree(slideComponents);
