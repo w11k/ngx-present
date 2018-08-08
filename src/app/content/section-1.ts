@@ -45,14 +45,14 @@ export class InlineHtmlComponent {}
   template: `
     <tcc-master-regular headline="Inline Markdown Content">
       <div class="headline-list">
-        <markdown ngPreserveWhitespaces>
+        <pre markdown>
           * Headline 1
             * Content 1
             * Content 2
           * Headline 2
             * Content 1
             * Content 2
-        </markdown>
+        </pre>
       </div>
 
       <markdown ngPreserveWhitespaces>
