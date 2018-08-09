@@ -118,8 +118,23 @@ tcc-master-regular {
       padding: 32px;
       margin-top: $header-height;
 
-      > * {
-        margin: 0 32px;
+      > .vertical-align {
+        flex: 1 0 auto;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-start;
+
+        > * {
+          margin: 0 16px;
+
+          &:first-child {
+            margin-left: 0;
+          }
+
+          &:last-child {
+            margin-right: 0;
+          }
+        }
       }
 
       @include tcc-regular-content();
@@ -127,5 +142,9 @@ tcc-master-regular {
     }
 
     @include tcc-help-icon($tcc-gray);
+  }
+
+  &.align-items-center .slide .content > .vertical-align {
+    align-items: center;
   }
 }

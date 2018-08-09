@@ -60,7 +60,7 @@ export class ExampleComponent implements OnInit, OnDestroy {
 
 @Component({
   template: `
-    <tcc-master-regular headline="List and Code Snippet" info="TypeScript">
+    <tcc-master-regular headline="List and Code Snippet" info="TypeScript" class="align-items-center">
       <markdown ngPreserveWhitespaces>
         * First is very important
         * Second too of course
