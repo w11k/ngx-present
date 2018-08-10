@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'ngp-dynamic',
+  selector: 'ngx-present-dynamic',
   templateUrl: './dynamic.component.html',
   styleUrls: ['./dynamic.component.scss']
 })
