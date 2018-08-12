@@ -3,7 +3,7 @@ import { ActivatedSlide, ActivatedSlideImpl } from './slide.service';
 import { Slide } from '../core/presentation.types';
 
 @Component({
-  selector: 'ngp-slide',
+  selector: 'ngx-present-slide',
   templateUrl: './slide.component.html',
   styleUrls: ['./slide.component.scss']
 })
