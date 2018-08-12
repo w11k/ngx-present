@@ -1,16 +1,10 @@
 import { Injectable, InjectionToken, Injector } from '@angular/core';
 import { Store } from '@w11k/tydux';
 import { componentsToSlideTree } from './presentation.functions';
-import {
-  NgxPresentConfig,
-  PresentationMutator,
-  PresentationState,
-  SlideComponents,
-  Slides,
-} from './presentation.types';
+import { NgxPresentConfig, PresentationMutator, PresentationState, SlideComponents, Slides, } from './presentation.types';
 
 
-export const NGX_PRESENT_CONFIG = new InjectionToken<NgxPresentConfig>('NgxPresentConfig');
+export const NGX_PRESENT_CONFIG = new InjectionToken<RecursivePartial<NgxPresentConfig>>('NgxPresentConfig');
 
 // causing a strange compiler error: generates invalid d.ts file
 // export const SLIDES = new InjectionToken<SlideComponents>('SLIDES');

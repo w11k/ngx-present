@@ -38,8 +38,9 @@ import { SlideIndexComponent } from './theming/slide-index.component';
 import { HelpDialogIconComponent } from './theming/help-dialog-icon.component';
 import { PresenterRouteComponent } from './presenter/presenter-route.component';
 import { PresenterViewComponent } from './presenter/presenter-view.component';
-import { TableOfContentComponent, TableOfContentViewComponent } from './theming/table-of-content';
+import { TableOfContentComponent } from './theming/table-of-content.component';
 import { SpeakerNotesDirective } from './speaker-notes/speaker-notes.directive';
+import { TableOfContentViewComponent } from './theming/table-of-content-view.component';
 
 @NgModule({
   imports: [

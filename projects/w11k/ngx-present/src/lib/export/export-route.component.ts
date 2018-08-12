@@ -6,13 +6,13 @@ import { PresentationService } from '../core/presentation.service';
 import { flattenDeep } from '../core/utils';
 
 @Component({
-  selector: 'app-export-route',
+  selector: 'ngx-present-export-route',
   templateUrl: './export-route.component.html',
   styleUrls: ['./export-route.component.scss']
 })
 export class ExportRouteComponent implements OnInit, OnDestroy {
 
-  public slides: Slide[];
+  public slides: Slide[] | undefined;
 
   constructor(private readonly presentation: PresentationService) { }
 
@@ -26,12 +26,9 @@ export class ExportRouteComponent implements OnInit, OnDestroy {
       .subscribe(slides => this.slides = slides);
   }
 
-  ngOnDestroy() {
-    // has to be there fore componentDestroyed
-  }
-
   toggleSideNav() {
     this.presentation.dispatch.toggleSideNav();
   }
 
+  ngOnDestroy() {}
 }

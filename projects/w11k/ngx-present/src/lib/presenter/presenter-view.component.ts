@@ -10,24 +10,28 @@ import { SpeakerNotesTarget } from '../speaker-notes/speaker-notes.directive';
 })
 export class PresenterViewComponent implements SpeakerNotesTarget {
   @Input()
-  public currentSlide: Slide;
+  public currentSlide: Slide | undefined;
 
   @Input()
-  public nextSlide: Slide;
+  public nextSlide: Slide | undefined;
 
   @Input()
-  public nextSection: Slide;
+  public nextSection: Slide | undefined;
 
   public speakerNoteProviders: StaticProvider[] = [
     { provide: SpeakerNotesTarget, useValue: this }
   ];
 
   @ViewChild('speakerNotes', { read: ViewContainerRef })
-  private container: ViewContainerRef;
+  private container: ViewContainerRef | undefined;
 
   constructor(private readonly service: SlideBySlideService) {}
 
   attach(template: TemplateRef<any>) {
+    if (this.container === undefined) {
+      throw new Error(`Couldn't find child speaker notes. Check template to expose it`);
+    }
+
     const embeddedViewRef = this.container.createEmbeddedView(template);
 
     return () => {

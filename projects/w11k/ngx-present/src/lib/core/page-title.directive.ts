@@ -2,10 +2,10 @@ import { AfterViewInit, Directive, ElementRef, OnDestroy } from '@angular/core';
 import { AdvancedTitleService } from './title.service';
 
 @Directive({
-  selector: '[ngpPageTitle]'
+  selector: '[ngxPresentPageTitle]'
 })
 export class PageTitleDirective implements AfterViewInit, OnDestroy {
-  unsetTitle: () => void;
+  unsetTitle: (() => void) | undefined;
 
   constructor(private title: AdvancedTitleService,
               private element: ElementRef) { }

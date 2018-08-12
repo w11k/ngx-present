@@ -4,7 +4,8 @@ import { Slide } from '../core/presentation.types';
 
 @Injectable()
 export abstract class ActivatedSlide {
-  slide: Observable<Slide>;
+  // will never be instantiated, assignment only to avoid undefined in type signature
+  slide: Observable<Slide> = new ReplaySubject<Slide>(1);
 }
 
 export class ActivatedSlideImpl implements ActivatedSlide {

@@ -1,0 +1,19 @@
+<ul>
+  <li *ngFor="let x of entries">
+    <ng-container *ngIf="isFlat(x)">
+      <a routerLink [ngxPresentSlideLink]="x.component">
+        {{x.name}}
+      </a>
+    </ng-container>
+
+    <ng-container *ngIf="isNested(x)">
+      <a routerLink [ngxPresentSlideLink]="x[0].component">
+        {{x[0].name}}
+      </a>
+      <ng-container *ngIf="x.length > 1">
+        <ngx-present-table-of-content-view [entries]="x.slice(1)">
+        </ngx-present-table-of-content-view>
+      </ng-container>
+    </ng-container>
+  </li>
+</ul>

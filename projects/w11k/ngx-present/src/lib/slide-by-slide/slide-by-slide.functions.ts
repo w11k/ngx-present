@@ -1,12 +1,12 @@
-import { Coordinates, Slide } from '../core/presentation.types';
+import { Coordinates, Slide, Slides } from '../core/presentation.types';
 import { Params } from '@angular/router';
-import { max, min} from '../core/utils';
+import { max, min } from '../core/utils';
 
 export function calculateCoordinates(slides: Slide[],
                                      currentSlide: Slide,
                                      move: number,
                                      coordinatesToKeep: number,
-                                     coordinatesMaxDepth: number): Slide {
+                                     coordinatesMaxDepth: number): Slide | undefined {
   if (move === 0) {
     return currentSlide;
   }
@@ -34,7 +34,7 @@ export function calculateCoordinates(slides: Slide[],
   }
 
   if (move < 0) {
-    while (newCoordinates.length < coordinatesMaxDepth) {
+    while (newCoordinates.length <= coordinatesMaxDepth) {
       newCoordinates.push(1);
     }
   }
@@ -64,9 +64,7 @@ export function coordinatesToKeepAbsolute(coordinates: Coordinates, coordinatesT
     return min(coordinatesToKeepRelative, coordinates.length);
   }
 
-  if (coordinatesToKeepRelative < 0) {
-    return max(coordinates.length + coordinatesToKeepRelative, 0);
-  }
+  return max(coordinates.length + coordinatesToKeepRelative, 0);
 }
 
 export const routerParamsCoordinatePrefix = 'coordinate-';
@@ -88,22 +86,34 @@ export function routeParamsToCoordinate(routeParams: Params): number[] {
 }
 
 function compareNumber(a: number | undefined, b: number | undefined): -1 | 0 | 1 {
-  if (a > b || (a !== undefined && b === undefined)) {
+  if (a !== undefined && b === undefined) {
     return 1;
   }
 
-  if (a < b || (a === undefined && b !== undefined)) {
+  if (a === undefined && b !== undefined) {
+    return -1;
+  }
+
+  if (a === undefined && b === undefined) {
+    return 0;
+  }
+
+  if (a !== undefined && b !== undefined && a > b) {
+    return 1;
+  }
+
+  if (a !== undefined && b !== undefined && a < b) {
     return -1;
   }
 
   return 0;
 }
 
-export function equalCoordinates(c1: Coordinates | null, c2: Coordinates | null): boolean {
+export function equalCoordinates(c1: Coordinates | null | undefined, c2: Coordinates | null | undefined): boolean {
   return compareCoordinates(c1, c2) === 0;
 }
 
-export function compareCoordinates(c1: Coordinates, c2: Coordinates): -1 | 0 | 1 {
+export function compareCoordinates(c1: Coordinates | null | undefined, c2: Coordinates | null | undefined): -1 | 0 | 1 {
   if (c1 === c2) {
     return 0;
   }
@@ -133,12 +143,12 @@ export function compareCoordinates(c1: Coordinates, c2: Coordinates): -1 | 0 | 1
   return 0;
 }
 
-export function isValidCoordinate(slides: Slide | RecursiveArray<Slide>, coordinates: Coordinates): boolean {
+export function isValidCoordinate(slides: Slides, coordinates: Coordinates): boolean {
   if (coordinates.length === 0) {
     return false;
   }
 
-  let current = slides;
+  let current: RecursiveArray<Slide> = slides;
 
   for (const coordinate of coordinates) {
     const tooLow = coordinate < 1;
@@ -148,8 +158,11 @@ export function isValidCoordinate(slides: Slide | RecursiveArray<Slide>, coordin
       return false;
     }
 
-    if (current !== undefined) {
-      current = current[coordinate - 1];
+    const next = current[coordinate - 1];
+    if (Array.isArray(next)) {
+      current = next;
+    } else {
+      current = [];
     }
   }
 

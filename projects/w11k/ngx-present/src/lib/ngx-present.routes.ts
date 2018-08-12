@@ -16,14 +16,14 @@ export function PresenterUrlMatcher(segments: UrlSegment[]): UrlMatchResult {
 
 function CoordinatesUrlMatcher(prefix: string, segments: UrlSegment[]): UrlMatchResult {
   if (segments.length === 0) {
-    return null;
+    return { consumed: [] };
   }
 
   const coordinateSegments = segments.slice();
   const slidePrefix = coordinateSegments.shift();
 
-  if (slidePrefix.path === prefix) {
-    const result: UrlMatchResult = {
+  if (slidePrefix && slidePrefix.path === prefix) {
+    const result: Required<UrlMatchResult> = {
       consumed: [slidePrefix],
       posParams: {}
     };
@@ -43,7 +43,7 @@ function CoordinatesUrlMatcher(prefix: string, segments: UrlSegment[]): UrlMatch
     return result;
   }
 
-  return null;
+  return { consumed: [] };
 }
 
 

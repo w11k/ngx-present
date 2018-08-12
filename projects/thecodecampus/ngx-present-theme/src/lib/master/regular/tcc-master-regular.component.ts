@@ -8,8 +8,8 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 })
 export class TccMasterRegularComponent {
   @Input()
-  public headline: string;
+  public headline: string | undefined;
 
   @Input()
-  public info: string | null;
+  public info: string | undefined;
 }

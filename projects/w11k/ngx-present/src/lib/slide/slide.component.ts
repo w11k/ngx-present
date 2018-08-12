@@ -9,7 +9,7 @@ import { Slide } from '../core/presentation.types';
 })
 export class SlideComponent implements OnChanges {
 
-  @Input() slide: Slide;
+  @Input() slide: Slide | undefined;
 
   @Input() set providers(externalProviders: StaticProvider[]) {
     this.providersCombined = [

@@ -18,17 +18,24 @@ export class SlideLinkDirective implements OnDestroy {
 
   @Input()
   public set ngxPresentSlideLink(component: Type<any>) {
-    this.service.select(state => state.slides)
+    this.service.selectNonNil(state => state.slides)
       .bounded(toAngularComponent(this))
       .pipe(
-        filter(slides => slides != null),
         map(slides => slides.find(slide => slide.component === component)),
         filter(slide => slide !== undefined),
-        map(slide => (['/slide', ...slide.coordinates])),
-        take(1)
+        take(1),
       )
-      .subscribe(link => {
+      .subscribe(slide => {
+        let link: any[];
+
+        if (slide) {
+          link = (['/slide', ...slide.coordinates]);
+        } else {
+          link = [];
+        }
+
         this.link.routerLink = link;
+        // update href on link
         this.link.ngOnChanges({});
       });
   }

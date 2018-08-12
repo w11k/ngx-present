@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HelpRouteComponent } from './help-route.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MockComponent } from 'ng-mocks';
+import { PresentationServiceMock } from '../core/presentation.service.mock';
+import { PresentationService } from '../core/presentation.service';
+import { MatIcon, MatToolbar } from '@angular/material';
+import { HelpContentComponent } from './help-content.component';
 
 describe('HelpRouteComponent', () => {
   let component: HelpRouteComponent;
@@ -8,7 +14,18 @@ describe('HelpRouteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HelpRouteComponent ]
+      imports: [
+        RouterTestingModule,
+      ],
+      declarations: [
+        HelpRouteComponent,
+        MockComponent(MatToolbar),
+        MockComponent(MatIcon),
+        MockComponent(HelpContentComponent),
+      ],
+      providers: [
+        { provide: PresentationService, useClass: PresentationServiceMock },
+      ],
     })
     .compileComponents();
   }));

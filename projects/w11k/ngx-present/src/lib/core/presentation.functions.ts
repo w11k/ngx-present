@@ -5,7 +5,9 @@ export function componentToSlide(component: Type<any>, coordinates: Coordinates,
   return new Slide(component, coordinates, index);
 }
 
-export function componentsToSlidesRecursive(components: Type<any> | RecursiveArray<any>, coordinates: Coordinates, counter: { index: number }) {
+export function componentsToSlidesRecursive(components: Type<any> | RecursiveArray<any>,
+                                            coordinates: Coordinates,
+                                            counter: { index: number }): RecursiveArray<Slide> | Slide {
   if (Array.isArray(components)) {
     return components.map((x, i) => {
       const newCoordinates = coordinates.slice();

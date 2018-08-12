@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
 import { Mutator } from '@w11k/tydux';
-import { merge } from './utils';
+import { mergeDeep } from './utils';
 
 export type SlideComponents = ListOfRecursiveArraysOrValues<Type<any>>;
 
@@ -19,9 +19,13 @@ export const ngxPresentDefaultConfig = {
   sidebar: {
     tableOfContent: {
       enabled: true,
-      showCoordinates: true,
-      separator: ')'
+      showCoordinates: undefined as boolean | undefined,
+      separator: undefined as string | undefined
     }
+  },
+  tableOfContent: {
+    showCoordinates: false,
+    separator: ')'
   }
 };
 
@@ -38,6 +42,10 @@ export class PresentationState {
     const id = Math.random().toString(36).substr(2, 9);
     const chunks = id.match(/.{1,3}/g);
 
+    if (!chunks) {
+      throw new Error(`ID generation failed. Couldn't generate chunks from random string`);
+    }
+
     this.id = chunks.join('-');
   }
 }
@@ -53,7 +61,7 @@ export class PresentationMutator extends Mutator<PresentationState> {
   }
 
   mergeConfig(config: RecursivePartial<NgxPresentConfig>) {
-    this.state.config = merge(this.state.config, config);
+    this.state.config = mergeDeep(this.state.config, config);
   }
 
   toggleSideNav() {

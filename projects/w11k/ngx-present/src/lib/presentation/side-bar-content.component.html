@@ -15,7 +15,9 @@
        *ngIf="showTableOfContent$ | async"
        (click)="closeSideNav()">
     <h2>Table of Content</h2>
-    <ngx-present-table-of-content [showCoordinates]="showCoordinates$ | async"></ngx-present-table-of-content>
+    <ngx-present-table-of-content [showCoordinates]="showCoordinates$ | async"
+                                  [coordinatesSeparator]="coordinatesSeparator$ | async">
+    </ngx-present-table-of-content>
   </div>
   <span class="fill-remaining-space"></span>
   <mat-divider></mat-divider>

@@ -1,4 +1,4 @@
-<div ngpPageTitle>Overview</div>
+<div ngxPresentPageTitle>Overview</div>
 
 <mat-toolbar color="accent">
   <button mat-icon-button (click)="toggleSideNav()">
@@ -7,10 +7,10 @@
   <h1>Overview</h1>
   <span class="fill-remaining-space"></span>
   <span>
-    <button mat-icon-button (click)="toogleBreak()" *ngIf="!view?.lineBreakOnFirstLevel">
+    <button mat-icon-button (click)="toggleBreak()" *ngIf="!view?.lineBreakOnFirstLevel">
       <mat-icon>format_align_left</mat-icon>
     </button>
-    <button mat-icon-button (click)="toogleBreak()" *ngIf="view?.lineBreakOnFirstLevel">
+    <button mat-icon-button (click)="toggleBreak()" *ngIf="view?.lineBreakOnFirstLevel">
       <mat-icon>format_align_justify</mat-icon>
     </button>
     <button mat-icon-button (click)="zoomIn()" [disabled]="view?.zoom <= view?.minZoom">

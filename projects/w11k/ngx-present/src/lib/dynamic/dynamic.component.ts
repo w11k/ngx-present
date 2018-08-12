@@ -17,8 +17,8 @@ import {
 })
 export class DynamicComponent implements OnChanges {
 
-  @Input() component: Type<any>;
-  @Input() providers: StaticProvider[];
+  @Input() component: Type<any> | null = null;
+  @Input() providers: StaticProvider[] | null = null;
 
   constructor(public viewContainerRef: ViewContainerRef,
               private componentFactoryResolver: ComponentFactoryResolver,

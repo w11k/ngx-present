@@ -4,8 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'trim'
 })
 export class TrimPipe implements PipeTransform {
-  transform(value: string): string {
-    if (!value) {
+  transform(value: string | undefined): string | undefined {
+    if (value === undefined) {
       return undefined;
     }
 

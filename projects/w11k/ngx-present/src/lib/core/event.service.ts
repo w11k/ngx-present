@@ -23,7 +23,7 @@ export function filterNonNavigationEvent (event: KeyboardEvent): boolean {
 }
 
 export abstract class KeyboardEventProcessor {
-  abstract init(events$: Observable<KeyboardEvent>);
+  abstract init(events$: Observable<KeyboardEvent>): void;
 }
 
 @Injectable()

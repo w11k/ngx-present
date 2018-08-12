@@ -5,8 +5,8 @@ import { Title } from '@angular/platform-browser';
   providedIn: 'root'
 })
 export class AdvancedTitleService {
-  private lastReturnedUnset: () => any;
-  private original: string;
+  private lastReturnedUnset: (() => any) | undefined;
+  private readonly original: string;
 
   constructor(private readonly title: Title) {
     this.original = title.getTitle();

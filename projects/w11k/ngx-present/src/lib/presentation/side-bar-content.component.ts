@@ -13,8 +13,27 @@ export class SideBarContentComponent implements OnInit, OnDestroy {
   public id = '';
   public showTableOfContent$: Observable<boolean>;
   public showCoordinates$: Observable<boolean>;
+  public coordinatesSeparator$: Observable<string>;
 
-  constructor(private readonly presentation: PresentationService) {}
+  constructor(private readonly presentation: PresentationService) {
+    this.presentation.select(state => state.id)
+      .bounded(toAngularComponent(this))
+      .subscribe(id => this.id = id);
+
+    this.showCoordinates$ = this.presentation
+      .selectNonNil(state => state.config.sidebar.tableOfContent.showCoordinates)
+      .bounded(toAngularComponent(this));
+
+    this.showTableOfContent$ = this.presentation
+      .selectNonNil(state => state.config.sidebar.tableOfContent.enabled)
+      .bounded(toAngularComponent(this));
+
+    this.coordinatesSeparator$ = this.presentation
+      .selectNonNil(state => state.config.sidebar.tableOfContent.separator)
+      .bounded(toAngularComponent(this));
+  }
+
+  ngOnInit(): void {}
 
   closeSideNav() {
     setTimeout(() => {
@@ -22,23 +41,7 @@ export class SideBarContentComponent implements OnInit, OnDestroy {
     }, 25);
   }
 
-  ngOnInit(): void {
-    this.presentation.select(state => state.id)
-      .bounded(toAngularComponent(this))
-      .subscribe(id => this.id = id);
-
-    this.showCoordinates$ = this.presentation
-      .select(state => state.config.sidebar.tableOfContent.showCoordinates)
-      .bounded(toAngularComponent(this));
-
-    this.showTableOfContent$ = this.presentation
-      .select(state => state.config.sidebar.tableOfContent.enabled)
-      .bounded(toAngularComponent(this));
-  }
-
-  startP2P() {
-
-  }
+  startP2P() {}
 
   ngOnDestroy(): void {}
 }

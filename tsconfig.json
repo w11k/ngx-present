@@ -16,6 +16,7 @@
       "es2017",
       "dom"
     ],
+    "strict": true,
     "paths": {
       "@w11k/ngx-present": [
         "dist/w11k/ngx-present"

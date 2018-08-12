@@ -6,6 +6,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
 import { Observable } from 'rxjs';
 import { Slide } from '../core/presentation.types';
+import { untilComponentDestroyed } from 'ng2-rx-componentdestroyed';
 
 @Component({
   selector: 'ngx-present-presenter-route',
@@ -18,7 +19,19 @@ export class PresenterRouteComponent implements OnInit, OnDestroy {
 
   constructor(private readonly route: ActivatedRoute,
               private readonly presentation: PresentationService,
-              private readonly slides: SlideBySlideService) {}
+              private readonly slides: SlideBySlideService) {
+
+    this.slides.init();
+
+    this.currentSlide$ = this.slides.selectNonNil(state => state.currentSlide)
+      .bounded(toAngularComponent(this));
+
+    this.nextSlide$ = this.slides.nextSlide(-1)
+      .pipe(untilComponentDestroyed(this));
+
+    this.nextSection$ = this.slides.nextSlide(-2)
+      .pipe(untilComponentDestroyed(this));
+  }
 
   ngOnInit() {
     // TODO: move somewhere else
@@ -27,20 +40,12 @@ export class PresenterRouteComponent implements OnInit, OnDestroy {
         map(params => params.get('id')),
         takeUntil(componentDestroyed(this))
       )
-      .subscribe(id => this.presentation.dispatch.setId(id));
-
-    this.slides.init();
-
-    this.currentSlide$ = this.slides.select(state => state.currentSlide)
-      .bounded(toAngularComponent(this));
-
-    this.nextSlide$ = this.slides.nextSlide(-1)
-      .bounded(toAngularComponent(this));
-
-    this.nextSection$ = this.slides.nextSlide(-2)
-      .bounded(toAngularComponent(this));
+      .subscribe(id => {
+        if (id !== null) {
+          this.presentation.dispatch.setId(id);
+        }
+      });
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 }

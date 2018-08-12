@@ -8,10 +8,10 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 })
 export class TccCodeComponent {
   @Input()
-  public language: string;
+  public language: string | undefined;
 
   @Input()
-  public code: string;
+  public code: string | undefined;
 
   @Input()
   public headline: string | undefined;

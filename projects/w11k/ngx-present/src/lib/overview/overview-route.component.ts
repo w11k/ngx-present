@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
-import { concatMap, delay, scan, switchMap } from 'rxjs/operators';
-import { Slide, Slides } from '../core/presentation.types';
+import { switchMap } from 'rxjs/operators';
+import { Slide } from '../core/presentation.types';
 import { OverviewService, OverviewState } from './overview.service';
 import { PresentationService } from '../core/presentation.service';
-import { flattenDeep } from '../core/utils';
-import { from, Observable, of } from 'rxjs';
+import { flattenDeepWithDelay } from '../core/utils';
 
 @Component({
   selector: 'ngx-present-overview-route',
@@ -14,12 +13,15 @@ import { from, Observable, of } from 'rxjs';
   styleUrls: ['./overview-route.component.scss']
 })
 export class OverviewRouteComponent implements OnInit, OnDestroy {
-  public slides: Slide[];
+  public slides: Slide[] | undefined;
   public zoomFactor: number;
-  public view: OverviewState;
+  public view: OverviewState | undefined;
 
   constructor(private readonly service: OverviewService,
-              private readonly presentation: PresentationService) { }
+              private readonly presentation: PresentationService) {
+
+    this.zoomFactor = service.state.defaultZoom;
+  }
 
   ngOnInit() {
     this.presentation
@@ -27,7 +29,7 @@ export class OverviewRouteComponent implements OnInit, OnDestroy {
       .bounded(toAngularComponent(this))
       .pipe(
         // map(slides => flattenDeep(slides))
-        switchMap(slides => this.flatten(slides))
+        switchMap(slides => flattenDeepWithDelay(slides))
       )
       .subscribe(slides => this.slides = slides);
 
@@ -38,21 +40,6 @@ export class OverviewRouteComponent implements OnInit, OnDestroy {
         this.view = view;
         this.zoomFactor = (100 - (view.zoom + 1)) / view.zoom;
       });
-  }
-
-  private flatten(slides: Slides): Observable<Slide[]> {
-    return from(slides)
-      .pipe(
-        scan((acc, lvl1) => {
-          return [...acc, ...flattenDeep(lvl1)];
-        }, []),
-        // delay each event
-        concatMap( x => of(x).pipe(delay(x.length))),
-      );
-  }
-
-  ngOnDestroy() {
-    // has to be there fore componentDestroyed
   }
 
   toggleSideNav() {
@@ -75,7 +62,7 @@ export class OverviewRouteComponent implements OnInit, OnDestroy {
     return ['/slide', ...slide.coordinates];
   }
 
-  toogleBreak() {
+  toggleBreak() {
     this.service.toggleLineBreakOnFirstLevel();
   }
 
@@ -94,5 +81,7 @@ export class OverviewRouteComponent implements OnInit, OnDestroy {
 
     return true;
   }
+
+  ngOnDestroy() {}
 
 }

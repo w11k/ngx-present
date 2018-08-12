@@ -9,7 +9,7 @@ export abstract class SpeakerNotesTarget {
 })
 export class SpeakerNotesDirective implements OnDestroy {
 
-  private detach: () => void;
+  private detach: (() => void) | undefined;
 
   constructor(private readonly template: TemplateRef<any>,
               @Optional() private readonly target: SpeakerNotesTarget) {

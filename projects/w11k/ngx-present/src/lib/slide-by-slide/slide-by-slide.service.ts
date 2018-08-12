@@ -1,8 +1,8 @@
 import { Coordinates, Slide, Slides } from '../core/presentation.types';
-import { Mutator, Store, ObservableSelection } from '@w11k/tydux';
+import { Mutator, ObservableSelection, Store } from '@w11k/tydux';
 import { filter, map, take } from 'rxjs/operators';
 import { calculateCoordinates, equalCoordinates, isValidCoordinate } from './slide-by-slide.functions';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { Injectable, Injector, OnDestroy } from '@angular/core';
 import { filterNonNavigationEvent, KeyboardEventProcessor } from '../core/event.service';
 import { PresentationService } from '../core/presentation.service';
@@ -12,7 +12,7 @@ import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 export class SlideBySlideState {
   public coordinatesMaxDepth = 0;
   public slides: Slide[] = [];
-  public currentSlide: Slide | null = null;
+  public currentSlide: Slide | undefined;
 
   constructor() {}
 }
@@ -54,38 +54,49 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
 
   navigateToNext(coordinatesToKeep: number) {
     this.nextSlide(coordinatesToKeep)
-      .unbounded()
       .pipe(take(1))
-      .subscribe(slide => this.navigateTo(slide));
+      .subscribe(slide => this.navigateAbsolute(slide));
   }
 
   navigateToPrevious(coordinatesToKeep: number) {
     this.previousSlide(coordinatesToKeep)
-      .unbounded()
       .pipe(take(1))
-      .subscribe(slide => this.navigateTo(slide));
+      .subscribe(slide => this.navigateAbsolute(slide));
   }
 
-  previousSlide(coordinatesToKeep: number): ObservableSelection<Slide> {
-    return this.select()
+  previousSlide(coordinatesToKeep: number): Observable<Slide | undefined> {
+    return this.navigateRelative(-1, coordinatesToKeep);
+  }
+
+  nextSlide(coordinatesToKeep: number): Observable<Slide | undefined> {
+    return this.navigateRelative(1, coordinatesToKeep);
+  }
+
+  navigateRelative(move: number, coordinatesToKeep: number): Observable<Slide | undefined> {
+    const currentSlide$ = this
+      .selectNonNil(state => state.currentSlide)
+      .unbounded();
+
+    const slides$ = this
+      .selectNonNil(state => state.slides)
       .pipe(
-        filter(x => x.currentSlide !== null),
-        filter(x => x.slides.length !== 0),
-        map(x => calculateCoordinates(x.slides, x.currentSlide, -1, coordinatesToKeep, x.coordinatesMaxDepth))
+        filter(x => x.length !== 0),
+      )
+      .unbounded();
+
+    const depth$ = this
+      .selectNonNil(state => state.coordinatesMaxDepth)
+      .unbounded();
+
+
+    return combineLatest(slides$, currentSlide$, depth$)
+      .pipe(
+        map(([slides, current, depth]) => calculateCoordinates(slides, current, move, coordinatesToKeep, depth)),
       );
   }
 
-  nextSlide(coordinatesToKeep: number): ObservableSelection<Slide> {
-    return this.select()
-      .pipe(
-        filter(x => x.currentSlide !== null),
-        filter(x => x.slides.length !== 0),
-        map(x => calculateCoordinates(x.slides, x.currentSlide, 1, coordinatesToKeep, x.coordinatesMaxDepth))
-      );
-  }
-
-  navigateTo(target: Coordinates | Slide): boolean {
-    let slide: Slide;
+  navigateAbsolute(target: Coordinates | Slide | undefined): boolean {
+    let slide: Slide | undefined;
 
     if (target instanceof Slide) {
       slide = target;
@@ -124,8 +135,7 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
       );
   }
 
-  ngOnDestroy(): void {
-  }
+  ngOnDestroy(): void {}
 }
 
 @Injectable()

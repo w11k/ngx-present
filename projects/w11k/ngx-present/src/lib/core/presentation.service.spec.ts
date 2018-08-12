@@ -1,30 +1,23 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { PresentationService } from './presentation.service';
-import { routeParamsToCoordinate, routerParamsCoordinatePrefix } from '../slide-by-slide/slide-by-slide.functions';
+import { TestBed } from '@angular/core/testing';
+import { NGX_PRESENT_CONFIG, PresentationService, SLIDES } from './presentation.service';
 
 
 describe('PresentationService', () => {
+  let service: PresentationService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PresentationService]
+      providers: [
+        PresentationService,
+        { provide: SLIDES, useValue: []},
+        { provide: NGX_PRESENT_CONFIG, useValue: {}},
+      ]
     });
+
+    service = TestBed.get(PresentationService);
   });
 
-  it('should be created', inject([PresentationService], (service: PresentationService) => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
-  }));
-});
-
-describe('function routeParamsToCoordinate', () => {
-
-  it('should collect coordinate params', () => {
-    const coordinates = routeParamsToCoordinate({
-      [routerParamsCoordinatePrefix + '1']: '1',
-      [routerParamsCoordinatePrefix + '2']: '2',
-      [routerParamsCoordinatePrefix + '3']: '3',
-      'something': 'false',
-    });
-
-    expect(coordinates).toEqual([1, 2, 3]);
   });
 });

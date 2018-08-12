@@ -25,7 +25,26 @@ export class SlideBySlideRouteComponent implements OnInit, OnDestroy {
               private readonly route: ActivatedRoute,
               private readonly router: Router,
               private readonly title: AdvancedTitleService,
-              private readonly service: SlideBySlideService) { }
+              private readonly service: SlideBySlideService) {
+
+    this.slide$ = this.service
+      .selectNonNil(state => state.currentSlide)
+      .bounded(toAngularComponent(this));
+
+    this.coordinates$ = this.service
+      .selectNonNil(state => state.currentSlide && state.currentSlide.coordinates)
+      .bounded(toAngularComponent(this));
+
+    this.slide$
+      .pipe(
+        delay(10) // wait for navigation to happen
+      )
+      .subscribe(slide => {
+        if (slide !== null) {
+          return this.title.prefixTitle(coordinatesToString(slide.coordinates));
+        }
+      });
+  }
 
   ngOnInit() {
 
@@ -37,7 +56,7 @@ export class SlideBySlideRouteComponent implements OnInit, OnDestroy {
       );
 
     coordinatesFromRoute$.subscribe(x => {
-      this.service.navigateTo(x);
+      this.service.navigateAbsolute(x);
     });
 
     const currentSlide$ = this.service
@@ -52,26 +71,7 @@ export class SlideBySlideRouteComponent implements OnInit, OnDestroy {
     currentSlide$.subscribe(x => {
       this.router.navigate(['slide', ...x.coordinates]);
     });
-
-    this.slide$ = this.service.select(state => state.currentSlide)
-      .bounded(toAngularComponent(this));
-
-    this.slide$
-      .pipe(
-        delay(10) // wait for navigation to happen
-      )
-      .subscribe(slide => {
-        if (slide !== null) {
-          return this.title.prefixTitle(coordinatesToString(slide.coordinates));
-        }
-      });
-
-    this.coordinates$ = this.service
-      .select(state => state.currentSlide && state.currentSlide.coordinates)
-      .bounded(toAngularComponent(this));
   }
 
-  ngOnDestroy(): void {
-  }
-
+  ngOnDestroy(): void {}
 }

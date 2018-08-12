@@ -11,7 +11,7 @@ import { EventService } from '../core/event.service';
 })
 export class ContainerComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatSidenav)
-  private sideNav: MatSidenav;
+  private sideNav: MatSidenav | undefined;
 
   constructor(private readonly presentation: PresentationService,
               private readonly events: EventService) {
@@ -22,10 +22,13 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
       .select(state => state.sideNavOpen)
       .bounded(toAngularComponent(this))
       .subscribe(status => {
+        if (this.sideNav === undefined) {
+          throw new Error(`Couldn't find side nav component as child`);
+        }
+
         if (status) {
           this.sideNav.open();
-        }
-        else {
+        } else {
           this.sideNav.close();
         }
       });
