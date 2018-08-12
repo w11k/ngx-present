@@ -21,7 +21,6 @@ export class SlideComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.slide && this.slide) {
       this.activatedSlide.slide.next(this.slide);
-      this.activatedSlide.coordinates.next(this.slide.coordinates);
     }
   }
 

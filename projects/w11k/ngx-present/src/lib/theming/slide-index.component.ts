@@ -12,10 +12,11 @@ import { coordinatesToString } from '../slide-by-slide/slide-by-slide.functions'
 export class SlideIndexComponent implements OnInit {
   public coordinates$: Observable<string>;
 
-  constructor(private readonly slide: ActivatedSlide) { }
+  constructor(private readonly activatedSlide: ActivatedSlide) { }
 
   ngOnInit() {
-    this.coordinates$ = this.slide.coordinates.pipe(
+    this.coordinates$ = this.activatedSlide.slide.pipe(
+      map(slide => slide.coordinates),
       map((coordinates: Coordinates) => coordinatesToString(coordinates )),
     );
   }
