@@ -25,6 +25,10 @@ export class DynamicComponent implements OnChanges {
               private injector: Injector) { }
 
   ngOnChanges(changes: SimpleChanges) {
+    // destroy existing component instance on all changes
+    // on component changes and also on providers changes
+    this.viewContainerRef.clear();
+
     if (this.component !== null) {
       const childInjector = Injector.create({
         providers: this.providers || [],
@@ -32,8 +36,6 @@ export class DynamicComponent implements OnChanges {
       });
 
       const factory = this.componentFactoryResolver.resolveComponentFactory(this.component);
-      this.viewContainerRef.clear();
-
       this.viewContainerRef.createComponent(factory, undefined, childInjector);
     }
   }
