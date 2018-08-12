@@ -9,6 +9,14 @@ import { TableOfContentEntry } from '@w11k/ngx-present';
     <tcc-master-section-title>
       Inline Content
     </tcc-master-section-title>
+    
+    <div *ngxPresentSpeakerNotes>
+      <pre markdown>
+          * Note 1
+          * Note 2
+        </pre>
+    </div>
+    
   `,
 })
 export class InlineContentTitleComponent {}
@@ -55,14 +63,14 @@ export class InlineHtmlComponent {}
         </pre>
       </div>
 
-      <markdown ngPreserveWhitespaces>
+      <pre markdown>
         * First
           * Sub 1
           * Sub 2
         * Second
           * **bold**
         * Third
-      </markdown>
+      </pre>
     </tcc-master-regular>
   `
 })

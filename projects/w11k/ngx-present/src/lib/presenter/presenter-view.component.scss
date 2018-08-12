@@ -28,30 +28,51 @@
   }
 }
 
-.slides {
-
-  margin: 1vh 1vh;
-  box-sizing: border-box;
-
+.content {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
-  .currentSlide {
-    @include slide-card(65vw, 65vh, 0.651);
-  }
+  .slides {
 
-  .preview {
-    margin-top: 1vh;
+    margin: 1vh 1vh;
+    box-sizing: border-box;
+
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+
+    .currentSlide {
+      @include slide-card(65vw, 65vh, 0.651);
+    }
+
+    .preview {
+      margin-top: 1vh;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .nextSlide {
+      @include slide-card(32vw, 32vh, 0.321);
+    }
+
+    .nextSection {
+      margin-left: 1vw;
+      @include slide-card(32vw, 32vh, 0.321);
+    }
   }
 
-  .nextSlide {
-    @include slide-card(32vw, 32vh, 0.321);
+  .side-bar {
+
+    display: flex;
+    flex-direction: column;
+
+    .speaker-notes {
+      flex: 1 0 auto;
+    }
+
+    .timer {
+
+    }
   }
 
-  .nextSection {
-    margin-left: 1vw;
-    @include slide-card(32vw, 32vh, 0.321);
-  }
 }
+

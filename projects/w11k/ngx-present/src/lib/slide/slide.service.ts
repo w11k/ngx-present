@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { Coordinates, Slide } from '../core/presentation.types';
+import { Slide } from '../core/presentation.types';
 
 @Injectable()
 export abstract class ActivatedSlide {

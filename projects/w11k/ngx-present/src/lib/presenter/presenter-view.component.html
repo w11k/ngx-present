@@ -4,7 +4,7 @@
       <mat-card>
         <mat-card-content>
           <div class="scale">
-            <ngp-slide [slide]="currentSlide"></ngp-slide>
+            <ngx-present-slide [slide]="currentSlide" [providers]="speakerNoteProviders"></ngx-present-slide>
           </div>
           <div class="overlay"></div>
         </mat-card-content>
@@ -18,7 +18,7 @@
             <div class="scale">
               <ngx-present-slide [slide]="nextSlide"></ngx-present-slide>
             </div>
-            <div class="overlay"></div>
+            <a class="overlay" (click)="goToNextSlide()"></a>
           </mat-card-content>
         </mat-card>
       </div>
@@ -29,7 +29,7 @@
             <div class="scale">
               <ngx-present-slide [slide]="nextSection"></ngx-present-slide>
             </div>
-            <div class="overlay"></div>
+            <a class="overlay" (click)="goToNextSection()"></a>
           </mat-card-content>
         </mat-card>
       </div>
@@ -37,7 +37,17 @@
 
   </div>
 
-  <div class="speaker-note">
+  <div class="side-bar">
+    <div class="speaker-notes">
+      <div #speakerNotes></div>
+    </div>
 
+    <div class="timer">
+      00:00:00
+      <mat-icon>play_arrow</mat-icon>
+      <mat-icon>pause</mat-icon>
+      <mat-icon>replay</mat-icon>
+    </div>
   </div>
+
 </div>

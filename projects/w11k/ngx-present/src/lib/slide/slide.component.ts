@@ -11,10 +11,19 @@ export class SlideComponent implements OnChanges {
 
   @Input() slide: Slide;
 
+  @Input() set providers(externalProviders: StaticProvider[]) {
+    this.providersCombined = [
+      ...externalProviders,
+      ...this.internalProviders
+    ];
+  }
+
   private activatedSlide = new ActivatedSlideImpl();
-  public providers: StaticProvider[] = [{
+  private readonly internalProviders: StaticProvider[] = [{
     provide: ActivatedSlide, useValue: this.activatedSlide
   }];
+
+  public providersCombined: StaticProvider[] = [...this.internalProviders];
 
   constructor() { }
 

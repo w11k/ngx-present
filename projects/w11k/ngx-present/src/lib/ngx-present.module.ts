@@ -39,6 +39,7 @@ import { HelpDialogIconComponent } from './theming/help-dialog-icon.component';
 import { PresenterRouteComponent } from './presenter/presenter-route.component';
 import { PresenterViewComponent } from './presenter/presenter-view.component';
 import { TableOfContentComponent, TableOfContentViewComponent } from './theming/table-of-content';
+import { SpeakerNotesDirective } from './speaker-notes/speaker-notes.directive';
 
 @NgModule({
   imports: [
@@ -73,6 +74,7 @@ import { TableOfContentComponent, TableOfContentViewComponent } from './theming/
     PresenterViewComponent,
     TableOfContentComponent,
     TableOfContentViewComponent,
+    SpeakerNotesDirective,
   ],
   entryComponents: [
     HelpDialogComponent,
@@ -85,6 +87,7 @@ import { TableOfContentComponent, TableOfContentViewComponent } from './theming/
     SlideIndexComponent,
     HelpDialogIconComponent,
     TableOfContentComponent,
+    SpeakerNotesDirective,
   ]
 })
 export class NgxPresentModule {

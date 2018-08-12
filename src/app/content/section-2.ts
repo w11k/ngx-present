@@ -35,11 +35,18 @@ export class ExampleComponent implements OnInit, OnDestroy {
     <tcc-master-regular headline="Just Code Snippet" info="TypeScript">
       <tcc-code language="typescript" [code]="code"></tcc-code>
     </tcc-master-regular>
+
+    <ng-template ngxPresentSpeakerNotes>
+      <pre markdown>
+          * Note 1
+          * Note 2
+        </pre>
+    </ng-template>
   `
 })
 export class CodeSnippetComponent {
   public code = `
-  @Component({
+@Component({
   templateUrl: './example.component.html'
 })
 export class ExampleComponent implements OnInit, OnDestroy {
@@ -61,13 +68,13 @@ export class ExampleComponent implements OnInit, OnDestroy {
 @Component({
   template: `
     <tcc-master-regular headline="List and Code Snippet" info="TypeScript" class="align-items-center">
-      <markdown ngPreserveWhitespaces>
+      <pre markdown>
         * First is very important
         * Second too of course
         * Third maybe less important
         * Fourth is unimportant
         * Fifth is the last because it is so important
-      </markdown>
+      </pre>
 
       <div>
         <tcc-code language="typescript" [code]="codeTs" headline="./example.component.ts"></tcc-code>
