@@ -6,12 +6,15 @@ import { PresentationServiceMock } from '../core/presentation.service.mock';
 import { MatIcon, MatToolbar } from '@angular/material';
 import { MockComponent } from 'ng-mocks';
 import { SlideComponent } from '../slide/slide.component';
+import { PresentationState } from '../core/presentation.types';
 
 describe('ExportRouteComponent', () => {
   let component: ExportRouteComponent;
   let fixture: ComponentFixture<ExportRouteComponent>;
+  let presentationServiceMock: PresentationServiceMock;
 
   beforeEach(async(() => {
+    presentationServiceMock = new PresentationServiceMock(new PresentationState());
     TestBed.configureTestingModule({
       declarations: [
         ExportRouteComponent,
@@ -20,7 +23,7 @@ describe('ExportRouteComponent', () => {
         MockComponent(MatIcon),
       ],
       providers: [
-        { provide: PresentationService, useClass: PresentationServiceMock },
+        { provide: PresentationService, useValue: presentationServiceMock },
       ]
     })
     .compileComponents();

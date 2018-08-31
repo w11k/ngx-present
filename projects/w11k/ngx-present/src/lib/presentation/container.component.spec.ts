@@ -9,12 +9,18 @@ import { EventServiceMock } from '../core/event.service.mock';
 import { MockComponent } from 'ng-mocks';
 import { SideBarContentComponent } from './side-bar-content.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { PresentationState } from '../core/presentation.types';
 
 describe('ContainerComponent', () => {
   let component: ContainerComponent;
   let fixture: ComponentFixture<ContainerComponent>;
+  let presentationServiceMock: PresentationServiceMock;
+  let eventServiceMock: EventServiceMock;
 
   beforeEach(async(() => {
+    presentationServiceMock = new PresentationServiceMock(new PresentationState());
+    eventServiceMock = new EventServiceMock();
+
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -27,8 +33,8 @@ describe('ContainerComponent', () => {
         MockComponent(SideBarContentComponent)
       ],
       providers: [
-        { provide: PresentationService, useClass: PresentationServiceMock },
-        { provide: EventService, useClass: EventServiceMock },
+        { provide: PresentationService, useValue: presentationServiceMock },
+        { provide: EventService, useValue: eventServiceMock },
       ],
     })
     .compileComponents();

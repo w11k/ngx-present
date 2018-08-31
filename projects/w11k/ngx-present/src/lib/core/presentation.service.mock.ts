@@ -1,8 +1,8 @@
-import { PresentationService } from './presentation.service';
-import { StateMock } from '../../test.utils';
+import { StoreMock } from '../../test.utils';
+import { PresentationState } from './presentation.types';
 
-export class PresentationServiceWithoutState implements Partial<PresentationService> {
-
+export class PresentationServiceMock extends StoreMock<PresentationState> {
+  constructor(state: PresentationState) {
+    super(state);
+  }
 }
-
-export const PresentationServiceMock = StateMock(PresentationServiceWithoutState);

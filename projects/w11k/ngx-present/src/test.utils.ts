@@ -1,35 +1,24 @@
 import { ObservableSelection } from '@w11k/tydux';
-import { EMPTY } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
+import { notNil } from './lib/core/rx-utils';
+import { filter } from 'rxjs/operators';
 
-type Constructor<T = {}> = new (...args: any[]) => T;
+export class StoreMock<S> {
+  constructor(public state: S) {}
 
-export function StateMock<S, Base extends Constructor>(base: Base) {
-  @Injectable()
-  class Mocked extends base {
-    select(): ObservableSelection<Readonly<S>>;
-    select<R>(selector: (state: Readonly<S>) => R): ObservableSelection<R>;
-
-    select<R>(selector?: (state: Readonly<S>) => R) {
-      const defined = base.prototype.hasOwnProperty('select');
-      if (defined && selector !== undefined) {
-        return (this as any).__proto__.select(selector);
-      } else if (defined) {
-        return (this as any).__proto__.select();
-      }
-
-      return new ObservableSelection(EMPTY);
+  select<R>(selector?: (state: Readonly<S>) => R): ObservableSelection<R> {
+    let val: any;
+    if (selector !== undefined && this.state !== undefined) {
+      val = selector(this.state);
+    } else {
+      val = this.state;
     }
 
-    selectNonNil<R>(selector: (state: Readonly<S>) => R | null | undefined): ObservableSelection<R> {
-      const defined = base.prototype.hasOwnProperty('selectNonNil');
-      if (defined) {
-        return (this as any).__proto__.selectNonNil(selector);
-      }
-
-      return new ObservableSelection(EMPTY);
-    }
+    return new ObservableSelection(of(val));
   }
 
-  return Mocked;
+  selectNonNil<R>(selector: (state: Readonly<S>) => R | null | undefined): ObservableSelection<R> {
+    return this.select(selector).pipe(filter(notNil));
+  }
+
 }

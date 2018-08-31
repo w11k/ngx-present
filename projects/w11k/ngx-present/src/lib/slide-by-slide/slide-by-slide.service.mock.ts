@@ -2,12 +2,11 @@ import { Coordinates } from '../core/presentation.types';
 import { ObservableSelection } from '@w11k/tydux';
 import { of } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { SlideBySlideService } from './slide-by-slide.service';
-import { StateMock } from '../../test.utils';
+import { SlideBySlideState } from './slide-by-slide.service';
+import { StoreMock } from '../../test.utils';
 
 @Injectable()
-class SlideBySlideServiceWithoutState implements Partial<SlideBySlideService> {
-
+export class SlideBySlideServiceMock extends StoreMock<SlideBySlideState> {
   init() {}
 
   navigateToNext(coordinatesToKeep: number) {}
@@ -20,5 +19,3 @@ class SlideBySlideServiceWithoutState implements Partial<SlideBySlideService> {
     return new ObservableSelection(of(true));
   }
 }
-
-export const SlideBySlideServiceMock = StateMock(SlideBySlideServiceWithoutState);

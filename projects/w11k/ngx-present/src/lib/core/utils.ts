@@ -1,15 +1,23 @@
 import { from, Observable, of } from 'rxjs';
 import { concatMap, delay as rxDelay, scan } from 'rxjs/operators';
 
-export function maxDepth<T>(value: ListOfRecursiveArraysOrValues<T>, currentDepth = -1): number {
-  return value.reduce((depth, val) => {
-    if (Array.isArray(val)) {
-      const newDepth = maxDepth(val, currentDepth + 1);
-      return max(newDepth, depth);
-    }
+export function maxDepth<T>(list: ListOfRecursiveArraysOrValues<T>): number {
+  if (list.length === 0) {
+    return 0;
+  }
 
-    return depth;
-  }, currentDepth + 1);
+  function recursive(value: ListOfRecursiveArraysOrValues<T>, currentDepth: number): number {
+    return value.reduce((depth, val) => {
+      if (Array.isArray(val)) {
+        const newDepth = recursive(val, currentDepth + 1);
+        return max(newDepth, depth);
+      }
+
+      return depth;
+    }, currentDepth + 1);
+  }
+
+  return recursive(list, 0);
 }
 
 export function min(a: number, b: number, ...c: number[]): number {

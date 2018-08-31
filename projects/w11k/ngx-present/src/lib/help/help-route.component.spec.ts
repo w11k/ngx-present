@@ -7,12 +7,16 @@ import { PresentationServiceMock } from '../core/presentation.service.mock';
 import { PresentationService } from '../core/presentation.service';
 import { MatIcon, MatToolbar } from '@angular/material';
 import { HelpContentComponent } from './help-content.component';
+import { PresentationState } from '../core/presentation.types';
 
 describe('HelpRouteComponent', () => {
   let component: HelpRouteComponent;
   let fixture: ComponentFixture<HelpRouteComponent>;
+  let presentationServiceMock: PresentationServiceMock;
 
   beforeEach(async(() => {
+    presentationServiceMock = new PresentationServiceMock(new PresentationState());
+
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -24,7 +28,7 @@ describe('HelpRouteComponent', () => {
         MockComponent(HelpContentComponent),
       ],
       providers: [
-        { provide: PresentationService, useClass: PresentationServiceMock },
+        { provide: PresentationService, useValue: presentationServiceMock },
       ],
     })
     .compileComponents();

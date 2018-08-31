@@ -1,17 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HelpContentComponent } from './help-content.component';
-import { RouterTestingModule } from '../../../../../../node_modules/@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng-mocks';
 import { PresentationService } from '../core/presentation.service';
 import { PresentationServiceMock } from '../core/presentation.service.mock';
 import { MatIcon } from '@angular/material';
+import { resetTydux } from '@w11k/tydux/dist/global-state';
+import { PresentationState } from '../core/presentation.types';
+
 
 describe('HelpContentComponent', () => {
   let component: HelpContentComponent;
   let fixture: ComponentFixture<HelpContentComponent>;
+  let presentation: PresentationServiceMock;
 
   beforeEach(async(() => {
+    resetTydux();
+
+    presentation = new PresentationServiceMock(new PresentationState());
+
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -21,7 +29,7 @@ describe('HelpContentComponent', () => {
         MockComponent(MatIcon),
       ],
       providers: [
-        { provide: PresentationService, useClass: PresentationServiceMock },
+        { provide: PresentationService, useValue: presentation},
       ],
     })
     .compileComponents();

@@ -10,12 +10,18 @@ import { MatCard, MatCardContent, MatIcon, MatToolbar } from '@angular/material'
 import { SlideComponent } from '../slide/slide.component';
 import { OverviewService } from './overview.service';
 import { OverviewServiceMock } from './overview.service.mock';
+import { PresentationState } from '../core/presentation.types';
 
 describe('OverviewRouteComponent', () => {
   let component: OverviewRouteComponent;
   let fixture: ComponentFixture<OverviewRouteComponent>;
+  let presentationServiceMock: PresentationServiceMock;
+  let overviewServiceMock: OverviewServiceMock;
 
   beforeEach(async(() => {
+    presentationServiceMock = new PresentationServiceMock(new PresentationState());
+    overviewServiceMock = new OverviewServiceMock();
+
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -31,8 +37,8 @@ describe('OverviewRouteComponent', () => {
         MockComponent(SlideComponent),
       ],
       providers: [
-        { provide: PresentationService, useClass: PresentationServiceMock },
-        { provide: OverviewService, useClass: OverviewServiceMock },
+        { provide: PresentationService, useValue: presentationServiceMock },
+        { provide: OverviewService, useValue: overviewServiceMock },
       ],
     })
     .compileComponents();

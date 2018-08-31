@@ -8,13 +8,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { resetTydux } from '@w11k/tydux/dist/global-state';
 import { PresentationService } from '../core/presentation.service';
 import { PresentationServiceMock } from '../core/presentation.service.mock';
+import { PresentationState } from '../core/presentation.types';
 
 describe('SideBarContentComponent', () => {
   let component: SideBarContentComponent;
   let fixture: ComponentFixture<SideBarContentComponent>;
+  let presentationServiceMock: PresentationServiceMock;
 
   beforeEach(async(() => {
     resetTydux();
+
+    presentationServiceMock = new PresentationServiceMock(new PresentationState());
 
     TestBed.configureTestingModule({
       imports: [
@@ -27,7 +31,7 @@ describe('SideBarContentComponent', () => {
         MockComponent(TableOfContentComponent),
       ],
       providers: [
-        { provide: PresentationService, useClass: PresentationServiceMock }
+        { provide: PresentationService, useValue: presentationServiceMock }
       ],
     })
     .compileComponents();
