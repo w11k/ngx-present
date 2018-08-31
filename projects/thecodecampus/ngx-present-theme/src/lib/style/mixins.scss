@@ -338,7 +338,7 @@
     border-left: 0.1em solid $tcc-gray;
   }
 
-  code {
+  code:not([class*="language-"]) {
     padding: 2px 4px;
     border-radius: 4px;
     background: $tcc-gray-lightest;
