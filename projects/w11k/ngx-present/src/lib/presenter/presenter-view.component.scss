@@ -31,11 +31,12 @@
 .content {
   display: flex;
   flex-direction: row;
+  padding: 1vh 1vh;
 
   .slides {
 
-    margin: 1vh 1vh;
     box-sizing: border-box;
+    margin-right: 1vh;
 
     display: flex;
     flex-direction: column;

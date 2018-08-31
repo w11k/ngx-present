@@ -1,0 +1,9 @@
+@import "../../style/variables";
+@import "../../style/mixins";
+
+tcc-speaker-notes {
+  font-size: 28px;
+
+  @include tcc-regular-content();
+}
+

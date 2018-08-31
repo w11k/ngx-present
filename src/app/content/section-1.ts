@@ -9,14 +9,13 @@ import { TableOfContentEntry } from '@w11k/ngx-present';
     <tcc-master-section-title>
       Inline Content
     </tcc-master-section-title>
-    
-    <div *ngxPresentSpeakerNotes>
+      
+    <tcc-speaker-notes *ngxPresentSpeakerNotes>
       <pre markdown>
-          * Note 1
-          * Note 2
-        </pre>
-    </div>
-    
+        * Note 1
+        * Note 2
+      </pre>
+    </tcc-speaker-notes>
   `,
 })
 export class InlineContentTitleComponent {}
