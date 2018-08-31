@@ -46,6 +46,7 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "@thecodecampus/ngx-present-theme": "latest",
+    "@w11k/ngx-present": "latest",
     "core-js": "^2.5.4",
     "rimraf": "2.6.2",
     "rxjs": "^6.2.2",
