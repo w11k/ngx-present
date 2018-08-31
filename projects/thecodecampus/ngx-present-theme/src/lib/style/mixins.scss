@@ -330,6 +330,13 @@
     vertical-align: baseline !important;
     white-space: inherit !important;
   }
+
+  blockquote {
+    font-size: 1.5em;
+    margin: 0 0 2em;
+    padding: 0.3em 0 0.3em 1em;
+    border-left: 0.1em solid $tcc-gray;
+  }
 }
 
 @mixin tcc-table-of-content {
