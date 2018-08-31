@@ -145,6 +145,10 @@ tcc-master-regular {
     @include tcc-help-icon($tcc-gray);
   }
 
+  &.vertical .slide .content > .vertical-align {
+    flex-direction: column;
+  }
+
   &.align-items-center .slide .content > .vertical-align {
     align-items: center;
   }
