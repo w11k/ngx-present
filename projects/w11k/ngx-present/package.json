@@ -16,7 +16,7 @@
   "dependencies": {
     "@angular/cdk": "^6.1.0",
     "@angular/material": "^6.1.0",
-    "@w11k/tydux": "^8.0.3",
+    "@w11k/tydux": "^8.3.1",
     "ng2-rx-componentdestroyed": "^3.0.0",
     "material-design-icons": "^3.0.1"
   },
