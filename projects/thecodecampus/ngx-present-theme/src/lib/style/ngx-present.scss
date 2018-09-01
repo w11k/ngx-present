@@ -2,7 +2,16 @@
 @import '~material-design-icons/iconfont/material-icons.css';
 
 @import '~@thecodecampus/angular-material-theme/src/styling/theme';
+@import "variables";
 
 @mixin ngx-present-tcc-theme {
   @include tcc-angular-material-theme();
+
+  :root {
+    --tcc_orange: #{$tcc-color-orange};
+    --tcc-gray: #{$tcc-color-gray};
+    --tcc-gray-light: #{$tcc-color-gray-light};
+    --tcc-gray-lighter: #{$tcc-color-gray-lighter};
+    --tcc-gray-lightest: #{$tcc-color-gray-lightest};
+  }
 }

@@ -1,12 +1,12 @@
-$tcc_orange: #ed5502;
-$tcc-gray: #1c2330;
-$tcc-gray-light: lighten($tcc-gray, 20%);
-$tcc-gray-lighter: lighten($tcc-gray, 40%);
-$tcc-gray-lightest: lighten($tcc-gray, 72%);
+$tcc-color-orange: #ed5502;
+$tcc-color-gray: #1c2330;
+$tcc-color-gray-light: lighten($tcc-color-gray, 20%);
+$tcc-color-gray-lighter: lighten($tcc-color-gray, 40%);
+$tcc-color-gray-lightest: lighten($tcc-color-gray, 72%);
 $tcc-gradient-orange-start: #fc9253;
 $tcc-gradient-orange-end: #f26135;
-$tcc-gradient-gray-start: $tcc-gray;
-$tcc-gradient-gray-end: lighten($tcc-gray, 10%);
+$tcc-gradient-gray-start: $tcc-color-gray;
+$tcc-gradient-gray-end: lighten($tcc-color-gray, 10%);
 $tcc-gradient-gray: linear-gradient(124.2deg, $tcc-gradient-gray-start, $tcc-gradient-gray-end);
 $tcc-gradient-orange: linear-gradient(124.2deg, $tcc-gradient-orange-start, $tcc-gradient-orange-end);
 
@@ -28,11 +28,3 @@ $screen-xs-max: ($screen-sm - 1);
 $screen-sm-max: ($screen-md - 1);
 $screen-md-max: ($screen-lg - 1);
 $screen-lg-max: ($screen-xl - 1);
-
-:root {
-  --tcc_orange: $tcc_orange;
-  --tcc-gray: $tcc-gray;
-  --tcc-gray-light: $tcc-gray-light;
-  --tcc-gray-lighter: $tcc-gray-lighter;
-  --tcc-gray-lightest: $tcc-gray-lightest;
-}

@@ -40,7 +40,7 @@ tcc-master-regular {
         padding: 0 calc(#{$header-skew-offset} + 2vw) 0 calc(#{$header-skew-offset} + 15px);
         transform: skewX(-$header-skew);
 
-        background: $tcc-gray;
+        background: $tcc-color-gray;
         color: white;
         font-size: 0.62em;
 
@@ -100,7 +100,7 @@ tcc-master-regular {
         justify-content: flex-end;
         align-items: center;
 
-        background: $tcc-gray;
+        background: $tcc-color-gray;
         color: #fff;
 
         > * {
@@ -142,7 +142,7 @@ tcc-master-regular {
       @include tcc-table-of-content();
     }
 
-    @include tcc-help-icon($tcc-gray);
+    @include tcc-help-icon($tcc-color-gray);
   }
 
   &.vertical .slide .content > .vertical-align {

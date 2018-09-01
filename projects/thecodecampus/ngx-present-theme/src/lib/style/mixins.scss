@@ -69,7 +69,7 @@
         position: absolute;
         content: "<>";
         font-weight: 200;
-        color: $tcc_orange;
+        color: $tcc-color-orange;
         margin-left: -1.4em;
       }
 
@@ -99,7 +99,7 @@
           &:before {
             position: absolute;
             content: '-';
-            color: $tcc_orange;
+            color: $tcc-color-orange;
             margin-left: -0.8em;
             padding-left: 0.1em;
           }
@@ -134,7 +134,7 @@
       &:before {
         position: absolute;
         margin-left: -2.2em;
-        color: $tcc-orange;
+        color: $tcc-color-orange;
         font-weight: 200;
         content: "<" counter(ol-counter) ">";
       }
@@ -183,7 +183,7 @@
           &:before {
             position: absolute;
             content: "<>";
-            color: $tcc_orange;
+            color: $tcc-color-orange;
             margin-left: -0.4em;
           }
         }
@@ -191,7 +191,7 @@
         > li:last-of-type:not(.as-headline) {
           &:after {
             content: " </>";
-            color: $tcc_orange;
+            color: $tcc-color-orange;
           }
         }
       }
@@ -289,27 +289,27 @@
   @include tcc-lists();
 
   a {
-    color: $tcc_orange;
+    color: $tcc-color-orange;
     text-decoration: none;
 
     &[href^="#"] {
-      color: $tcc-gray;
+      color: $tcc-color-gray;
     }
 
     &[href^="http"], &[href^="mailto"] {
-      color: $tcc_orange;
+      color: $tcc-color-orange;
       text-decoration: underline;
     }
 
     &.invisible {
-      color: $tcc-gray;
+      color: $tcc-color-gray;
     }
   }
 
   figure {
     figcaption {
       text-align: right;
-      color: $tcc-gray-lighter;
+      color: $tcc-color-gray-lighter;
       font-weight: 200;
       font-size: 0.38em;
     }
@@ -335,13 +335,13 @@
     font-size: 1.5em;
     margin: 0 0 2em;
     padding: 0.3em 0 0.3em 1em;
-    border-left: 0.1em solid $tcc-gray;
+    border-left: 0.1em solid $tcc-color-gray;
   }
 
   code:not([class*="language-"]) {
     padding: 2px 4px;
     border-radius: 4px;
-    background: $tcc-gray-lightest;
+    background: $tcc-color-gray-lightest;
   }
 }
 
@@ -352,7 +352,7 @@
     }
 
     ul li a {
-      color: $tcc-gray;
+      color: $tcc-color-gray;
     }
   }
 }
