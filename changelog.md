@@ -1,5 +1,14 @@
 # ngx-present Changelog
 
+## 0.5.0
+
+* add help component to tcc-theme
+
+## 0.4.5 - 0.4.13
+
+* add missing styling to tcc-theme
+* fix a lot of small styling bugs in tcc-theme
+
 ## 0.4.4
 
 * improve help
