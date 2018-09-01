@@ -1,6 +1,6 @@
 {
   "name": "@thecodecampus/ngx-present-theme",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "description": "theCodeCampus theme for @w11k/ngx-present",
   "keywords": ["ngx-present", "theCodeCampus", "theme"],
   "license": "UNLICENSED",
@@ -25,7 +25,7 @@
   "peerDependencies": {
     "@angular/common": "^6.1.0",
     "@angular/core": "^6.1.0",
-    "@angular/material": "^6.4.3",
+    "@angular/material": "6.4.7",
     "@angular/platform-browser": "^6.1.0",
     "@w11k/ngx-present": "^0.4.0"
   }
