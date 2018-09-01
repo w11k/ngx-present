@@ -9,6 +9,8 @@ import { PrismModule } from '@ngx-prism/core';
 import { MarkdownModule } from 'ngx-markdown';
 import { NgxPresentModule } from '@w11k/ngx-present';
 import { TccCodeComponent } from './helper/code/code.component';
+import { TccSpeakerNotesComponent } from './helper/speaker-notes/speaker-notes.component';
+import { TccHelpComponent } from './helper/help/help.component';
 
 import * as Prism from 'prismjs';
 import * as marked from 'marked';
@@ -19,7 +21,6 @@ import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-java';
 import 'prismjs/components/prism-kotlin';
-import { TccSpeakerNotesComponent } from './helper/speaker-notes/speaker-notes.component';
 
 // expose Prism as global variable for ngx-markdown
 (window as any).Prism = Prism;
@@ -42,6 +43,7 @@ import { TccSpeakerNotesComponent } from './helper/speaker-notes/speaker-notes.c
     TccMasterSectionTitleComponent,
     TccCodeComponent,
     TccSpeakerNotesComponent,
+    TccHelpComponent,
   ],
   exports: [
     MarkdownModule,
@@ -52,6 +54,7 @@ import { TccSpeakerNotesComponent } from './helper/speaker-notes/speaker-notes.c
     TccMasterSectionTitleComponent,
     TccCodeComponent,
     TccSpeakerNotesComponent,
+    TccHelpComponent,
   ]
 })
 export class TccNgxPresentThemeModule { }

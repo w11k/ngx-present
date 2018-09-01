@@ -1,0 +1,13 @@
+mat-icon {
+  color: var(--tcc_orange);
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+  vertical-align: middle;
+
+  &:hover {
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
