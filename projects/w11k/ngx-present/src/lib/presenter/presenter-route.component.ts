@@ -23,8 +23,6 @@ export class PresenterRouteComponent implements OnInit, OnDestroy {
               private readonly presentation: PresentationService,
               private readonly slides: SlideBySlideService) {
 
-    this.slides.init();
-
     this.currentSlide$ = this.slides.selectNonNil(state => state.currentSlide)
       .bounded(toAngularComponent(this));
 

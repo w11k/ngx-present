@@ -44,15 +44,6 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
     this.presentation.select(state => state.slides)
       .bounded(toAngularComponent(this))
       .subscribe(slides => this.mutate.setSlides(slides));
-
-    // this.mutatorEvents$.subscribe(event => event.action);
-    // this.dispatchMutatorAction(action);
-  }
-
-  init() {
-    if (!this.state.currentSlide) {
-      this.navigateToFirst();
-    }
   }
 
   navigateToNext(coordinatesToKeep: number) {
