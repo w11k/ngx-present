@@ -49,8 +49,8 @@ function CoordinatesUrlMatcher(prefix: string, segments: UrlSegment[]): UrlMatch
 
 export const ngxPresentRoutes: Routes = [
   { matcher: SlideUrlMatcher, component: SlideBySlideRouteComponent, canActivate: [SlidesGuardService] },
+  { matcher: PresenterUrlMatcher, component: PresenterRouteComponent, canActivate: [SlidesGuardService] },
   { path: 'overview', component: OverviewRouteComponent },
-  { matcher: PresenterUrlMatcher, component: PresenterRouteComponent },
   { path: 'export', component: ExportRouteComponent },
   { path: 'help', component: HelpRouteComponent }
 ];

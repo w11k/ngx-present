@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EventService } from '../core/event.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { Coordinates, Slide } from '../core/presentation.types';
-import { delay, distinctUntilChanged, map, skip, skipUntil } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
 import { SlideBySlideService } from './slide-by-slide.service';
-import { coordinatesToString, equalCoordinates, routeParamsToCoordinate } from './slide-by-slide.functions';
+import { coordinatesToString } from './slide-by-slide.functions';
 import { AdvancedTitleService } from '../core/title.service';
-import { untilComponentDestroyed } from 'ng2-rx-componentdestroyed';
+import { SlideRouterService } from '../core/slide-router.service';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class SlideBySlideRouteComponent implements OnInit, OnDestroy {
 
   constructor(private readonly events: EventService,
               private readonly route: ActivatedRoute,
-              private readonly router: Router,
+              private readonly slideRouter: SlideRouterService,
               private readonly title: AdvancedTitleService,
               private readonly service: SlideBySlideService) {
 
@@ -47,30 +47,7 @@ export class SlideBySlideRouteComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-    const coordinatesFromRoute$ = this.route.params
-      .pipe(
-        untilComponentDestroyed(this),
-        map(params => routeParamsToCoordinate(params)),
-        distinctUntilChanged((a, b) => equalCoordinates(a, b))
-      );
-
-    coordinatesFromRoute$.subscribe(x => {
-      this.service.navigateAbsolute(x);
-    });
-
-    const currentSlide$ = this.service
-      .selectNonNil(state => state.currentSlide)
-      .bounded(toAngularComponent(this))
-      .pipe(
-        distinctUntilChanged(),
-        skip(1),
-        skipUntil(coordinatesFromRoute$),
-      );
-
-    currentSlide$.subscribe(x => {
-      this.router.navigate(['slide', ...x.coordinates]);
-    });
+    this.slideRouter.syncActivatedRouteAndCurrentSlide('slide', this.route, this);
   }
 
   ngOnDestroy(): void {}

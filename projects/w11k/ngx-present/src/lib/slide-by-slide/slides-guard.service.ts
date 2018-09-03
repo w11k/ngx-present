@@ -33,7 +33,15 @@ export class SlidesGuardService implements CanActivate {
       )
       .subscribe(x => {
           console.warn(`slide with coordinate ${JSON.stringify(coordinates)} does not exist, going to navigate to first slide`);
-          this.router.navigate(['slide', ...x.coordinates]);
+
+          let prefix = 'slide';
+
+          const firstSegment = route.url[0];
+          if (firstSegment !== undefined && firstSegment.path !== undefined) {
+            prefix = firstSegment.path;
+          }
+
+          this.router.navigate([prefix, ...x.coordinates], { queryParams: route.queryParams });
       });
 
 

@@ -7,6 +7,7 @@ import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
 import { Observable } from 'rxjs';
 import { Slide } from '../core/presentation.types';
 import { untilComponentDestroyed } from 'ng2-rx-componentdestroyed';
+import { SlideRouterService } from '../core/slide-router.service';
 
 @Component({
   selector: 'ngx-present-presenter-route',
@@ -18,6 +19,7 @@ export class PresenterRouteComponent implements OnInit, OnDestroy {
   public nextSection$: Observable<Slide>;
 
   constructor(private readonly route: ActivatedRoute,
+              private readonly slideRouter: SlideRouterService,
               private readonly presentation: PresentationService,
               private readonly slides: SlideBySlideService) {
 
@@ -34,6 +36,8 @@ export class PresenterRouteComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.slideRouter.syncActivatedRouteAndCurrentSlide('presenter', this.route, this);
+
     // TODO: move somewhere else
     this.route.queryParamMap
       .pipe(
