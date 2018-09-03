@@ -32,7 +32,7 @@ export class SlidesGuardService implements CanActivate {
         })
       )
       .subscribe(x => {
-          console.warn(`slide with coordinate ${JSON.stringify(coordinates)} does not exist, going to navigate to first slide`);
+          console.info(`slide with coordinate ${JSON.stringify(coordinates)} does not exist, going to navigate to first slide`);
 
           let prefix = 'slide';
 
