@@ -37,7 +37,7 @@ export class SlideRouterService {
       );
 
     currentSlide$.subscribe(x => {
-      this.router.navigate([routePrefix, ...x.coordinates], { preserveQueryParams: true });
+      this.router.navigate([routePrefix, ...x.coordinates], { queryParamsHandling: 'merge' });
     });
   }
 
