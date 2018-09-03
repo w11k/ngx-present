@@ -1,5 +1,9 @@
 # ngx-present Changelog
 
+## 0.5.2
+
+* fix navigation to first slide in presenter
+
 ## 0.5.1
 
 * remove overlay over current slide in presenter to allow usage of interactive elements
