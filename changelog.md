@@ -1,5 +1,10 @@
 # ngx-present Changelog
 
+## 0.5.1
+
+* remove overlay over current slide in presenter to allow usage of interactive elements
+* add current slide to url of presenter to survive page reload
+
 ## 0.5.0
 
 * add help component to tcc-theme
