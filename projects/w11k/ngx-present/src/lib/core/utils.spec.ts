@@ -1,4 +1,4 @@
-import { flattenDeep, mapDeep, max, maxDepth, min } from './utils';
+import { flattenDeep, mapDeep, max, maxDepth, min, limitDepth } from './utils';
 
 describe('module utils', () => {
   describe('function maxDepth', () => {
@@ -206,6 +206,51 @@ describe('module utils', () => {
       const actual = mapDeep<number, string>([1, [2, 3, [4, 5, [6, 7]]]], x => x.toFixed(0));
 
       expect(actual).toEqual(['1', ['2', '3', ['4', '5', ['6', '7']]]]);
+    });
+
+  });
+
+  describe('function limitDepth', () => {
+    it('should return empty array for empty array', () => {
+      const actual = limitDepth([], 9);
+
+      expect(actual).toEqual([]);
+    });
+
+    it('should return empty array for flat array and 0', () => {
+      const actual = limitDepth([1, 2, 3], 0);
+
+      expect(actual).toEqual([]);
+    });
+
+    it('should return empty array for nested array and 0', () => {
+      const actual = limitDepth([1, 2, [3, 4]], 0);
+
+      expect(actual).toEqual([]);
+    });
+
+    it('should return flat array for flat array', () => {
+      const actual = limitDepth([1, 2, 3], 9);
+
+      expect(actual).toEqual([1, 2, 3]);
+    });
+
+    it('should return flat array for flat array and 1', () => {
+      const actual = limitDepth([1, 2, 3], 1);
+
+      expect(actual).toEqual([1, 2, 3]);
+    });
+
+    it('should return flat array for nested array and 1', () => {
+      const actual = limitDepth([1, 2, [3, 4]], 1);
+
+      expect(actual).toEqual([1, 2]);
+    });
+
+    it('should return 2 level array for 3 level array and 2', () => {
+      const actual = limitDepth([1, 2, [3, 4], [5, [6, 7]]], 2);
+
+      expect(actual).toEqual([1, 2, [3, 4], [5]]);
     });
 
   });

@@ -135,3 +135,27 @@ export function flattenDeepWithDelay<T>(list: ListOfRecursiveArraysOrValues<T>, 
       concatMap( x => of(x).pipe(rxDelay(delay || x.length))),
     );
 }
+
+export function limitDepth<T>(list: ListOfRecursiveArraysOrValues<T>, depth: number | undefined): ListOfRecursiveArraysOrValues<T> {
+  if (depth === undefined || depth < 0) {
+    return list;
+  }
+
+  return recursive(list, depth);
+
+  function recursive(value: ListOfRecursiveArraysOrValues<T>, depth_: number): ListOfRecursiveArraysOrValues<T> {
+    if (depth_ === 0) {
+      return [];
+    }
+
+    return value
+      .map(x => {
+        if (Array.isArray(x)) {
+          return recursive(x, depth_ - 1);
+        }
+
+        return x;
+      })
+      .filter(x => (Array.isArray(x) && x.length === 0) === false);
+  }
+}

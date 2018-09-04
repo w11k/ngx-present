@@ -4,7 +4,7 @@ import { UIEntry } from './table-of-content-view.component';
 import { PresentationService } from '../core/presentation.service';
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { map } from 'rxjs/operators';
-import { filterDeep, mapDeep } from '../core/utils';
+import { filterDeep, limitDepth, mapDeep } from '../core/utils';
 import { coordinatesToString } from '../slide-by-slide/slide-by-slide.functions';
 import { DecoratorMetadata, tableOfContentMetadataKey } from './table-of-content';
 import { NgxPresentConfig, Slide } from '../core/presentation.types';
@@ -31,17 +31,20 @@ export class TableOfContentComponent implements OnDestroy {
     this.coordinatesSeparator$.next(val);
   }
 
-  public entries: ListOfRecursiveArraysOrValues<UIEntry | undefined> | undefined;
+  private readonly depth$ = new BehaviorSubject<number | undefined>(undefined);
 
   constructor(private readonly service: PresentationService) {
 
     const presentation$ = this.service.select()
       .bounded(toAngularComponent(this));
 
-    combineLatest(presentation$, this.showCoordinates$, this.coordinatesSeparator$)
+    combineLatest(presentation$, this.showCoordinates$, this.coordinatesSeparator$, this.depth$)
       .pipe(
-        map(([presentation, showCoordinates, coordinatesSeparator]) => {
-          const mapped = mapDeep(presentation.slides, slideToUiEntryMapper(presentation.config, showCoordinates, coordinatesSeparator));
+        map(([presentation, showCoordinates, coordinatesSeparator, depth]) => {
+
+          const leveled = limitDepth(presentation.slides, depth);
+
+          const mapped = mapDeep(leveled, slideToUiEntryMapper(presentation.config, showCoordinates, coordinatesSeparator));
 
           const filtered = filterDeep(mapped, x => x !== undefined);
 
@@ -49,6 +52,13 @@ export class TableOfContentComponent implements OnDestroy {
         })
       )
       .subscribe(links => this.entries = links);
+  }
+
+  public entries: ListOfRecursiveArraysOrValues<UIEntry | undefined> | undefined;
+
+  @Input()
+  public set depth(val: number) {
+    this.depth$.next(val);
   }
 
   ngOnDestroy(): void {}
