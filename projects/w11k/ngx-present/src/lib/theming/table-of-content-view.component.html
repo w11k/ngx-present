@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let x of entries">
+  <li *ngFor="let x of entries" class="keep-together">
     <ng-container *ngIf="isFlat(x)">
       <a routerLink [ngxPresentSlideLink]="x.component">
         {{x.name}}
