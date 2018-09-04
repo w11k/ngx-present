@@ -31,6 +31,8 @@
     "publish": "npm run publish:lib && npm run publish:theme",
     "bundle-report": "webpack-bundle-analyzer dist/demo-app/stats.json",
     "test": "ng test",
+    "test:lib": "ng test ngx-present",
+    "test:theme": "ng test ngx-present-theme",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
