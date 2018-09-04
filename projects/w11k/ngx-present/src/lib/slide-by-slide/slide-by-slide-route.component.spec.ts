@@ -10,14 +10,19 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { EventServiceMock } from '../core/event.service.mock';
 import { AdvancedTitleServiceMock } from '../core/title.service.mock';
 import { SlideBySlideServiceMock } from './slide-by-slide.service.mock';
+import { SlideRouterServiceMock } from '../core/slide-router.service-mock';
+import { SlideRouterService } from '../core/slide-router.service';
 
 describe('SlideBySlideRouteComponent', () => {
   let component: SlideBySlideRouteComponent;
   let fixture: ComponentFixture<SlideBySlideRouteComponent>;
   let slideBySlideServiceMock: SlideBySlideServiceMock;
+  let slideRouterServiceMock: SlideRouterServiceMock;
 
   beforeEach(async(() => {
     slideBySlideServiceMock = new SlideBySlideServiceMock(new SlideBySlideState());
+    slideRouterServiceMock = new SlideRouterServiceMock();
+
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
@@ -30,6 +35,7 @@ describe('SlideBySlideRouteComponent', () => {
         { provide: EventService, useClass: EventServiceMock },
         { provide: AdvancedTitleService, useClass: AdvancedTitleServiceMock },
         { provide: SlideBySlideService, useValue: slideBySlideServiceMock },
+        { provide: SlideRouterService, useValue: slideRouterServiceMock },
       ]
     })
     .compileComponents();
