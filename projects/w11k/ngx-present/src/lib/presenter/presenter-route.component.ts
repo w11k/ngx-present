@@ -6,7 +6,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
 import { Observable } from 'rxjs';
 import { Slide } from '../core/presentation.types';
-import { untilComponentDestroyed } from 'ng2-rx-componentdestroyed';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { SlideRouterService } from '../core/slide-router.service';
 
 @Component({

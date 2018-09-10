@@ -1,7 +1,7 @@
 import {Component, Injectable, OnDestroy} from '@angular/core';
 import {Mutator, ObservableSelection, Store} from '@w11k/tydux';
 import {toAngularComponent} from '@w11k/tydux/dist/angular-integration';
-import {untilComponentDestroyed} from 'ng2-rx-componentdestroyed';
+import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
 import {ActivatedSlide, Coordinates} from '@w11k/ngx-present';
 import {map, shareReplay, switchMap, take} from 'rxjs/operators';
 import {Observable} from 'rxjs';

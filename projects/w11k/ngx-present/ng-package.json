@@ -8,8 +8,8 @@
   "whitelistedNonPeerDependencies": [
     "@angular/cdk",
     "@angular/material",
+    "@w11k/ngx-componentdestroyed",
     "@w11k/tydux",
-    "ng2-rx-componentdestroyed",
     "material-design-icons"
   ]
 }

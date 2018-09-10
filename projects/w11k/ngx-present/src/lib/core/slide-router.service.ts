@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { distinctUntilChanged, map, skip, skipUntil } from 'rxjs/operators';
 import { equalCoordinates, routeParamsToCoordinate } from '../slide-by-slide/slide-by-slide.functions';
-import { untilComponentDestroyed } from 'ng2-rx-componentdestroyed';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 
