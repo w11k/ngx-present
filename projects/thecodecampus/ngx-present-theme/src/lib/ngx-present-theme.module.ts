@@ -6,7 +6,7 @@ import { TccMasterTitleComponent } from './master/title/tcc-master-title.compone
 import { TccMasterSectionTitleComponent } from './master/section-title/tcc-master-section-title.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrismModule } from '@ngx-prism/core';
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownModule, MarkedOptions, MarkedRenderer } from 'ngx-markdown';
 import { NgxPresentModule } from '@w11k/ngx-present';
 import { TccCodeComponent } from './helper/code/code.component';
 import { TccSpeakerNotesComponent } from './helper/speaker-notes/speaker-notes.component';
@@ -26,6 +26,18 @@ import 'prismjs/components/prism-kotlin';
 (window as any).Prism = Prism;
 (window as any).marked = marked;
 
+export function markedOptionsFactory(): MarkedOptions {
+  const renderer = new MarkedRenderer();
+
+  renderer.link = (href: string, title: string, text: string) => {
+    return `<a href="${href}" target="_blank" title="${title || ''}">${text}</a>`;
+  };
+
+  return {
+    renderer: renderer
+  };
+}
+
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +47,12 @@ import 'prismjs/components/prism-kotlin';
     MatDialogModule,
     PrismModule,
     NgxPresentModule,
-    MarkdownModule.forRoot(),
+    MarkdownModule.forRoot({
+      markedOptions: {
+        provide: MarkedOptions,
+        useFactory: markedOptionsFactory,
+      },
+    }),
   ],
   declarations: [
     TccMasterRegularComponent,
