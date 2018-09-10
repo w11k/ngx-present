@@ -1,5 +1,13 @@
 # ngx-present Changelog
 
+## 0.6.0
+
+* make markdown links always open in new tab (theme)
+* add depth limit to table-of-content
+* make more things configurable
+* improve theme
+* fix help (go to start of current section)
+
 ## 0.5.2
 
 * fix navigation to first slide in presenter
