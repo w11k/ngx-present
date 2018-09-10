@@ -14,6 +14,7 @@ export class SideBarContentComponent implements OnInit, OnDestroy {
   public showTableOfContent$: Observable<boolean>;
   public showCoordinates$: Observable<boolean>;
   public coordinatesSeparator$: Observable<string>;
+  public depth$: Observable<number | undefined>;
 
   constructor(private readonly presentation: PresentationService) {
     this.presentation.select(state => state.id)
@@ -30,6 +31,10 @@ export class SideBarContentComponent implements OnInit, OnDestroy {
 
     this.coordinatesSeparator$ = this.presentation
       .selectNonNil(state => state.config.sidebar.tableOfContent.separator)
+      .bounded(toAngularComponent(this));
+
+    this.depth$ = this.presentation
+      .select(state => state.config.sidebar.tableOfContent.depth)
       .bounded(toAngularComponent(this));
   }
 

@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Slide } from '../core/presentation.types';
 import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { SlideRouterService } from '../core/slide-router.service';
+import { SlideBySlideTitleService } from '../slide-by-slide/slide-by-slide-title.service';
 
 @Component({
   selector: 'ngx-present-presenter-route',
@@ -21,7 +22,8 @@ export class PresenterRouteComponent implements OnInit, OnDestroy {
   constructor(private readonly route: ActivatedRoute,
               private readonly slideRouter: SlideRouterService,
               private readonly presentation: PresentationService,
-              private readonly slides: SlideBySlideService) {
+              private readonly slides: SlideBySlideService,
+              private readonly title: SlideBySlideTitleService) {
 
     this.currentSlide$ = this.slides.selectNonNil(state => state.currentSlide)
       .bounded(toAngularComponent(this));
@@ -31,6 +33,8 @@ export class PresenterRouteComponent implements OnInit, OnDestroy {
 
     this.nextSection$ = this.slides.nextSlide(-2)
       .pipe(untilComponentDestroyed(this));
+
+    this.title.setupTitleSync('Presenter', this);
   }
 
   ngOnInit() {

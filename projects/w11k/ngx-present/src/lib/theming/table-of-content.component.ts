@@ -42,7 +42,7 @@ export class TableOfContentComponent implements OnDestroy {
       .pipe(
         map(([presentation, showCoordinates, coordinatesSeparator, depth]) => {
 
-          const leveled = limitDepth(presentation.slides, depth);
+          const leveled = limitDepth(presentation.slides, depth || presentation.config.tableOfContent.depth);
 
           const mapped = mapDeep(leveled, slideToUiEntryMapper(presentation.config, showCoordinates, coordinatesSeparator));
 
@@ -54,19 +54,19 @@ export class TableOfContentComponent implements OnDestroy {
       .subscribe(links => this.entries = links);
   }
 
-  public entries: ListOfRecursiveArraysOrValues<UIEntry | undefined> | undefined;
-
   @Input()
-  public set depth(val: number) {
+  public set depth(val: number | undefined) {
     this.depth$.next(val);
   }
+
+  public entries: ListOfRecursiveArraysOrValues<UIEntry | undefined> | undefined;
 
   ngOnDestroy(): void {}
 }
 
 function slideToUiEntryMapper(config: NgxPresentConfig,
-                                 showCoordinatesInput: boolean | undefined,
-                                 coordinatesSeparatorInput: string | undefined) {
+                              showCoordinatesInput: boolean | undefined,
+                              coordinatesSeparatorInput: string | undefined) {
   return (slide: Slide): UIEntry | undefined => {
     // TODO: get rid of cast to any, include proper Reflect typings
     const decoratorMetadata: DecoratorMetadata = (Reflect as any).getMetadata(tableOfContentMetadataKey, slide.component);
@@ -78,7 +78,7 @@ function slideToUiEntryMapper(config: NgxPresentConfig,
         config.tableOfContent.showCoordinates;
 
       if (showCoordinates) {
-        const coordinates = coordinatesToString(slide.coordinates, -1);
+        const coordinates = coordinatesToString(slide.coordinates, config.coordinates.separator, -1);
         const coordinatesSeparator = coordinatesSeparatorInput !== undefined ? coordinatesSeparatorInput : config.tableOfContent.separator;
         linkName = `${coordinates}${coordinatesSeparator} ${linkName}`;
       }

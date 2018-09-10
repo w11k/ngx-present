@@ -20,12 +20,20 @@ export const ngxPresentDefaultConfig = {
     tableOfContent: {
       enabled: true,
       showCoordinates: undefined as boolean | undefined,
-      separator: undefined as string | undefined
+      separator: undefined as string | undefined,
+      depth: undefined as number | undefined
     }
   },
   tableOfContent: {
     showCoordinates: false,
-    separator: ')'
+    separator: ')',
+    depth: undefined as number | undefined,
+  },
+  coordinates: {
+    separator: '.'
+  },
+  title: {
+    separator: ' / '
   }
 };
 

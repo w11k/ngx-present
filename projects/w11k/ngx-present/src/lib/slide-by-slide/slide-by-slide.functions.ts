@@ -169,6 +169,6 @@ export function isValidCoordinate(slides: Slides, coordinates: Coordinates): boo
   return true;
 }
 
-export function coordinatesToString(coordinates: Coordinates, length?: number, separator = '.'): string {
+export function coordinatesToString(coordinates: Coordinates, separator: string, length?: number): string {
   return coordinates.slice(0, length).join(separator);
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { PresentationService } from './presentation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,8 @@ export class AdvancedTitleService {
   private lastReturnedUnset: (() => any) | undefined;
   private readonly original: string;
 
-  constructor(private readonly title: Title) {
+  constructor(private readonly title: Title,
+              private readonly presentation: PresentationService) {
     this.original = title.getTitle();
   }
 
@@ -29,7 +31,7 @@ export class AdvancedTitleService {
     return this.lastReturnedUnset;
   }
 
-  prefixTitle(prefix: string, separator = ' - '): (() => void) {
+  prefixTitle(prefix: string, separator = this.presentation.state.config.title.separator): (() => void) {
     return this.setTitle(prefix + separator + this.original);
   }
 }
