@@ -1,11 +1,13 @@
-<span *ngIf="!(open$ | async)">
-  <mat-icon (click)="open()">help_outline</mat-icon>
-</span>
+<span @blockChildAnimation>
+  <span *ngIf="!isOpen">
+    <mat-icon (click)="open()">help_outline</mat-icon>
+  </span>
 
-<span *ngIf="open$ | async">
-  <mat-icon (click)="close()">highlight_off</mat-icon>
-</span>
+  <span *ngIf="isOpen">
+    <mat-icon (click)="close()">highlight_off</mat-icon>
+  </span>
 
-<div *ngIf="open$ | async">
-  <ng-content></ng-content>
-</div>
+  <div *ngIf="isOpen" [@help]="isOpen" class="help-content">
+    <ng-content></ng-content>
+  </div>
+</span>

@@ -5,6 +5,8 @@ import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
 import {ActivatedSlide, Coordinates} from '@w11k/ngx-present';
 import {map, shareReplay, switchMap, take} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import { animate, state, style, transition, trigger, useAnimation } from '@angular/animations';
+import {bounceIn, bounceOut} from 'ngx-animate/lib';
 
 export class HelpState {
   [key: string]: {
@@ -79,11 +81,25 @@ export class HelpService extends Store<HelpMutator, HelpState> {
 @Component({
   selector: 'tcc-help',
   templateUrl: './help.component.html',
-  styleUrls: ['./help.component.scss']
+  styleUrls: ['./help.component.scss'],
+  animations: [
+    trigger('blockChildAnimation', [
+      transition(':enter', [])
+    ]),
+    trigger('help', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(-20%)' }),
+        animate('555ms ease-in-out', style({ opacity: 1, transform: 'translateX(0)' }))]),
+      transition(':leave', [
+        style({ opacity: 1, transform: 'translateX(0)' }),
+        animate('555ms ease-in-out', style({ opacity: 0, transform: 'translateX(50%)' }))]),
+    ]),
+  ],
 })
 export class TccHelpComponent implements OnDestroy {
 
-  open$: Observable<boolean>;
+  isOpen = false;
+
   private id$: Observable<Coordinates>;
 
   constructor(private readonly service: HelpService,
@@ -96,12 +112,12 @@ export class TccHelpComponent implements OnDestroy {
         shareReplay(1)
       );
 
-    this.open$ = this.id$
+    this.id$
       .pipe(
         switchMap(id => this.service.isOpen(id).bounded(toAngularComponent(this))),
         untilComponentDestroyed(this),
-      );
-
+      )
+      .subscribe(x => this.isOpen = x);
   }
 
   open() {

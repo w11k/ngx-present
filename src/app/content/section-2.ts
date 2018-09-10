@@ -122,9 +122,39 @@ export class MarkdownComponent {
   `;
 }
 
+
+@Component({
+  template: `
+    <tcc-master-regular headline="Help">
+      <ol>
+        <li>Test the animation of the help icon.
+          <tcc-help>
+            <ul>
+              <li>Really Long Description with a lot of details and a Code Example.
+                This line should break to test the animations with a real world example.
+                <tcc-code language="typescript" [code]="code"></tcc-code>
+              </li>
+            </ul>
+          </tcc-help>
+        </li>
+        <li>Short Description of Task 2</li>
+      </ol>
+    </tcc-master-regular>
+    <tcc-speaker-notes *ngxPresentSpeakerNotes>
+      <pre markdown>
+      </pre>
+    </tcc-speaker-notes>
+  `
+})
+export class HelpComponent {
+  code = `export const foo = 'bar';`;
+}
+
+
 export const section2 = [
   DataBindingContentTitleComponent,
   CodeSnippetComponent,
   ListAndCodeSnippetComponent,
   MarkdownComponent,
+  HelpComponent,
 ];
