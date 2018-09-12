@@ -6,6 +6,7 @@ import { Slide } from '../core/presentation.types';
 import { OverviewService, OverviewState } from './overview.service';
 import { PresentationService } from '../core/presentation.service';
 import { flattenDeepWithDelay } from '../core/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-present-overview-route',
@@ -18,6 +19,7 @@ export class OverviewRouteComponent implements OnInit, OnDestroy {
   public view: OverviewState | undefined;
 
   constructor(private readonly service: OverviewService,
+              private readonly router: Router,
               private readonly presentation: PresentationService) {
 
     this.zoomFactor = service.state.defaultZoom;
@@ -60,6 +62,13 @@ export class OverviewRouteComponent implements OnInit, OnDestroy {
 
   getRouterLink(slide: Slide) {
     return ['/slide', ...slide.coordinates];
+  }
+
+  navigate(event: MouseEvent, slide: Slide) {
+    if (event.altKey) {
+      event.preventDefault();
+      this.router.navigate(['presenter', ...slide.coordinates]);
+    }
   }
 
   toggleBreak() {

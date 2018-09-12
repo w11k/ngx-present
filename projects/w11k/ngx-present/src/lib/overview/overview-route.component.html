@@ -39,7 +39,8 @@
             <ngx-present-slide [slide]="slide"></ngx-present-slide>
           </div>
           <a class="overlay"
-             [routerLink]="getRouterLink(slide)"></a>
+             [routerLink]="getRouterLink(slide)"
+             (click)="navigate($event, slide)"></a>
         </mat-card-content>
       </mat-card>
     </div>
