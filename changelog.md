@@ -1,5 +1,9 @@
 # ngx-present Changelog
 
+## 0.6.1
+
+* add animation to help component to focus attention to new visible content
+
 ## 0.6.0
 
 * make markdown links always open in new tab (theme)
