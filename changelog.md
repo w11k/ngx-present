@@ -1,5 +1,10 @@
 # ngx-present Changelog
 
+## 0.7.0
+
+* navigate to presenter instead of slide with alt-click in overview
+* add configurable navigate-to-overview key command
+
 ## 0.6.1
 
 * add animation to help component to focus attention to new visible content
