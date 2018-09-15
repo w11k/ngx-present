@@ -26,9 +26,5 @@ export class ExportRouteComponent implements OnInit, OnDestroy {
       .subscribe(slides => this.slides = slides);
   }
 
-  toggleSideNav() {
-    this.presentation.dispatch.toggleSideNav();
-  }
-
   ngOnDestroy() {}
 }

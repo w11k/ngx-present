@@ -30,5 +30,12 @@ export class PresentationService extends Store<PresentationMutator, Presentation
 
   // make mutate public
   dispatch = this.mutate;
+
+  toggleSideBar(event: KeyboardEvent | MouseEvent) {
+    if (event.altKey) {
+      this.mutate.enableSideBarExpertMode();
+    }
+    this.mutate.toggleSideBar();
+  }
 }
 

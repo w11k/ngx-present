@@ -19,7 +19,7 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.presentation
-      .select(state => state.sideNavOpen)
+      .select(state => state.sideBar.open)
       .bounded(toAngularComponent(this))
       .subscribe(status => {
         if (this.sideNav === undefined) {
@@ -36,7 +36,7 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
 
   onSideNavClose(opened: boolean) {
     if (!opened) {
-      this.presentation.dispatch.closeSideNav();
+      this.presentation.dispatch.closeSideBar();
     }
   }
 

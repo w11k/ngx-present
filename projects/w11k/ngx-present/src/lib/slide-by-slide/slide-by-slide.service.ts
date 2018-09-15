@@ -4,7 +4,7 @@ import { filter, map, take, withLatestFrom } from 'rxjs/operators';
 import { calculateCoordinates, equalCoordinates, isValidCoordinate } from './slide-by-slide.functions';
 import { combineLatest, Observable } from 'rxjs';
 import { Injectable, Injector, OnDestroy } from '@angular/core';
-import { filterNonNavigationEvent, KeyboardEventProcessor } from '../core/event.service';
+import { nonNavigationEvent, KeyboardEventProcessor } from '../core/event.service';
 import { PresentationService } from '../core/presentation.service';
 import { flattenDeep, maxDepth } from '../core/utils';
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
@@ -142,7 +142,7 @@ export class NavigateSectionForward implements KeyboardEventProcessor {
   init(events$: Observable<KeyboardEvent>) {
     events$
       .pipe(
-        filter(filterNonNavigationEvent),
+        filter(nonNavigationEvent),
         // arrow right
         filter(event => event.keyCode === 39)
       )
@@ -159,7 +159,7 @@ export class NavigateSlideForward implements KeyboardEventProcessor {
   init(events$: Observable<KeyboardEvent>) {
     events$
       .pipe(
-        filter(filterNonNavigationEvent),
+        filter(nonNavigationEvent),
         // arrow down or page down
         filter(event => event.keyCode === 40 || event.keyCode === 34)
       )
@@ -176,7 +176,7 @@ export class NavigateSectionBackward implements KeyboardEventProcessor {
   init(events$: Observable<KeyboardEvent>) {
     events$
       .pipe(
-        filter(filterNonNavigationEvent),
+        filter(nonNavigationEvent),
         // arrow left
         filter(event => event.keyCode === 37)
       )
@@ -193,7 +193,7 @@ export class NavigateSlideBackward implements KeyboardEventProcessor {
   init(events$: Observable<KeyboardEvent>) {
     events$
       .pipe(
-        filter(filterNonNavigationEvent),
+        filter(nonNavigationEvent),
         // arrow up or page up
         filter(event => event.keyCode === 38 || event.keyCode === 33)
       )
@@ -210,7 +210,7 @@ export class NavigateToFirstSlide implements KeyboardEventProcessor {
   init(events$: Observable<KeyboardEvent>) {
     events$
       .pipe(
-        filter(filterNonNavigationEvent),
+        filter(nonNavigationEvent),
         // pos 1
         filter(event => event.keyCode === 36)
       )
@@ -244,7 +244,7 @@ export class NavigateToOverview implements KeyboardEventProcessor {
 
     events$
       .pipe(
-        filter(filterNonNavigationEvent),
+        filter(nonNavigationEvent),
         // pos 1
         filter(event => {
           // o

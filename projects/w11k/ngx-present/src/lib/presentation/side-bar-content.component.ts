@@ -15,6 +15,7 @@ export class SideBarContentComponent implements OnInit, OnDestroy {
   public showCoordinates$: Observable<boolean>;
   public coordinatesSeparator$: Observable<string>;
   public depth$: Observable<number | undefined>;
+  public showExpertMenu$: Observable<boolean>;
 
   constructor(private readonly presentation: PresentationService) {
     this.presentation.select(state => state.id)
@@ -36,13 +37,17 @@ export class SideBarContentComponent implements OnInit, OnDestroy {
     this.depth$ = this.presentation
       .select(state => state.config.sidebar.tableOfContent.depth)
       .bounded(toAngularComponent(this));
+
+    this.showExpertMenu$ = this.presentation
+      .select(state => state.sideBar.expert)
+      .bounded(toAngularComponent(this));
   }
 
   ngOnInit(): void {}
 
   closeSideNav() {
     setTimeout(() => {
-      this.presentation.dispatch.toggleSideNav();
+      this.presentation.dispatch.closeSideBar();
     }, 25);
   }
 

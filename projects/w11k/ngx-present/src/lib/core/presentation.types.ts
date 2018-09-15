@@ -49,7 +49,10 @@ export class PresentationState {
   public id: string;
   public config: NgxPresentConfig = ngxPresentDefaultConfig;
   public slides: Slides = [];
-  public sideNavOpen = false;
+  public sideBar = {
+    open: false,
+    expert: false,
+  };
 
   constructor() {
     const id = Math.random().toString(36).substr(2, 9);
@@ -77,16 +80,32 @@ export class PresentationMutator extends Mutator<PresentationState> {
     this.state.config = mergeDeep(this.state.config, config);
   }
 
-  toggleSideNav() {
-    this.state.sideNavOpen = !this.state.sideNavOpen;
+  toggleSideBar() {
+    this.state.sideBar = {
+      ...this.state.sideBar,
+      open: !this.state.sideBar.open,
+    };
   }
 
-  closeSideNav() {
-    this.state.sideNavOpen = false;
+  closeSideBar() {
+    this.state.sideBar = {
+      ...this.state.sideBar,
+      open: false
+    };
   }
 
-  openSideNav() {
-    this.state.sideNavOpen = true;
+  openSideBar() {
+    this.state.sideBar = {
+      ...this.state.sideBar,
+      open: true,
+    };
+  }
+
+  enableSideBarExpertMode() {
+    this.state.sideBar = {
+      ...this.state.sideBar,
+      expert: true
+    };
   }
 
   setId(id: string) {

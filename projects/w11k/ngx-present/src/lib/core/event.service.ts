@@ -5,18 +5,27 @@ import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 
-export function filterNonNavigationEvent (event: KeyboardEvent): boolean {
-  if (event.altKey || event.ctrlKey || event.shiftKey || event.metaKey) {
-    return false;
-  }
+export function nonNavigationEvent (event: KeyboardEvent): boolean {
+  return noModifierPressed(event) && isNotEditable(event);
+}
 
+export function isNotEditable(event: KeyboardEvent): boolean {
   const srcElement: Element | null = event.srcElement;
 
   if (srcElement instanceof HTMLElement) {
     const tagName = srcElement.tagName;
+
     if (tagName === 'INPUT' || tagName === 'TEXTAREA' || srcElement.isContentEditable) {
       return false;
     }
+  }
+
+  return true;
+}
+
+export function noModifierPressed(event: KeyboardEvent): boolean {
+  if (event.altKey || event.ctrlKey || event.shiftKey || event.metaKey) {
+    return false;
   }
 
   return true;
@@ -33,12 +42,14 @@ export class ToggleSideNav implements KeyboardEventProcessor {
   init(events$: Observable<KeyboardEvent>) {
     events$
       .pipe(
-        filter(filterNonNavigationEvent),
+        filter(isNotEditable),
         // letter m
+        filter(event => !(event.ctrlKey || event.metaKey || event.shiftKey)),
         filter(event => event.keyCode === 77)
       )
-      .subscribe(() => {
-        this.service.dispatch.toggleSideNav();
+      .subscribe(event => {
+        event.preventDefault();
+        this.service.toggleSideBar(event);
       });
   }
 }
