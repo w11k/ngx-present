@@ -1,5 +1,9 @@
 # ngx-present Changelog
 
+## 0.8.0
+
+* hide expert menu in side-bar, show with alt-click or alt-m
+
 ## 0.7.0
 
 * navigate to presenter instead of slide with alt-click in overview
