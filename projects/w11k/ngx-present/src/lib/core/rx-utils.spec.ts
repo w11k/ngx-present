@@ -1,5 +1,13 @@
 import { of } from 'rxjs';
-import { skipNil, skipNull, skipUndefined, skipSomePropertyNil, skipPropertyNil, skipPropertyNull, skipPropertyUndefined } from './rx-utils';
+import {
+  skipNil,
+  skipNull,
+  skipPropertyNil,
+  skipPropertyNull,
+  skipPropertyUndefined,
+  skipSomePropertyNil,
+  skipUndefined
+} from './rx-utils';
 import { tap } from 'rxjs/operators';
 
 // -----

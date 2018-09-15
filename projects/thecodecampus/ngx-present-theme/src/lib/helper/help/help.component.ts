@@ -1,12 +1,11 @@
-import {Component, Injectable, OnDestroy} from '@angular/core';
-import {Mutator, ObservableSelection, Store} from '@w11k/tydux';
-import {toAngularComponent} from '@w11k/tydux/dist/angular-integration';
-import {untilComponentDestroyed} from '@w11k/ngx-componentdestroyed';
-import {ActivatedSlide, Coordinates} from '@w11k/ngx-present';
-import {map, shareReplay, switchMap, take} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import { animate, state, style, transition, trigger, useAnimation } from '@angular/animations';
-import {bounceIn, bounceOut} from 'ngx-animate/lib';
+import { Component, Injectable, OnDestroy } from '@angular/core';
+import { Mutator, ObservableSelection, Store } from '@w11k/tydux';
+import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { ActivatedSlide, Coordinates } from '@w11k/ngx-present';
+import { map, shareReplay, switchMap, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 export class HelpState {
   [key: string]: {

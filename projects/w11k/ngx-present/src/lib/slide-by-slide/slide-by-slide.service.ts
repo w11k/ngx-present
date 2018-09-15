@@ -1,4 +1,4 @@
-import { Coordinates, NgxPresentConfig, Slide, Slides } from '../core/presentation.types';
+import { Coordinates, Slide, Slides } from '../core/presentation.types';
 import { Mutator, ObservableSelection, Store } from '@w11k/tydux';
 import { filter, map, take, withLatestFrom } from 'rxjs/operators';
 import { calculateCoordinates, equalCoordinates, isValidCoordinate } from './slide-by-slide.functions';

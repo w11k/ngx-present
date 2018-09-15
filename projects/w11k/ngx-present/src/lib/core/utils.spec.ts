@@ -1,4 +1,4 @@
-import { flattenDeep, mapDeep, max, maxDepth, min, limitDepth } from './utils';
+import { flattenDeep, limitDepth, mapDeep, max, maxDepth, min } from './utils';
 
 describe('module utils', () => {
   describe('function maxDepth', () => {
