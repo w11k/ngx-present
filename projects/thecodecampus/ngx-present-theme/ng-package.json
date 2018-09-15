@@ -4,14 +4,5 @@
   "deleteDestPath": false,
   "lib": {
     "entryFile": "src/public_api.ts"
-  },
-  "whitelistedNonPeerDependencies": [
-    "@ngx-prism/core",
-    "@thecodecampus/angular-material-theme",
-    "ngx-animate",
-    "ngx-markdown",
-    "lodash-es",
-    "prismjs",
-    "web-animations-js"
-  ]
+  }
 }

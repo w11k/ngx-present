@@ -3,5 +3,12 @@
   "dest": "../../../dist/w11k/ngx-present",
   "lib": {
     "entryFile": "src/public_api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "@angular/cdk",
+    "@angular/material",
+    "@w11k/ngx-componentdestroyed",
+    "@w11k/tydux",
+    "material-design-icons"
+  ]
 }
