@@ -24,7 +24,7 @@ import {
   NavigateSectionForward,
   NavigateSlideBackward,
   NavigateSlideForward,
-  NavigateToFirstSlide
+  NavigateToFirstSlide, NavigateToOverview
 } from './slide-by-slide/slide-by-slide.service';
 import { DynamicComponent } from './dynamic/dynamic.component';
 import { SlideComponent } from './slide/slide.component';
@@ -103,6 +103,7 @@ export class NgxPresentModule {
         { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateSlideBackward, multi: true},
         { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateToFirstSlide, multi: true},
         { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: ToggleSideNav, multi: true},
+        { provide: KEYBOARD_EVENT_PROCESSOR_TOKEN, useClass: NavigateToOverview, multi: true},
         { provide: SLIDES, useValue: slides}
       ]
     };

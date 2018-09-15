@@ -1,6 +1,6 @@
-import { Coordinates, Slide, Slides } from '../core/presentation.types';
+import { Coordinates, NgxPresentConfig, Slide, Slides } from '../core/presentation.types';
 import { Mutator, ObservableSelection, Store } from '@w11k/tydux';
-import { filter, map, take } from 'rxjs/operators';
+import { filter, map, take, withLatestFrom } from 'rxjs/operators';
 import { calculateCoordinates, equalCoordinates, isValidCoordinate } from './slide-by-slide.functions';
 import { combineLatest, Observable } from 'rxjs';
 import { Injectable, Injector, OnDestroy } from '@angular/core';
@@ -8,6 +8,7 @@ import { filterNonNavigationEvent, KeyboardEventProcessor } from '../core/event.
 import { PresentationService } from '../core/presentation.service';
 import { flattenDeep, maxDepth } from '../core/utils';
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
+import { skipPropertyNil } from '../core/rx-utils';
 
 export class SlideBySlideState {
   public coordinatesMaxDepth = 0;
@@ -215,6 +216,44 @@ export class NavigateToFirstSlide implements KeyboardEventProcessor {
       )
       .subscribe(() => {
         this.service.navigateToFirst();
+      });
+  }
+}
+
+@Injectable()
+export class NavigateToOverview implements KeyboardEventProcessor {
+  constructor(private readonly service: SlideBySlideService,
+              private readonly presentation: PresentationService) {}
+
+  init(events$: Observable<KeyboardEvent>) {
+
+    const config$ = this.presentation
+      .select(state => state.config.navigation.overview)
+      .unbounded()
+      .pipe(
+        skipPropertyNil('component')
+      );
+
+    const slide$ = this.service
+      .select()
+      .unbounded()
+      .pipe(
+        withLatestFrom(config$),
+        map(([state, config]) => state.slides.find(slide => slide.component === config.component))
+      );
+
+    events$
+      .pipe(
+        filter(filterNonNavigationEvent),
+        // pos 1
+        filter(event => {
+          // o
+          return event.keyCode === 79;
+        }),
+        withLatestFrom(slide$)
+      )
+      .subscribe(([event, slide]) => {
+          this.service.navigateAbsolute(slide);
       });
   }
 }

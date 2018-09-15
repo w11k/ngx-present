@@ -7,11 +7,17 @@ import { routes } from './app.routes';
 import { slides } from './slides';
 import { TccNgxPresentThemeModule } from '@thecodecampus/ngx-present-theme';
 import { NgxPresentModule } from '@w11k/ngx-present';
+import { TableOfContentComponent } from './intro/table-of-content.component';
 
 const config = {
   sidebar: {
     tableOfContent: {
       showCoordinates: false
+    }
+  },
+  navigation: {
+    overview: {
+      component: TableOfContentComponent
     }
   }
 };

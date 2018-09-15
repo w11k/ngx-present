@@ -34,6 +34,11 @@ export const ngxPresentDefaultConfig = {
   },
   title: {
     separator: ' / '
+  },
+  navigation: {
+    overview: {
+      component: undefined as Type<any> | undefined
+    }
   }
 };
 
