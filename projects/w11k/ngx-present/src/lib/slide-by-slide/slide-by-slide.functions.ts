@@ -172,3 +172,14 @@ export function isValidCoordinate(slides: Slides, coordinates: Coordinates): boo
 export function coordinatesToString(coordinates: Coordinates, separator: string, length?: number): string {
   return coordinates.slice(0, length).join(separator);
 }
+
+export function coordinateToSlideMap(slides: Slide[]): { [key: string]: Slide } {
+  const map: { [key: string]: Slide } = {};
+
+  for (const slide of slides) {
+    const index = coordinatesToString(slide.coordinates, '.');
+    map[index] = slide;
+  }
+
+  return map;
+}

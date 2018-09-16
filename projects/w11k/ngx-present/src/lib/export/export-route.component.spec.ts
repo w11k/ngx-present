@@ -7,6 +7,7 @@ import { MatIcon, MatToolbar } from '@angular/material';
 import { MockComponent } from 'ng-mocks';
 import { SlideComponent } from '../slide/slide.component';
 import { PresentationState } from '../core/presentation.types';
+import { MenuToggleIconComponent } from '../theming/menu-toggle-icon.component';
 
 describe('ExportRouteComponent', () => {
   let component: ExportRouteComponent;
@@ -21,6 +22,8 @@ describe('ExportRouteComponent', () => {
         MockComponent(SlideComponent),
         MockComponent(MatToolbar),
         MockComponent(MatIcon),
+        MockComponent(MenuToggleIconComponent),
+
       ],
       providers: [
         { provide: PresentationService, useValue: presentationServiceMock },

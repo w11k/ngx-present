@@ -43,8 +43,8 @@ export class ToggleSideNav implements KeyboardEventProcessor {
     events$
       .pipe(
         filter(isNotEditable),
-        // letter m
         filter(event => !(event.ctrlKey || event.metaKey || event.shiftKey)),
+        // letter m
         filter(event => event.keyCode === 77)
       )
       .subscribe(event => {

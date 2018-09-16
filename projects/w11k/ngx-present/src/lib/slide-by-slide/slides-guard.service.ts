@@ -41,7 +41,7 @@ export class SlidesGuardService implements CanActivate {
             prefix = firstSegment.path;
           }
 
-          this.router.navigate([prefix, ...x.coordinates], { queryParams: route.queryParams });
+          this.router.navigate([prefix, ...x.coordinates], { queryParamsHandling: 'merge' });
       });
 
 

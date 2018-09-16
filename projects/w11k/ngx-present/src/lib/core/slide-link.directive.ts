@@ -3,7 +3,7 @@ import { Router, RouterLinkWithHref } from '@angular/router';
 import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { filter, map, take, withLatestFrom } from 'rxjs/operators';
-import { ReplaySubject, fromEvent } from 'rxjs';
+import { fromEvent, ReplaySubject } from 'rxjs';
 import { Slide } from './presentation.types';
 import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 
@@ -12,7 +12,8 @@ function isMouseEvent(event: any): event is MouseEvent {
 }
 
 /**
- * Use in conjunction with routerLink on an anchor tag
+ * Use in conjunction with routerLink on an anchor tag for real links.
+ * Use on any tag for click event handling.
  */
 @Directive({
   selector: '[ngxPresentSlideLink]'
@@ -35,7 +36,8 @@ export class SlideLinkDirective implements OnDestroy {
           let link: any[];
 
           if (slide) {
-            link = (['/slide', ...slide.coordinates]);
+            const mode = `/${this.service.state.currentMode}`;
+            link = ([mode, ...slide.coordinates]);
           } else {
             link = [];
           }
@@ -56,9 +58,9 @@ export class SlideLinkDirective implements OnDestroy {
       .subscribe(([event, slide]) => {
         event.preventDefault();
 
-        // const link = (['/presenter', ...slide.coordinates]);
-        //
-        // this.router.navigate(link);
+        const link = (['/presenter', ...slide.coordinates]);
+
+        this.router.navigate(link, { queryParamsHandling: 'merge'});
       });
   }
 

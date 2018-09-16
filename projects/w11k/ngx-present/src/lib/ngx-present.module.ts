@@ -25,7 +25,7 @@ import {
   NavigateSlideBackward,
   NavigateSlideForward,
   NavigateToFirstSlide,
-  NavigateToOverview
+  NavigateToOverview,
 } from './slide-by-slide/slide-by-slide.service';
 import { DynamicComponent } from './dynamic/dynamic.component';
 import { SlideComponent } from './slide/slide.component';

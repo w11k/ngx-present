@@ -1,19 +1,30 @@
 import { Coordinates, Slide, Slides } from '../core/presentation.types';
 import { Mutator, ObservableSelection, Store } from '@w11k/tydux';
 import { filter, map, take, withLatestFrom } from 'rxjs/operators';
-import { calculateCoordinates, equalCoordinates, isValidCoordinate } from './slide-by-slide.functions';
+import {
+  calculateCoordinates,
+  coordinateToSlideMap,
+  equalCoordinates,
+  isValidCoordinate,
+  routeParamsToCoordinate
+} from './slide-by-slide.functions';
 import { combineLatest, Observable } from 'rxjs';
 import { Injectable, Injector, OnDestroy } from '@angular/core';
-import { nonNavigationEvent, KeyboardEventProcessor } from '../core/event.service';
+import { isNotEditable, KeyboardEventProcessor, nonNavigationEvent } from '../core/event.service';
 import { PresentationService } from '../core/presentation.service';
 import { flattenDeep, maxDepth } from '../core/utils';
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { skipPropertyNil } from '../core/rx-utils';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
+
+export type Mode = 'slide' | 'presenter';
 
 export class SlideBySlideState {
   public coordinatesMaxDepth = 0;
   public slides: Slide[] = [];
+  public slideMap: { [key: string]: Slide } = {};
   public currentSlide: Slide | undefined;
+  public currentMode: Mode | undefined;
 
   constructor() {}
 }
@@ -28,10 +39,16 @@ export class SlideBySlideMutator extends Mutator<SlideBySlideState> {
     this.state.currentSlide = slide;
   }
 
+  setCurrentMode(mode: Mode) {
+    this.state.currentMode = mode;
+  }
+
   setSlides(slides: Slides) {
     this.state.coordinatesMaxDepth = maxDepth(slides);
     this.state.slides = flattenDeep(slides);
+    this.state.slideMap = coordinateToSlideMap(this.state.slides);
   }
+
 }
 
 @Injectable({
@@ -39,7 +56,9 @@ export class SlideBySlideMutator extends Mutator<SlideBySlideState> {
 })
 export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlideState> implements OnDestroy {
 
-  constructor(injector: Injector, private readonly presentation: PresentationService) {
+  constructor(injector: Injector,
+              private readonly presentation: PresentationService,
+              private readonly router: Router) {
     super('SlideBySlide', new SlideBySlideMutator(), new SlideBySlideState());
 
     this.presentation.select(state => state.slides)
@@ -47,19 +66,19 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
       .subscribe(slides => this.mutate.setSlides(slides));
   }
 
-  navigateToNext(coordinatesToKeep: number) {
+  navigateToNext(coordinatesToKeep: number, prefix?: string) {
     this.nextSlide(coordinatesToKeep)
       .pipe(take(1))
-      .subscribe(slide => this.navigateAbsolute(slide));
+      .subscribe(slide => this.navigateAbsolute(slide, prefix));
   }
 
-  navigateToPrevious(coordinatesToKeep: number) {
+  navigateToPrevious(coordinatesToKeep: number, prefix?: string) {
     this.previousSlide(coordinatesToKeep)
       .pipe(take(1))
-      .subscribe(slide => this.navigateAbsolute(slide));
+      .subscribe(slide => this.navigateAbsolute(slide, prefix));
   }
 
-  previousSlide(coordinatesToKeep: number): Observable<Slide | undefined> {
+  previousSlide(coordinatesToKeep: number, prefix?: string): Observable<Slide | undefined> {
     return this.navigateRelative(-1, coordinatesToKeep);
   }
 
@@ -90,7 +109,7 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
       );
   }
 
-  navigateAbsolute(target: Coordinates | Slide | undefined): boolean {
+  navigateAbsolute(target: Coordinates | Slide | undefined, mode?: string) {
     let slide: Slide | undefined;
 
     if (target instanceof Slide) {
@@ -99,19 +118,30 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
       slide = this.state.slides.find(x => equalCoordinates(target, x.coordinates));
     }
 
-    if (slide) {
-      this.mutate.setCurrentSlide(slide);
-      return true;
+    if (slide === undefined) {
+      return;
     }
 
-    return false;
+    let modeWithFallback: string | undefined;
+
+    if (mode !== undefined) {
+      modeWithFallback = mode;
+    } else if (this.state.currentMode !== undefined) {
+      modeWithFallback = this.state.currentMode;
+    } else {
+      modeWithFallback = 'slide';
+    }
+
+    const link = [ `/${modeWithFallback}`, ...slide.coordinates ];
+
+    return this.router.navigate(link, { queryParamsHandling: 'merge' });
   }
 
-  navigateToFirst() {
+  navigateToFirst(prefix?: string) {
     this.firstSlide()
       .unbounded()
       .pipe(take(1))
-      .subscribe(slide => this.mutate.setCurrentSlide(slide));
+      .subscribe(slide => this.navigateAbsolute(slide, prefix));
   }
 
   firstSlide(): ObservableSelection<Slide> {
@@ -130,7 +160,18 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
       );
   }
 
+  setCurrentModeAndSlide(route: ActivatedRouteSnapshot) {
+    const coordinates = routeParamsToCoordinate(route.params);
+    const mode: Mode = route.url[0].path as Mode;
+    const slide = this.coordinatesToSlide(coordinates);
 
+    this.mutate.setCurrentSlide(slide);
+    this.mutate.setCurrentMode(mode);
+  }
+
+  private coordinatesToSlide(coordinates: Coordinates): Slide {
+    return this.state.slideMap[coordinates.join('.')];
+  }
 
   ngOnDestroy(): void {}
 }
@@ -253,7 +294,7 @@ export class NavigateToOverview implements KeyboardEventProcessor {
         withLatestFrom(slide$)
       )
       .subscribe(([event, slide]) => {
-          this.service.navigateAbsolute(slide);
+        this.service.navigateAbsolute(slide);
       });
   }
 }

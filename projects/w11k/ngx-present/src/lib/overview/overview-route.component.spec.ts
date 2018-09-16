@@ -11,6 +11,7 @@ import { SlideComponent } from '../slide/slide.component';
 import { OverviewService } from './overview.service';
 import { OverviewServiceMock } from './overview.service.mock';
 import { PresentationState } from '../core/presentation.types';
+import { MenuToggleIconComponent } from '../theming/menu-toggle-icon.component';
 
 describe('OverviewRouteComponent', () => {
   let component: OverviewRouteComponent;
@@ -35,6 +36,7 @@ describe('OverviewRouteComponent', () => {
         MockComponent(MatCardContent),
         MockComponent(SideBarContentComponent),
         MockComponent(SlideComponent),
+        MockComponent(MenuToggleIconComponent),
       ],
       providers: [
         { provide: PresentationService, useValue: presentationServiceMock },

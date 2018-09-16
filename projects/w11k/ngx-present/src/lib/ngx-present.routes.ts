@@ -6,6 +6,7 @@ import { SlidesGuardService } from './slide-by-slide/slides-guard.service';
 import { SlideBySlideRouteComponent } from './slide-by-slide/slide-by-slide-route.component';
 import { HelpRouteComponent } from './help/help-route.component';
 import { PresenterRouteComponent } from './presenter/presenter-route.component';
+import { SlideAndModeResolver } from './core/slide-and-mode-resolver.service';
 
 export function SlideUrlMatcher(segments: UrlSegment[]): UrlMatchResult {
   return CoordinatesUrlMatcher('slide', segments);
@@ -48,8 +49,16 @@ function CoordinatesUrlMatcher(prefix: string, segments: UrlSegment[]): UrlMatch
 
 
 export const ngxPresentRoutes: Routes = [
-  { matcher: SlideUrlMatcher, component: SlideBySlideRouteComponent, canActivate: [SlidesGuardService] },
-  { matcher: PresenterUrlMatcher, component: PresenterRouteComponent, canActivate: [SlidesGuardService] },
+  { matcher: SlideUrlMatcher,
+    component: SlideBySlideRouteComponent,
+    canActivate: [SlidesGuardService],
+    resolve: { slide: SlideAndModeResolver }
+  },
+  { matcher: PresenterUrlMatcher,
+    component: PresenterRouteComponent,
+    canActivate: [SlidesGuardService],
+    resolve: { slide: SlideAndModeResolver }
+  },
   { path: 'overview', component: OverviewRouteComponent },
   { path: 'export', component: ExportRouteComponent },
   { path: 'help', component: HelpRouteComponent }

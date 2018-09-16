@@ -16,3 +16,4 @@ export * from './lib/slide/slide.service';
 export * from './lib/slide-by-slide/slide-by-slide.functions';
 export * from './lib/slide-by-slide/slide-by-slide.service';
 export { TableOfContentEntry } from './lib/theming/table-of-content';
+export { MenuToggleIconComponent } from './lib/theming/menu-toggle-icon.component';

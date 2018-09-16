@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { PresentationService } from '../core/presentation.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ngx-present-help-route',

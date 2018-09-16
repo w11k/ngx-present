@@ -4,6 +4,7 @@ import { SlideBySlideService } from './slide-by-slide.service';
 import { PresentationServiceMock } from '../core/presentation.service.mock';
 import { PresentationService } from '../core/presentation.service';
 import { PresentationState } from '../core/presentation.types';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 describe('SlideBySlideService', () => {
@@ -15,6 +16,9 @@ describe('SlideBySlideService', () => {
     presentationServiceMock = new PresentationServiceMock(new PresentationState());
 
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
       providers: [
         SlideBySlideService,
         { provide: PresentationService, useValue: presentationServiceMock},
