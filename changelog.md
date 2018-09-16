@@ -1,5 +1,12 @@
 # ngx-present Changelog
 
+## 0.9.0
+
+* slide-link: navigate within same mode
+* slide-link: switch to presenter via alt-click
+* toggle presenter via alt-p
+* fix showing outdated current-slide 
+
 ## 0.8.0
 
 * hide expert menu in side-bar, show with alt-click or alt-m
