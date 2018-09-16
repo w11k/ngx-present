@@ -160,6 +160,10 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
       );
   }
 
+  private coordinatesToSlide(coordinates: Coordinates): Slide {
+    return this.state.slideMap[coordinates.join('.')];
+  }
+
   setCurrentModeAndSlide(route: ActivatedRouteSnapshot) {
     const coordinates = routeParamsToCoordinate(route.params);
     const mode: Mode = route.url[0].path as Mode;
@@ -167,10 +171,6 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
 
     this.mutate.setCurrentSlide(slide);
     this.mutate.setCurrentMode(mode);
-  }
-
-  private coordinatesToSlide(coordinates: Coordinates): Slide {
-    return this.state.slideMap[coordinates.join('.')];
   }
 
   ngOnDestroy(): void {}
@@ -295,6 +295,45 @@ export class NavigateToOverview implements KeyboardEventProcessor {
       )
       .subscribe(([event, slide]) => {
         this.service.navigateAbsolute(slide);
+      });
+  }
+}
+
+@Injectable()
+export class TogglePresenter implements KeyboardEventProcessor {
+  constructor(private readonly service: SlideBySlideService,
+              private readonly router: Router) {}
+
+  init(events$: Observable<KeyboardEvent>) {
+
+    const slide$ = this.service
+      .select()
+      .unbounded();
+
+    events$
+      .pipe(
+        filter(isNotEditable),
+        // letter p
+        filter(event => event.keyCode === 80 && event.altKey),
+        withLatestFrom(slide$)
+      )
+      .subscribe(([event, state]) => {
+        let mode: Mode;
+
+        if (state.currentMode === 'presenter') {
+          mode = 'slide';
+        } else {
+          mode = 'presenter';
+        }
+
+        let coordinates: Coordinates = [];
+
+        if (state.currentSlide !== undefined) {
+          coordinates = state.currentSlide.coordinates;
+        }
+
+        const link = [mode, ...coordinates];
+        this.router.navigate(link, { queryParamsHandling: 'merge'});
       });
   }
 }
