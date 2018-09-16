@@ -31,7 +31,7 @@
     "publish:theme": "npm publish dist/thecodecampus/ngx-present-theme",
     "publish": "npm run publish:lib && npm run publish:theme",
     "bundle-report": "webpack-bundle-analyzer dist/demo-app/stats.json",
-    "test": "npm run test:lib && npm run test:theme",
+    "test": "ng test ngx-present --watch=false && ng test ngx-present-theme --watch=false",
     "test:lib": "ng test ngx-present",
     "test:theme": "ng test ngx-present-theme",
     "lint": "ng lint",

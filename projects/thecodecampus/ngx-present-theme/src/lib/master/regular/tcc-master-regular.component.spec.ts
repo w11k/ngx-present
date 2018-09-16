@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TccMasterRegularComponent } from './tcc-master-regular.component';
 import { MockComponent } from 'ng-mocks';
-import { MenuToggleIconComponent } from '@w11k/ngx-present/src/lib/theming/menu-toggle-icon.component';
+import { HelpDialogIconComponent, MenuToggleIconComponent, SlideIndexComponent } from '@w11k/ngx-present';
 
 describe('TccMasterRegularComponent', () => {
   let component: TccMasterRegularComponent;
@@ -13,6 +13,8 @@ describe('TccMasterRegularComponent', () => {
       declarations: [
         TccMasterRegularComponent,
         MockComponent(MenuToggleIconComponent),
+        MockComponent(HelpDialogIconComponent),
+        MockComponent(SlideIndexComponent),
       ]
     })
     .compileComponents();

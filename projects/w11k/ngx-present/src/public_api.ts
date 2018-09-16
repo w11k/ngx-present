@@ -17,3 +17,8 @@ export * from './lib/slide-by-slide/slide-by-slide.functions';
 export * from './lib/slide-by-slide/slide-by-slide.service';
 export { TableOfContentEntry } from './lib/theming/table-of-content';
 export { MenuToggleIconComponent } from './lib/theming/menu-toggle-icon.component';
+export { HelpDialogIconComponent } from './lib/theming/help-dialog-icon.component';
+export { SlideIndexComponent } from './lib/theming/slide-index.component';
+
+// TODO: move to testing.ts and find a way to build testing.ts as additional entryPoint
+export { StoreMock} from './test.utils';
