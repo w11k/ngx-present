@@ -1,5 +1,10 @@
 # ngx-present Changelog
 
+## 0.9.1
+
+* decrease delay in overview
+* fix error in generated d.ts file with a workaround
+
 ## 0.9.0
 
 * slide-link: navigate within same mode
