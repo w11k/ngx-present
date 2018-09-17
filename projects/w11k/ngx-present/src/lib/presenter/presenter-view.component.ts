@@ -13,10 +13,10 @@ export class PresenterViewComponent implements SpeakerNotesTarget {
   public currentSlide: Slide | undefined;
 
   @Input()
-  public nextSlide: Slide | undefined;
+  public preview1: Slide | undefined;
 
   @Input()
-  public nextSection: Slide | undefined;
+  public preview2: Slide | undefined;
 
   public speakerNoteProviders: StaticProvider[] = [
     { provide: SpeakerNotesTarget, useValue: this }

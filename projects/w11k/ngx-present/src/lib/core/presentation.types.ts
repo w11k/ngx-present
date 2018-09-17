@@ -39,6 +39,16 @@ export const ngxPresentDefaultConfig = {
     overview: {
       component: undefined as Type<any> | undefined
     }
+  },
+  presenter: {
+    preview1: {
+      move: 1,
+      coordinatesToKeep: -1
+    },
+    preview2: {
+      move: 2,
+      coordinatesToKeep: -1
+    }
   }
 };
 

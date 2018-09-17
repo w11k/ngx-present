@@ -51,11 +51,11 @@
       flex-direction: row;
     }
 
-    .nextSlide {
+    .preview-1 {
       @include slide-card(32vw, 32vh, 0.321);
     }
 
-    .nextSection {
+    .preview-2 {
       margin-left: 1vw;
       @include slide-card(32vw, 32vh, 0.321);
     }
