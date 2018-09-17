@@ -1,6 +1,6 @@
 {
   "name": "@thecodecampus/ngx-present-theme",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "theCodeCampus theme for @w11k/ngx-present",
   "keywords": ["ngx-present", "theCodeCampus", "theme"],
   "license": "UNLICENSED",

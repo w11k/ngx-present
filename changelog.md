@@ -1,5 +1,9 @@
 # ngx-present Changelog
 
+## 0.9.3
+
+* fix navigate without coordinatesToKeep
+
 ## 0.9.2
 
 * make presenter previews configurable
