@@ -1,5 +1,10 @@
 # ngx-present Changelog
 
+## 0.9.2
+
+* make presenter previews configurable
+* add 'go to table-of-content' to help dialog
+
 ## 0.9.1
 
 * decrease delay in overview
