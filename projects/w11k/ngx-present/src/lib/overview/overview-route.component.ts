@@ -31,7 +31,7 @@ export class OverviewRouteComponent implements OnInit, OnDestroy {
       .bounded(toAngularComponent(this))
       .pipe(
         // map(slides => flattenDeep(slides))
-        switchMap(slides => flattenDeepWithDelay(slides))
+        switchMap(slides => flattenDeepWithDelay(slides, 20))
       )
       .subscribe(slides => this.slides = slides);
 
