@@ -17,14 +17,28 @@ describe('function routeParamsToCoordinate', () => {
 
 describe('function calculateCoordinates', () => {
 
-  it('should move 2 slides forward, flat', () => {
-    const slides: Slide[] = [
-      { component: undefined as any, coordinates: [1], index: 1 },
-      { component: undefined as any, coordinates: [2], index: 2 },
-      { component: undefined as any, coordinates: [3], index: 3 },
-    ];
+  const slides = [
+    { component: undefined as any, coordinates: [1, 1], index: 0 },
+    { component: undefined as any, coordinates: [1, 2], index: 2 },
+    { component: undefined as any, coordinates: [1, 3], index: 2 },
+    { component: undefined as any, coordinates: [2, 1], index: 3 },
+    { component: undefined as any, coordinates: [2, 2], index: 4 },
+    { component: undefined as any, coordinates: [2, 3], index: 5 },
+  ];
 
+  it('should move 2 slides forward, flat', () => {
     const slide = calculateCoordinates(slides, slides[0], 2, -1, 2);
+
+    expect(slide).toBeDefined();
+
+    if (slide !== undefined) {
+      expect(slide.index).toEqual(2);
+    }
+  });
+
+  it('should move 2 slides forward, across level', () => {
+
+    const slide = calculateCoordinates(slides, slides[1], 2, -1, 2);
 
     expect(slide).toBeDefined();
 
@@ -32,21 +46,10 @@ describe('function calculateCoordinates', () => {
       expect(slide.index).toEqual(3);
     }
   });
-});
 
-describe('function calculateCoordinates', () => {
+  it('should move 2 slides forward, end of current nesting', () => {
 
-  it('should move 2 slides forward, flat', () => {
-    const slides: Slide[] = [
-      { component: undefined as any, coordinates: [1, 1], index: 1 },
-      { component: undefined as any, coordinates: [1, 2], index: 2 },
-      { component: undefined as any, coordinates: [1, 3], index: 3 },
-      { component: undefined as any, coordinates: [2, 1], index: 4 },
-      { component: undefined as any, coordinates: [2, 2], index: 5 },
-      { component: undefined as any, coordinates: [2, 3], index: 6 },
-    ];
-
-    const slide = calculateCoordinates(slides, slides[1], 2, -1, 2);
+    const slide = calculateCoordinates(slides, slides[2], 2, undefined, 2);
 
     expect(slide).toBeDefined();
 

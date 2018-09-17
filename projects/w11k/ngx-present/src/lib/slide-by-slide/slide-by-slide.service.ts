@@ -66,27 +66,27 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
       .subscribe(slides => this.mutate.setSlides(slides));
   }
 
-  navigateToNext(coordinatesToKeep: number, prefix?: string) {
+  navigateToNext(coordinatesToKeep: number | undefined, prefix?: string) {
     this.nextSlide(coordinatesToKeep)
       .pipe(take(1))
       .subscribe(slide => this.navigateAbsolute(slide, prefix));
   }
 
-  navigateToPrevious(coordinatesToKeep: number, prefix?: string) {
+  navigateToPrevious(coordinatesToKeep: number | undefined, prefix?: string) {
     this.previousSlide(coordinatesToKeep)
       .pipe(take(1))
       .subscribe(slide => this.navigateAbsolute(slide, prefix));
   }
 
-  previousSlide(coordinatesToKeep: number, prefix?: string): Observable<Slide | undefined> {
+  previousSlide(coordinatesToKeep: number | undefined, prefix?: string): Observable<Slide | undefined> {
     return this.navigateRelative(-1, coordinatesToKeep);
   }
 
-  nextSlide(coordinatesToKeep: number): Observable<Slide | undefined> {
+  nextSlide(coordinatesToKeep: number | undefined): Observable<Slide | undefined> {
     return this.navigateRelative(1, coordinatesToKeep);
   }
 
-  navigateRelative(move: number, coordinatesToKeep: number): Observable<Slide | undefined> {
+  navigateRelative(move: number, coordinatesToKeep: number | undefined): Observable<Slide | undefined> {
     const currentSlide$ = this
       .selectNonNil(state => state.currentSlide)
       .unbounded();

@@ -43,11 +43,11 @@ export const ngxPresentDefaultConfig = {
   presenter: {
     preview1: {
       move: 1,
-      coordinatesToKeep: -1
+      coordinatesToKeep: undefined as number | undefined
     },
     preview2: {
       move: 2,
-      coordinatesToKeep: -1
+      coordinatesToKeep: undefined as number | undefined
     }
   }
 };

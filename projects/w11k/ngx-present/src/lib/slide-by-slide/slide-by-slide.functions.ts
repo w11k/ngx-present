@@ -5,10 +5,14 @@ import { max, min } from '../core/utils';
 export function calculateCoordinates(slides: Slide[],
                                      currentSlide: Slide,
                                      move: number,
-                                     coordinatesToKeep: number,
+                                     coordinatesToKeep: number | undefined,
                                      coordinatesMaxDepth: number): Slide | undefined {
   if (move === 0) {
     return currentSlide;
+  }
+
+  if (coordinatesToKeep === undefined) {
+    return slides[currentSlide.index + move];
   }
 
   const currentCoordinates = currentSlide.coordinates;
@@ -19,17 +23,13 @@ export function calculateCoordinates(slides: Slide[],
 
   if (move > 0 && coordinatesToKeepAbs < currentCoordinates.length) {
     newCoordinates.push(currentCoordinates[coordinatesToKeepAbs] + move);
-  }
-  else if (move > 0) {
+  } else if (move > 0) {
     newCoordinates.push(move);
-  }
-  else if (move < 0 && currentCoordinates[coordinatesToKeepAbs + 1] !== undefined && currentCoordinates[coordinatesToKeepAbs + 1] > 1) {
+  } else if (move < 0 && currentCoordinates[coordinatesToKeepAbs + 1] !== undefined && currentCoordinates[coordinatesToKeepAbs + 1] > 1) {
     newCoordinates.push(currentCoordinates[coordinatesToKeepAbs] + move + 1);
-  }
-  else if (move < 0 && coordinatesToKeepAbs < currentCoordinates.length) {
+  } else if (move < 0 && coordinatesToKeepAbs < currentCoordinates.length) {
     newCoordinates.push(max(1, currentCoordinates[coordinatesToKeepAbs] + move));
-  }
-  else if (move < 0) {
+  } else if (move < 0) {
     newCoordinates.push(1);
   }
 

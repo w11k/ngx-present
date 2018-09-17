@@ -9,9 +9,9 @@ import { StoreMock } from '../../test.utils';
 export class SlideBySlideServiceMock extends StoreMock<SlideBySlideState> {
   init() {}
 
-  navigateToNext(coordinatesToKeep: number) {}
+  navigateToNext(coordinatesToKeep: number | undefined) {}
 
-  navigateToPrevious(coordinatesToKeep: number) {}
+  navigateToPrevious(coordinatesToKeep: number | undefined) {}
 
   navigateToFirst() {}
 
