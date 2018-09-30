@@ -39,11 +39,7 @@ export class PresenterViewComponent implements SpeakerNotesTarget {
     };
   }
 
-  goToNextSlide() {
-    this.service.navigateToNext(-1);
-  }
-
-  goToNextSection() {
-    this.service.navigateToNext(-2);
+  goTo(slide: Slide) {
+    this.service.navigateAbsolute(slide);
   }
 }

@@ -17,7 +17,7 @@
             <div class="scale">
               <ngx-present-slide [slide]="preview1"></ngx-present-slide>
             </div>
-            <a class="overlay" (click)="goToNextSlide()"></a>
+            <a class="overlay" (click)="goTo(preview1)"></a>
           </mat-card-content>
         </mat-card>
       </div>
@@ -28,7 +28,7 @@
             <div class="scale">
               <ngx-present-slide [slide]="preview2"></ngx-present-slide>
             </div>
-            <a class="overlay" (click)="goToNextSection()"></a>
+            <a class="overlay" (click)="goTo(preview2)"></a>
           </mat-card-content>
         </mat-card>
       </div>
