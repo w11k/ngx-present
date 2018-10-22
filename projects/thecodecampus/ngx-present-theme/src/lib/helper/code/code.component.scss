@@ -3,22 +3,40 @@
 tcc-code {
   .code-container {
     font-size: $tcc-code-font-size;
-    background: $tcc-gradient-gray;
+
     margin: 0.38em 0;
+
+    pre[class*="language-"] {
+      margin: 0;
+    }
 
     p {
       font-size: 0.68em;
       font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
       padding: (1 - $tcc-code-padding) $tcc-code-padding;
       margin: 0;
+      display: inline-block;
       color: #ccc;
       border-bottom: 2px solid #ccc;
-      display: inline-block;
     }
 
-    pre[class*="language-"] {
-      background: none !important;
-      margin: 0 !important;
+    &.prism-theme-dark {
+      background: $tcc-gradient-gray;
+
+      pre[class*="language-"] {
+        background: none !important;
+      }
+    }
+
+    &.prism-theme-light {
+      p {
+        color: $tcc-color-gray;
+        border-bottom-color: $tcc-color-gray;
+      }
+
+      pre[class*="language-"] {
+        padding: 0.75em;
+      }
     }
   }
 }

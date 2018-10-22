@@ -12,7 +12,8 @@ import {
   MatIconModule,
   MatListModule,
   MatSidenavModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import { ContainerComponent } from './presentation/container.component';
 import { HelpContentComponent } from './help/help-content.component';
@@ -55,6 +56,7 @@ import { TableOfContentViewComponent } from './theming/table-of-content-view.com
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    MatSlideToggleModule
   ],
   declarations: [
     SlideBySlideRouteComponent,

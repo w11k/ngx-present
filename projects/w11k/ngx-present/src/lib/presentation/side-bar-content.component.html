@@ -20,8 +20,16 @@
                                   [coordinatesSeparator]="coordinatesSeparator$ | async">
     </ngx-present-table-of-content>
   </div>
+  <span class="fill-remaining-space"></span>
+  <ng-container *ngIf="showSettings$ | async">
+    <mat-divider></mat-divider>
+    <mat-nav-list >
+      <mat-list-item [disableRipple]="true">
+          <mat-slide-toggle #toggle [checked]="themeLight$ | async" (change)="setTheme($event)">Dark / Light</mat-slide-toggle>
+      </mat-list-item>
+    </mat-nav-list>
+  </ng-container>
   <ng-container *ngIf="showExpertMenu$ | async">
-    <span class="fill-remaining-space"></span>
     <mat-divider></mat-divider>
     <mat-nav-list (click)="closeSideNav()">
       <a mat-list-item

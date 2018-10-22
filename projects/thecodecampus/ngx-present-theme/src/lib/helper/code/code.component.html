@@ -1,4 +1,6 @@
-<div class="code-container">
+<div class="code-container"
+     [class.prism-theme-dark]="prismTheme === 'dark'"
+     [class.prism-theme-light]="prismTheme === 'light'">
   <p *ngIf="headline">{{headline}}</p>
   <ngx-prism [language]="language" [code]="code | trim">
     <ng-content></ng-content>

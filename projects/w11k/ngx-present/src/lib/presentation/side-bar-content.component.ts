@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { PresentationService } from '../core/presentation.service';
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { Observable } from 'rxjs';
+import { MatSlideToggleChange } from '@angular/material';
 
 @Component({
   selector: 'ngx-present-sidebar-content',
@@ -16,6 +17,8 @@ export class SideBarContentComponent implements OnInit, OnDestroy {
   public coordinatesSeparator$: Observable<string>;
   public depth$: Observable<number | undefined>;
   public showExpertMenu$: Observable<boolean>;
+  public showSettings$: Observable<boolean>;
+  public themeLight$: Observable<boolean>;
 
   constructor(private readonly presentation: PresentationService) {
     this.presentation.select(state => state.id)
@@ -41,6 +44,14 @@ export class SideBarContentComponent implements OnInit, OnDestroy {
     this.showExpertMenu$ = this.presentation
       .select(state => state.sideBar.expert)
       .bounded(toAngularComponent(this));
+
+    this.showSettings$ = this.presentation
+      .select(state => state.sideBar.settings)
+      .bounded(toAngularComponent(this));
+
+    this.themeLight$ = this.presentation
+      .select(state => state.config.code.theme === 'light')
+      .bounded(toAngularComponent(this));
   }
 
   ngOnInit(): void {}
@@ -54,4 +65,8 @@ export class SideBarContentComponent implements OnInit, OnDestroy {
   startP2P() {}
 
   ngOnDestroy(): void {}
+
+  setTheme(event: MatSlideToggleChange) {
+    this.presentation.dispatch.setCodeTheme(event.checked ? 'light' : 'dark');
+  }
 }

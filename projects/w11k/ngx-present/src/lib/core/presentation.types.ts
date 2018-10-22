@@ -49,6 +49,9 @@ export const ngxPresentDefaultConfig = {
       move: 2,
       coordinatesToKeep: undefined as number | undefined
     }
+  },
+  code: {
+    theme: 'dark' as 'dark' | 'light'
   }
 };
 
@@ -62,6 +65,7 @@ export class PresentationState {
   public sideBar = {
     open: false,
     expert: false,
+    settings: false
   };
 
   constructor() {
@@ -114,12 +118,23 @@ export class PresentationMutator extends Mutator<PresentationState> {
   enableSideBarExpertMode() {
     this.state.sideBar = {
       ...this.state.sideBar,
-      expert: true
+      expert: true,
+      settings: true
     };
   }
 
   setId(id: string) {
     this.state.id = id;
+  }
+
+  setCodeTheme(theme: 'light' | 'dark') {
+    this.state.config = {
+      ...this.state.config,
+      code: {
+        ...this.state.config.code,
+        theme: theme,
+      }
+    };
   }
 }
 
