@@ -1,5 +1,9 @@
 # ngx-present Changelog
 
+## 0.10.1
+
+* add missing dependency: prism-themes
+
 ## 0.10.0
 
 * feature: add light code theme to config, add switch in sidebar
