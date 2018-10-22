@@ -20,6 +20,7 @@
     "ngx-markdown": "^6.1.0",
     "lodash-es": "^4.17.10",
     "prismjs": "^1.15.0",
+    "prism-themes": "1.0.1",
     "web-animations-js": "^2.0.0"
   },
   "peerDependencies": {

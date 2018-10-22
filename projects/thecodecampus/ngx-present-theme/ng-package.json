@@ -12,6 +12,7 @@
     "ngx-markdown",
     "lodash-es",
     "prismjs",
+    "prism-themes",
     "web-animations-js"
   ]
 }
