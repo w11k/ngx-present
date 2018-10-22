@@ -1,5 +1,11 @@
 # ngx-present Changelog
 
+## 0.10.0
+
+* feature: add light code theme to config, add switch in sidebar
+* fix too large margin-bottom of help-component
+* fix navigating to preview slides in presenter
+
 ## 0.9.3
 
 * fix navigate without coordinatesToKeep
