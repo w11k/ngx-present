@@ -1,5 +1,9 @@
 # ngx-present Changelog
 
+## 0.11.0
+
+* refactor navigation: toc instead of section and now with alt, arrows just slide-by-slide
+
 ## 0.10.1
 
 * add missing dependency: prism-themes
