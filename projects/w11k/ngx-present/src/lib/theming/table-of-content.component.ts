@@ -6,7 +6,7 @@ import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { map } from 'rxjs/operators';
 import { filterDeep, limitDepth, mapDeep } from '../core/utils';
 import { coordinatesToString } from '../slide-by-slide/slide-by-slide.functions';
-import { DecoratorMetadata, tableOfContentMetadataKey } from './table-of-content';
+import { DecoratorMetadata, tableOfContentMetadata } from './table-of-content';
 import { NgxPresentConfig, Slide } from '../core/presentation.types';
 
 @Component({
@@ -68,10 +68,9 @@ function slideToUiEntryMapper(config: NgxPresentConfig,
                               showCoordinatesInput: boolean | undefined,
                               coordinatesSeparatorInput: string | undefined) {
   return (slide: Slide): UIEntry | undefined => {
-    // TODO: get rid of cast to any, include proper Reflect typings
-    const decoratorMetadata: DecoratorMetadata = (Reflect as any).getMetadata(tableOfContentMetadataKey, slide.component);
+    const decoratorMetadata: DecoratorMetadata | undefined = tableOfContentMetadata(slide);
 
-    if (decoratorMetadata) {
+    if (decoratorMetadata !== undefined) {
       let linkName = decoratorMetadata.linkName;
 
       const showCoordinates = (showCoordinatesInput !== undefined && showCoordinatesInput) ||

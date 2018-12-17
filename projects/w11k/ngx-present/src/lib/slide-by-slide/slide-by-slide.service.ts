@@ -2,7 +2,7 @@ import { Coordinates, Slide, Slides } from '../core/presentation.types';
 import { Mutator, ObservableSelection, Store } from '@w11k/tydux';
 import { filter, map, take, withLatestFrom } from 'rxjs/operators';
 import {
-  calculateCoordinates,
+  calculateCoordinates, compareCoordinates,
   coordinateToSlideMap,
   equalCoordinates,
   isValidCoordinate,
@@ -16,6 +16,7 @@ import { flattenDeep, maxDepth } from '../core/utils';
 import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { skipPropertyNil } from '../core/rx-utils';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { tableOfContentEntries, tableOfContentSlides } from '../theming/table-of-content';
 
 export type Mode = 'slide' | 'presenter';
 
@@ -66,16 +67,16 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
       .subscribe(slides => this.mutate.setSlides(slides));
   }
 
-  navigateToNext(coordinatesToKeep: number | undefined, prefix?: string) {
+  navigateToNext(coordinatesToKeep: number | undefined, mode?: string) {
     this.nextSlide(coordinatesToKeep)
       .pipe(take(1))
-      .subscribe(slide => this.navigateAbsolute(slide, prefix));
+      .subscribe(slide => this.navigateAbsolute(slide, mode));
   }
 
-  navigateToPrevious(coordinatesToKeep: number | undefined, prefix?: string) {
+  navigateToPrevious(coordinatesToKeep: number | undefined, mode?: string) {
     this.previousSlide(coordinatesToKeep)
       .pipe(take(1))
-      .subscribe(slide => this.navigateAbsolute(slide, prefix));
+      .subscribe(slide => this.navigateAbsolute(slide, mode));
   }
 
   previousSlide(coordinatesToKeep: number | undefined, prefix?: string): Observable<Slide | undefined> {
@@ -84,6 +85,47 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
 
   nextSlide(coordinatesToKeep: number | undefined): Observable<Slide | undefined> {
     return this.navigateRelative(1, coordinatesToKeep);
+  }
+
+  navigateToNextToc(mode?: string) {
+    this.nextToc('forward')
+      .pipe(take(1))
+      .subscribe(slide => this.navigateAbsolute(slide, mode));
+  }
+
+  navigateToPreviousToc(mode?: string) {
+    this.nextToc('backward')
+      .pipe(take(1))
+      .subscribe(slide => this.navigateAbsolute(slide, mode));
+  }
+
+  nextToc(direction: 'forward' | 'backward'): Observable<Slide | undefined> {
+    const currentSlide$ = this
+      .selectNonNil(state => state.currentSlide)
+      .unbounded();
+
+    const tocSlides$ = this
+      .selectNonNil(state => state.slides)
+      .pipe(
+        filter(x => x.length !== 0),
+        map(tableOfContentSlides),
+      )
+      .unbounded();
+
+    return combineLatest(currentSlide$, tocSlides$)
+      .pipe(
+        map(([currentSlide, tocSlides]) => {
+          if (direction === 'forward') {
+            return tocSlides.find(tocSlide => {
+              return compareCoordinates(tocSlide.coordinates, currentSlide.coordinates) === 1;
+            });
+          } else {
+            return tocSlides.slice().reverse().find(tocSlide => {
+              return compareCoordinates(tocSlide.coordinates, currentSlide.coordinates) === -1;
+            });
+          }
+        }),
+      );
   }
 
   navigateRelative(move: number, coordinatesToKeep: number | undefined): Observable<Slide | undefined> {
@@ -183,12 +225,20 @@ export class NavigateSectionForward implements KeyboardEventProcessor {
   init(events$: Observable<KeyboardEvent>) {
     events$
       .pipe(
-        filter(nonNavigationEvent),
-        // arrow right
-        filter(event => event.keyCode === 39)
+        filter(isNotEditable),
+        // arrow down + alt || arrow right + alt
+        filter(event => {
+          if (event.keyCode === 40 && event.altKey) {
+            return true;
+          } else if (event.keyCode === 39 && event.altKey) {
+            return true;
+          }
+
+          return false;
+        }),
       )
       .subscribe(() => {
-        this.service.navigateToNext(-2);
+        this.service.navigateToNextToc();
       });
   }
 }
@@ -201,8 +251,8 @@ export class NavigateSlideForward implements KeyboardEventProcessor {
     events$
       .pipe(
         filter(nonNavigationEvent),
-        // arrow down or page down
-        filter(event => event.keyCode === 40 || event.keyCode === 34)
+        // arrow down, arrow right, or page down
+        filter(event => event.keyCode === 40 || event.keyCode === 39 || event.keyCode === 34)
       )
       .subscribe(() => {
         this.service.navigateToNext(-1);
@@ -217,12 +267,20 @@ export class NavigateSectionBackward implements KeyboardEventProcessor {
   init(events$: Observable<KeyboardEvent>) {
     events$
       .pipe(
-        filter(nonNavigationEvent),
-        // arrow left
-        filter(event => event.keyCode === 37)
+        filter(isNotEditable),
+        // arrow up + alt || arrow left + alt
+        filter(event => {
+          if (event.keyCode === 38 && event.altKey) {
+            return true;
+          } else if (event.keyCode === 37 && event.altKey) {
+            return true;
+          }
+
+          return false;
+        }),
       )
       .subscribe(() => {
-        this.service.navigateToPrevious(-2);
+        this.service.navigateToPreviousToc();
       });
   }
 }
@@ -235,8 +293,8 @@ export class NavigateSlideBackward implements KeyboardEventProcessor {
     events$
       .pipe(
         filter(nonNavigationEvent),
-        // arrow up or page up
-        filter(event => event.keyCode === 38 || event.keyCode === 33)
+        // arrow up, arrow left or page up
+        filter(event => event.keyCode === 38 || event.keyCode === 37 || event.keyCode === 33)
       )
       .subscribe(() => {
         this.service.navigateToPrevious(-1);

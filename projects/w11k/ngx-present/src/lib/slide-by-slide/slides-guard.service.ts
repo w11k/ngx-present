@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, NavigationStart, Router } from '@angular/router';
 import { routeParamsToCoordinate } from './slide-by-slide.functions';
 import { SlideBySlideService } from './slide-by-slide.service';
 import { Observable, of } from 'rxjs';
