@@ -1,12 +1,13 @@
 {
   "name": "@w11k/ngx-present",
-  "version": "0.10.1",
+  "version": "1.0.0-alpha.0",
   "description": "Angular based Presentation Tool",
   "keywords": ["Angular", "Presentation", "Present", "PowerPoint", "Browser", "Reveal.JS", "Slides"],
   "license": "MIT",
   "author": "W11K GmbH, Germany",
   "contributors": [
-    "Philipp Burgmer"
+    "Philipp Burgmer",
+    "Sascha Engmann"
   ],
   "homepage": "https://github.com/w11k/ngx-present",
   "repository": {

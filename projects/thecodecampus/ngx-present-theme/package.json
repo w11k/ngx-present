@@ -1,12 +1,13 @@
 {
   "name": "@thecodecampus/ngx-present-theme",
-  "version": "0.10.1",
+  "version": "1.0.0-alpha.0",
   "description": "theCodeCampus theme for @w11k/ngx-present",
   "keywords": ["ngx-present", "theCodeCampus", "theme"],
   "license": "UNLICENSED",
   "author": "W11K GmbH, Germany",
   "contributors": [
-    "Philipp Burgmer"
+    "Philipp Burgmer",
+    "Sascha Engmann"
   ],
   "homepage": "https://github.com/w11k/ngx-present",
   "repository": {
