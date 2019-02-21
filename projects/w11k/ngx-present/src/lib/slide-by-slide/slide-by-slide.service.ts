@@ -89,7 +89,7 @@ export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideM
 
   navigateRelative(move: number, coordinatesToKeep: number | undefined): Observable<Slide | undefined> {
     const currentSlide$ = this
-      .selectNonNil(state => state.currentSlide); // TODO check delete unbounded is okay here
+      .selectNonNil(state => state.currentSlide);
 
     const slides$ = this
       .selectNonNil(state => state.slides)
@@ -98,9 +98,7 @@ export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideM
       );
 
     const depth$ = this
-      .selectNonNil(state => state.coordinatesMaxDepth)
-    //.unbounded();
-
+      .selectNonNil(state => state.coordinatesMaxDepth);
 
     return combineLatest(slides$, currentSlide$, depth$)
       .pipe(
@@ -138,7 +136,6 @@ export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideM
 
   navigateToFirst(prefix?: string) {
     this.firstSlide()
-    // .unbounded()
       .pipe(take(1))
       .subscribe(slide => this.navigateAbsolute(slide, prefix));
   }
@@ -269,14 +266,12 @@ export class NavigateToOverview implements KeyboardEventProcessor {
 
     const config$ = this.presentation
       .select(state => state.config.navigation.overview)
-      // .unbounded()
       .pipe(
         skipPropertyNil('component')
       );
 
     const slide$ = this.service
       .select(x => x)
-      // .unbounded()
       .pipe(
         withLatestFrom(config$),
         map(([state, config]) => state.slides.find(slide => slide.component === config.component))
@@ -306,9 +301,7 @@ export class TogglePresenter implements KeyboardEventProcessor {
   init(events$: Observable<KeyboardEvent>) {
 
     const slide$ = this.service
-      .select(x => x)
-    // .unbounded();
-
+      .select(x => x);
     events$
       .pipe(
         filter(isNotEditable),
