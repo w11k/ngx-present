@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
+
 import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { ActivatedSlide, Coordinates } from '@w11k/ngx-present';
 import { map, shareReplay, switchMap, take } from 'rxjs/operators';
@@ -43,7 +43,7 @@ export class TccHelpComponent implements OnDestroy {
 
     this.id$
       .pipe(
-        switchMap(id => this.service.isOpen(id).bounded(toAngularComponent(this))),
+        switchMap(id => this.service.isOpen(id)),
         untilComponentDestroyed(this),
       )
       .subscribe(x => this.isOpen = x);

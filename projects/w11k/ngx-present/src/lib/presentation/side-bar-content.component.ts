@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { PresentationService } from '../core/presentation.service';
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { Observable } from 'rxjs';
 import { MatSlideToggleChange } from '@angular/material';
 
@@ -22,36 +22,58 @@ export class SideBarContentComponent implements OnInit, OnDestroy {
 
   constructor(private readonly presentation: PresentationService) {
     this.presentation.select(state => state.id)
-      .bounded(toAngularComponent(this))
+      .pipe(
+        untilComponentDestroyed(this),)
       .subscribe(id => this.id = id);
 
     this.showCoordinates$ = this.presentation
       .selectNonNil(state => state.config.sidebar.tableOfContent.showCoordinates)
-      .bounded(toAngularComponent(this));
+      .pipe(
+        untilComponentDestroyed(this),
+      )
+    ;
 
     this.showTableOfContent$ = this.presentation
       .selectNonNil(state => state.config.sidebar.tableOfContent.enabled)
-      .bounded(toAngularComponent(this));
+      .pipe(
+        untilComponentDestroyed(this),
+      )
+    ;
 
     this.coordinatesSeparator$ = this.presentation
       .selectNonNil(state => state.config.sidebar.tableOfContent.separator)
-      .bounded(toAngularComponent(this));
+      .pipe(
+        untilComponentDestroyed(this),
+      )
+    ;
 
     this.depth$ = this.presentation
       .select(state => state.config.sidebar.tableOfContent.depth)
-      .bounded(toAngularComponent(this));
+      .pipe(
+        untilComponentDestroyed(this),
+      )
+    ;
 
     this.showExpertMenu$ = this.presentation
       .select(state => state.sideBar.expert)
-      .bounded(toAngularComponent(this));
+      .pipe(
+        untilComponentDestroyed(this),
+      )
+    ;
 
     this.showSettings$ = this.presentation
       .select(state => state.sideBar.settings)
-      .bounded(toAngularComponent(this));
+      .pipe(
+        untilComponentDestroyed(this),
+      )
+    ;
 
     this.themeLight$ = this.presentation
       .select(state => state.config.code.theme === 'light')
-      .bounded(toAngularComponent(this));
+      .pipe(
+        untilComponentDestroyed(this),
+      )
+    ;
   }
 
   ngOnInit(): void {}

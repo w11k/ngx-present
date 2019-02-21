@@ -1,11 +1,11 @@
 import { Directive, ElementRef, Input, OnDestroy, Optional, Type } from '@angular/core';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { Router, RouterLinkWithHref } from '@angular/router';
 import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
+
 import { filter, map, take, withLatestFrom } from 'rxjs/operators';
 import { fromEvent, ReplaySubject } from 'rxjs';
 import { Slide } from './presentation.types';
-import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 
 function isMouseEvent(event: any): event is MouseEvent {
   return event instanceof MouseEvent;
@@ -67,7 +67,8 @@ export class SlideLinkDirective implements OnDestroy {
   @Input()
   public set ngxPresentSlideLink(component: Type<any>) {
     this.service.selectNonNil(state => state.slides)
-      .bounded(toAngularComponent(this))
+      .pipe(
+        untilComponentDestroyed(this))
       .pipe(
         map(slides => slides.find(slide => slide.component === component)),
         filter(slide => slide !== undefined),

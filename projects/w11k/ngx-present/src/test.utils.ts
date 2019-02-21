@@ -1,12 +1,11 @@
-import { ObservableSelection } from '@w11k/tydux';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { notNil } from './lib/core/rx-utils';
 import { filter } from 'rxjs/operators';
 
 export class StoreMock<S> {
   constructor(public state: S) {}
 
-  select<R>(selector?: (state: Readonly<S>) => R): ObservableSelection<R> {
+  select<R>(selector?: (state: Readonly<S>) => R): Observable<R> {
     let val: any;
     if (selector !== undefined && this.state !== undefined) {
       val = selector(this.state);
@@ -14,10 +13,10 @@ export class StoreMock<S> {
       val = this.state;
     }
 
-    return new ObservableSelection(of(val));
+    return of(val);
   }
 
-  selectNonNil<R>(selector: (state: Readonly<S>) => R | null | undefined): ObservableSelection<R> {
+  selectNonNil<R>(selector: (state: Readonly<S>) => R | null | undefined): Observable<R> {
     return this.select(selector).pipe(filter(notNil));
   }
 

@@ -1,7 +1,13 @@
 import { Injectable, InjectionToken, Injector } from '@angular/core';
-import { Store } from '@w11k/tydux';
+import { Facade, TyduxStore } from '@w11k/tydux';
 import { componentsToSlideTree } from './presentation.functions';
-import { NgxPresentConfig, PresentationMutator, PresentationState, SlideComponents, Slides, } from './presentation.types';
+import {
+  NgxPresentConfig,
+  PresentationMutator,
+  PresentationState,
+  SlideComponents,
+  Slides,
+} from './presentation.types';
 
 
 // causing a strange compiler error: generates invalid d.ts file
@@ -17,28 +23,28 @@ export const SLIDES = new InjectionToken<any>('SLIDES');
 @Injectable({
   providedIn: 'root'
 })
-export class PresentationService extends Store<PresentationMutator, PresentationState> {
+export class PresentationService extends Facade<PresentationState, PresentationMutator> {
 
 
-  constructor(injector: Injector) {
-    super('Presentation', new PresentationMutator(), new PresentationState());
+  constructor(tydux: TyduxStore, injector: Injector) {
+    super(tydux, 'Presentation', new PresentationMutator(), new PresentationState());
 
     const slideComponents: SlideComponents = injector.get(SLIDES);
     const config: RecursivePartial<NgxPresentConfig> = injector.get(NGX_PRESENT_CONFIG);
 
     const slides: Slides = componentsToSlideTree(slideComponents);
-    this.mutate.setSlides(slides);
-    this.mutate.mergeConfig(config);
+    this.commands.setSlides(slides);
+    this.commands.mergeConfig(config);
   }
 
   // make mutate public
-  dispatch = this.mutate;
+  dispatch = this.commands;
 
   toggleSideBar(event: KeyboardEvent | MouseEvent) {
     if (event.altKey) {
-      this.mutate.enableSideBarExpertMode();
+      this.commands.enableSideBarExpertMode();
     }
-    this.mutate.toggleSideBar();
+    this.commands.toggleSideBar();
   }
 }
 

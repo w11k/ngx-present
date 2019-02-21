@@ -1,10 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { Slide } from '../core/presentation.types';
 import { SlideBySlideService } from './slide-by-slide.service';
 import { SlideBySlideTitleService } from './slide-by-slide-title.service';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 
 @Component({
   selector: 'ngx-present-slide-by-slide-route',
@@ -21,9 +21,11 @@ export class SlideBySlideRouteComponent implements OnDestroy {
 
     this.slide$ = this.service
       .selectNonNil(state => state.currentSlide)
-      .bounded(toAngularComponent(this));
+      .pipe(
+        untilComponentDestroyed(this),
+      );
 
-    this.title.setupTitleSync('Slide', this);
+    this.title.setupTitleSync('Slide');
   }
 
   ngOnDestroy(): void {}

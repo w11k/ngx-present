@@ -10,6 +10,7 @@
     "@angular/material",
     "@w11k/ngx-componentdestroyed",
     "@w11k/tydux",
+    "@w11k/tydux-angular",
     "material-design-icons"
   ]
 }

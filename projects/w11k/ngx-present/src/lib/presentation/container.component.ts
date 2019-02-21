@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, HostListener, OnDestroy, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material';
 import { PresentationService } from '../core/presentation.service';
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { EventService } from '../core/event.service';
 
 @Component({
@@ -20,7 +20,8 @@ export class ContainerComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.presentation
       .select(state => state.sideBar.open)
-      .bounded(toAngularComponent(this))
+      .pipe(
+        untilComponentDestroyed(this),)
       .subscribe(status => {
         if (this.sideNav === undefined) {
           throw new Error(`Couldn't find side nav component as child`);

@@ -1,5 +1,5 @@
 import { Coordinates, Slide, Slides } from '../core/presentation.types';
-import { Mutator, ObservableSelection, Store } from '@w11k/tydux';
+import { Commands, Facade, TyduxStore } from '@w11k/tydux';
 import { filter, map, take, withLatestFrom } from 'rxjs/operators';
 import {
   calculateCoordinates,
@@ -13,8 +13,8 @@ import { Injectable, Injector, OnDestroy } from '@angular/core';
 import { isNotEditable, KeyboardEventProcessor, nonNavigationEvent } from '../core/event.service';
 import { PresentationService } from '../core/presentation.service';
 import { flattenDeep, maxDepth } from '../core/utils';
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { skipPropertyNil } from '../core/rx-utils';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed'
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 
 export type Mode = 'slide' | 'presenter';
@@ -29,7 +29,7 @@ export class SlideBySlideState {
   constructor() {}
 }
 
-export class SlideBySlideMutator extends Mutator<SlideBySlideState> {
+export class SlideBySlideMutator extends Commands<SlideBySlideState> {
 
   constructor() {
     super();
@@ -54,16 +54,17 @@ export class SlideBySlideMutator extends Mutator<SlideBySlideState> {
 @Injectable({
   providedIn: 'root'
 })
-export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlideState> implements OnDestroy {
+export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideMutator> implements OnDestroy {
 
   constructor(injector: Injector,
+              tydux: TyduxStore,
               private readonly presentation: PresentationService,
               private readonly router: Router) {
-    super('SlideBySlide', new SlideBySlideMutator(), new SlideBySlideState());
+    super(tydux, 'SlideBySlide', new SlideBySlideMutator(), new SlideBySlideState());
 
     this.presentation.select(state => state.slides)
-      .bounded(toAngularComponent(this))
-      .subscribe(slides => this.mutate.setSlides(slides));
+      .pipe(untilComponentDestroyed(this))
+      .subscribe(slides => this.commands.setSlides(slides));
   }
 
   navigateToNext(coordinatesToKeep: number | undefined, prefix?: string) {
@@ -88,19 +89,17 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
 
   navigateRelative(move: number, coordinatesToKeep: number | undefined): Observable<Slide | undefined> {
     const currentSlide$ = this
-      .selectNonNil(state => state.currentSlide)
-      .unbounded();
+      .selectNonNil(state => state.currentSlide); // TODO check delete unbounded is okay here
 
     const slides$ = this
       .selectNonNil(state => state.slides)
       .pipe(
         filter(x => x.length !== 0),
-      )
-      .unbounded();
+      );
 
     const depth$ = this
       .selectNonNil(state => state.coordinatesMaxDepth)
-      .unbounded();
+    //.unbounded();
 
 
     return combineLatest(slides$, currentSlide$, depth$)
@@ -139,12 +138,12 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
 
   navigateToFirst(prefix?: string) {
     this.firstSlide()
-      .unbounded()
+    // .unbounded()
       .pipe(take(1))
       .subscribe(slide => this.navigateAbsolute(slide, prefix));
   }
 
-  firstSlide(): ObservableSelection<Slide> {
+  firstSlide(): Observable<Slide> {
     return this.selectNonNil(state => state.slides)
       .pipe(
         filter(slides => slides.length > 0),
@@ -152,7 +151,7 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
       );
   }
 
-  isValidCoordinate(coordinates: Coordinates): ObservableSelection<boolean> {
+  isValidCoordinate(coordinates: Coordinates): Observable<boolean> {
     return this.presentation.selectNonNil(state => state.slides)
       .pipe(
         filter(slides => slides.length > 0),
@@ -169,8 +168,8 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
     const mode: Mode = route.url[0].path as Mode;
     const slide = this.coordinatesToSlide(coordinates);
 
-    this.mutate.setCurrentSlide(slide);
-    this.mutate.setCurrentMode(mode);
+    this.commands.setCurrentSlide(slide);
+    this.commands.setCurrentMode(mode);
   }
 
   ngOnDestroy(): void {}
@@ -270,14 +269,14 @@ export class NavigateToOverview implements KeyboardEventProcessor {
 
     const config$ = this.presentation
       .select(state => state.config.navigation.overview)
-      .unbounded()
+      // .unbounded()
       .pipe(
         skipPropertyNil('component')
       );
 
     const slide$ = this.service
-      .select()
-      .unbounded()
+      .select(x => x)
+      // .unbounded()
       .pipe(
         withLatestFrom(config$),
         map(([state, config]) => state.slides.find(slide => slide.component === config.component))
@@ -307,8 +306,8 @@ export class TogglePresenter implements KeyboardEventProcessor {
   init(events$: Observable<KeyboardEvent>) {
 
     const slide$ = this.service
-      .select()
-      .unbounded();
+      .select(x => x)
+    // .unbounded();
 
     events$
       .pipe(

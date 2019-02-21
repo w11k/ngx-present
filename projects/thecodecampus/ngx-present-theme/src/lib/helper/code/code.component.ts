@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { PresentationService } from '@w11k/ngx-present';
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 
 @Component({
   selector: 'tcc-code',
@@ -23,7 +23,8 @@ export class TccCodeComponent implements OnDestroy {
   constructor(private readonly presentation: PresentationService) {
     this.presentation
       .select(state => state.config.code.theme)
-      .bounded(toAngularComponent(this))
+      .pipe(
+        untilComponentDestroyed(this),)
       .subscribe(theme => this.prismTheme = theme);
   }
 
