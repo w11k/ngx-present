@@ -6,7 +6,7 @@ import { SlideComponent } from '../slide/slide.component';
 import { SlideBySlideService, SlideBySlideState } from './slide-by-slide.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SlideBySlideServiceMock } from './slide-by-slide.service.mock';
-import { resetTydux } from '@w11k/tydux/dist/global-state';
+// import { resetTydux } from '@w11k/tydux/dist/global-state';
 import { SlideBySlideTitleService } from './slide-by-slide-title.service';
 import { SlideBySlideTitleServiceMock } from './slide-by-slide-title.service-mock';
 
@@ -16,7 +16,7 @@ describe('SlideBySlideRouteComponent', () => {
   let slideBySlideServiceMock: SlideBySlideServiceMock;
 
   beforeEach(async(() => {
-    resetTydux();
+    // resetTydux();
 
     slideBySlideServiceMock = new SlideBySlideServiceMock(new SlideBySlideState());
 

@@ -1,17 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 import { NGX_PRESENT_CONFIG, PresentationService, SLIDES } from './presentation.service';
-import { resetTydux } from '@w11k/tydux/dist/global-state';
+import { createTyduxStore, TyduxStore } from '@w11k/tydux';
+// import { resetTydux } from '@w11k/tydux/dist/global-state';
 
 
 describe('PresentationService', () => {
   let service: PresentationService;
 
   beforeEach(() => {
-    resetTydux();
+    // resetTydux();
 
     TestBed.configureTestingModule({
       providers: [
         PresentationService,
+        { provide: TyduxStore, useValue: createTyduxStore({}) },
         { provide: SLIDES, useValue: []},
         { provide: NGX_PRESENT_CONFIG, useValue: {}},
       ]

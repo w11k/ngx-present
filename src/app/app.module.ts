@@ -38,7 +38,7 @@ const config = {
     NgxPresentModule.withSlides(slides, config),
     TccNgxPresentThemeModule,
     TyduxModule.forRoot(configFactory),
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true }),
   ],
   providers: [],
   bootstrap: [AppComponent]
