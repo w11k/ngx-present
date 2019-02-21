@@ -1,6 +1,6 @@
 {
   "name": "@thecodecampus/ngx-present-theme",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.2",
   "description": "theCodeCampus theme for @w11k/ngx-present",
   "keywords": ["ngx-present", "theCodeCampus", "theme"],
   "license": "UNLICENSED",
@@ -29,6 +29,6 @@
     "@angular/core": "^6.1.0",
     "@angular/material": "6.4.7",
     "@angular/platform-browser": "^6.1.0",
-    "@w11k/ngx-present": "^0.4.0"
+    "@w11k/ngx-present": "1.0.0-alpha.x"
   }
 }

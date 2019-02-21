@@ -37,7 +37,7 @@ const config = {
     BrowserModule,
     NgxPresentModule.withSlides(slides, config),
     TccNgxPresentThemeModule,
-    TyduxModule.forRoot(configFactory),
+    TyduxModule.forRootWithConfig(configFactory),
     RouterModule.forRoot(routes, { useHash: true }),
   ],
   providers: [],

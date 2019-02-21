@@ -12,8 +12,8 @@ import {
   MatIconModule,
   MatListModule,
   MatSidenavModule,
-  MatToolbarModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatToolbarModule
 } from '@angular/material';
 import { ContainerComponent } from './presentation/container.component';
 import { HelpContentComponent } from './help/help-content.component';
@@ -44,10 +44,12 @@ import { PresenterViewComponent } from './presenter/presenter-view.component';
 import { TableOfContentComponent } from './theming/table-of-content.component';
 import { SpeakerNotesDirective } from './speaker-notes/speaker-notes.directive';
 import { TableOfContentViewComponent } from './theming/table-of-content-view.component';
+import { TyduxModule } from '@w11k/tydux-angular';
 
 @NgModule({
   imports: [
     CommonModule,
+    TyduxModule.forRootWithoutConfig(),
     RouterModule,
     MatCardModule,
     MatToolbarModule,
