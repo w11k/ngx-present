@@ -1,6 +1,6 @@
 {
   "name": "@w11k/ngx-present-demo",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0",
   "description": "Open Source, Angular Based Presentation Tool",
   "author": "W11K GmbH, Germany",
   "contributors": [
@@ -52,8 +52,8 @@
     "@thecodecampus/ngx-present-theme": "./projects/thecodecampus/ngx-present-theme",
     "@w11k/ngx-present": "./projects/w11k/ngx-present",
     "@w11k/rx-ninja": "^1.8.2",
-    "@w11k/tydux": "^11.0.0-alpha.5",
-    "@w11k/tydux-angular": "^11.0.0-alpha.5",
+    "@w11k/tydux": "^11.0.0",
+    "@w11k/tydux-angular": "^11.0.0",
     "chai": "^4.1.2",
     "core-js": "^2.5.4",
     "prism-themes": "1.0.1",
