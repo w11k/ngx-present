@@ -1,6 +1,6 @@
 {
   "name": "@w11k/ngx-present",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Angular based Presentation Tool",
   "keywords": ["Angular", "Presentation", "Present", "PowerPoint", "Browser", "Reveal.JS", "Slides"],
   "license": "MIT",
@@ -17,8 +17,8 @@
   "dependencies": {
     "@angular/cdk": "^6.1.0",
     "@angular/material": "^6.1.0",
-    "@w11k/tydux": "^11.0.0-alpha.4",
-    "@w11k/tydux-angular": "^11.0.0-alpha.4",
+    "@w11k/tydux": "^11.0.0-alpha.5",
+    "@w11k/tydux-angular": "^11.0.0-alpha.5",
     "@w11k/ngx-componentdestroyed": "^4.0.0",
     "material-design-icons-iconfont": "^4.0.5"
   },

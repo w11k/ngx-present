@@ -13,9 +13,9 @@ import { Injectable, Injector, OnDestroy } from '@angular/core';
 import { isNotEditable, KeyboardEventProcessor, nonNavigationEvent } from '../core/event.service';
 import { PresentationService } from '../core/presentation.service';
 import { flattenDeep, maxDepth } from '../core/utils';
-import { skipPropertyNil } from '../core/rx-utils';
 import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed'
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { notNil, skipPropertyNil } from '@w11k/rx-ninja';
 
 export type Mode = 'slide' | 'presenter';
 
@@ -89,16 +89,23 @@ export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideM
 
   navigateRelative(move: number, coordinatesToKeep: number | undefined): Observable<Slide | undefined> {
     const currentSlide$ = this
-      .selectNonNil(state => state.currentSlide);
+      .select((state => state.currentSlide))
+      .pipe(
+        filter(notNil)
+      );
 
     const slides$ = this
-      .selectNonNil(state => state.slides)
+      .select((state => state.slides))
       .pipe(
+        filter(notNil),
         filter(x => x.length !== 0),
       );
 
     const depth$ = this
-      .selectNonNil(state => state.coordinatesMaxDepth);
+      .select((state => state.coordinatesMaxDepth))
+      .pipe(
+        filter(notNil)
+      );
 
     return combineLatest(slides$, currentSlide$, depth$)
       .pipe(
@@ -141,15 +148,17 @@ export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideM
   }
 
   firstSlide(): Observable<Slide> {
-    return this.selectNonNil(state => state.slides)
+    return this.select((state => state.slides))
       .pipe(
+        filter(notNil),
         filter(slides => slides.length > 0),
         map(slides => slides[0])
       );
   }
 
   isValidCoordinate(coordinates: Coordinates): Observable<boolean> {
-    return this.presentation.selectNonNil(state => state.slides)
+    return this.presentation.select((state => state.slides))
+      .pipe(filter(notNil))
       .pipe(
         filter(slides => slides.length > 0),
         map(slides => isValidCoordinate(slides, coordinates))

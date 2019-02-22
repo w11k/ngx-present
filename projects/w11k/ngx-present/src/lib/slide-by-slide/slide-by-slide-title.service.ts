@@ -4,9 +4,9 @@ import { SlideBySlideService } from './slide-by-slide.service';
 import { combineLatest } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { coordinatesToString } from './slide-by-slide.functions';
-import { skipNil } from '../core/rx-utils';
 import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { AdvancedTitleService } from '../core/title.service';
+import { skipNil } from '@w11k/rx-ninja';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,10 @@ export class SlideBySlideTitleService implements OnDestroy {
       );
 
     const slide$ = this.slideBySlide.select(state => state.currentSlide)
-      .pipe(skipNil, untilComponentDestroyed(this));
+      .pipe(
+        skipNil,
+        untilComponentDestroyed(this)
+      );
 
     combineLatest(slide$, config$)
       .pipe(

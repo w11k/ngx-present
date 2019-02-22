@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PresentationService } from '../core/presentation.service';
-import { map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
 import { Observable } from 'rxjs';
 import { Slide } from '../core/presentation.types';
 import { SlideAndModeResolver } from '../core/slide-and-mode-resolver.service';
 import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { SlideBySlideTitleService } from '../slide-by-slide/slide-by-slide-title.service';
+import { notNil } from '@w11k/rx-ninja';
 
 @Component({
   selector: 'ngx-present-presenter-route',
@@ -24,8 +25,9 @@ export class PresenterRouteComponent implements OnInit, OnDestroy {
               private readonly slides: SlideBySlideService,
               private readonly title: SlideBySlideTitleService) {
 
-    this.currentSlide$ = this.slides.selectNonNil(state => state.currentSlide)
+    this.currentSlide$ = this.slides.select((state => state.currentSlide))
       .pipe(
+        filter(notNil),
         untilComponentDestroyed(this)
       );
 

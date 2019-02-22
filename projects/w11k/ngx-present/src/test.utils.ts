@@ -1,6 +1,4 @@
 import { Observable, of } from 'rxjs';
-import { notNil } from './lib/core/rx-utils';
-import { filter } from 'rxjs/operators';
 
 export class StoreMock<S> {
   constructor(public state: S) {}
@@ -14,10 +12,6 @@ export class StoreMock<S> {
     }
 
     return of(val);
-  }
-
-  selectNonNil<R>(selector: (state: Readonly<S>) => R | null | undefined): Observable<R> {
-    return this.select(selector).pipe(filter(notNil));
   }
 
 }

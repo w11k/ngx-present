@@ -6,6 +6,7 @@ import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
 import { filter, map, take, withLatestFrom } from 'rxjs/operators';
 import { fromEvent, ReplaySubject } from 'rxjs';
 import { Slide } from './presentation.types';
+import { notNil } from '@w11k/rx-ninja';
 
 function isMouseEvent(event: any): event is MouseEvent {
   return event instanceof MouseEvent;
@@ -66,8 +67,9 @@ export class SlideLinkDirective implements OnDestroy {
 
   @Input()
   public set ngxPresentSlideLink(component: Type<any>) {
-    this.service.selectNonNil(state => state.slides)
+    this.service.select((state => state.slides))
       .pipe(
+        filter(notNil),
         untilComponentDestroyed(this))
       .pipe(
         map(slides => slides.find(slide => slide.component === component)),

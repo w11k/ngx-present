@@ -3,6 +3,8 @@ import { PresentationService } from '../core/presentation.service';
 import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { Observable } from 'rxjs';
 import { MatSlideToggleChange } from '@angular/material';
+import { filter } from 'rxjs/operators';
+import { notNil } from '@w11k/rx-ninja';
 
 @Component({
   selector: 'ngx-present-sidebar-content',
@@ -27,22 +29,25 @@ export class SideBarContentComponent implements OnInit, OnDestroy {
       .subscribe(id => this.id = id);
 
     this.showCoordinates$ = this.presentation
-      .selectNonNil(state => state.config.sidebar.tableOfContent.showCoordinates)
+      .select((state => state.config.sidebar.tableOfContent.showCoordinates))
       .pipe(
+        filter(notNil),
         untilComponentDestroyed(this),
       )
     ;
 
     this.showTableOfContent$ = this.presentation
-      .selectNonNil(state => state.config.sidebar.tableOfContent.enabled)
+      .select((state => state.config.sidebar.tableOfContent.enabled))
       .pipe(
+        filter(notNil),
         untilComponentDestroyed(this),
       )
     ;
 
     this.coordinatesSeparator$ = this.presentation
-      .selectNonNil(state => state.config.sidebar.tableOfContent.separator)
+      .select((state => state.config.sidebar.tableOfContent.separator))
       .pipe(
+        filter(notNil),
         untilComponentDestroyed(this),
       )
     ;

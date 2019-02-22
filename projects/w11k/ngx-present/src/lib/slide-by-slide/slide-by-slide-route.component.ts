@@ -5,6 +5,8 @@ import { Slide } from '../core/presentation.types';
 import { SlideBySlideService } from './slide-by-slide.service';
 import { SlideBySlideTitleService } from './slide-by-slide-title.service';
 import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { notNil } from '@w11k/rx-ninja';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-present-slide-by-slide-route',
@@ -20,8 +22,9 @@ export class SlideBySlideRouteComponent implements OnDestroy {
               private readonly title: SlideBySlideTitleService) {
 
     this.slide$ = this.service
-      .selectNonNil(state => state.currentSlide)
+      .select((state => state.currentSlide))
       .pipe(
+        filter(notNil),
         untilComponentDestroyed(this),
       );
 
