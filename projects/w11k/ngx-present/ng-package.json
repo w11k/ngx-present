@@ -9,6 +9,7 @@
     "@angular/cdk",
     "@angular/material",
     "@w11k/ngx-componentdestroyed",
+    "redux",
     "@w11k/tydux",
     "@w11k/tydux-angular",
     "material-design-icons"

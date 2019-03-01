@@ -15,18 +15,19 @@
     "url": "https://github.com/w11k/ngx-present.git"
   },
   "dependencies": {
-    "@angular/cdk": "^6.1.0",
-    "@angular/material": "^6.1.0",
+    "@angular/cdk": "^7.0.0",
+    "@angular/material": "^7.0.0",
     "@w11k/tydux": "^11.0.0",
     "@w11k/tydux-angular": "^11.0.0",
+    "redux": "^4.0.1",
     "@w11k/ngx-componentdestroyed": "^4.0.0",
     "material-design-icons-iconfont": "^4.0.5"
   },
   "peerDependencies": {
-    "@angular/common": "^6.1.0",
-    "@angular/core": "^6.1.0",
-    "@angular/platform-browser": "^6.1.0",
-    "@angular/router": "^6.1.0",
+    "@angular/common": "^7.0.0",
+    "@angular/core": "^7.0.0",
+    "@angular/platform-browser": "^7.0.0",
+    "@angular/router": "^7.0.0",
     "rxjs": "^6.2.2"
   }
 }
