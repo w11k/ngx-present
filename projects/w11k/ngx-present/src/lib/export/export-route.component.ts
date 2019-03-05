@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Slide } from '../core/presentation.types';
 import { map } from 'rxjs/operators';
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { PresentationService } from '../core/presentation.service';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { flattenDeep } from '../core/utils';
 
 @Component({
@@ -19,9 +19,9 @@ export class ExportRouteComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.presentation
       .select(state => state.slides)
-      .bounded(toAngularComponent(this))
       .pipe(
-        map(slides => flattenDeep(slides))
+        map(slides => flattenDeep(slides)),
+        untilComponentDestroyed(this),
       )
       .subscribe(slides => this.slides = slides);
   }

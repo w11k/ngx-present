@@ -1,5 +1,4 @@
 import { Slide } from '../core/presentation.types';
-import { notUndefined } from '../core/rx-utils';
 
 export const tableOfContentMetadataKey = Symbol('TableOfContentEntry');
 
@@ -19,12 +18,6 @@ export function tableOfContentMetadata(slide: Slide): DecoratorMetadata | undefi
   const decoratorMetadata: DecoratorMetadata = (Reflect as any).getMetadata(tableOfContentMetadataKey, slide.component);
 
   return decoratorMetadata;
-}
-
-export function tableOfContentEntries(slides: Slide[]): DecoratorMetadata[] {
-  return slides
-    .map(tableOfContentMetadata)
-    .filter(notUndefined);
 }
 
 export function tableOfContentSlides(slides: Slide[]): Slide[] {

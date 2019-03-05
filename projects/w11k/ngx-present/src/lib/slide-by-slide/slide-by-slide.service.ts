@@ -1,8 +1,9 @@
 import { Coordinates, Slide, Slides } from '../core/presentation.types';
-import { Mutator, ObservableSelection, Store } from '@w11k/tydux';
+import { Commands, Facade, TyduxStore } from '@w11k/tydux';
 import { filter, map, take, withLatestFrom } from 'rxjs/operators';
 import {
-  calculateCoordinates, compareCoordinates,
+  calculateCoordinates,
+  compareCoordinates,
   coordinateToSlideMap,
   equalCoordinates,
   isValidCoordinate,
@@ -13,10 +14,10 @@ import { Injectable, Injector, OnDestroy } from '@angular/core';
 import { isNotEditable, KeyboardEventProcessor, nonNavigationEvent } from '../core/event.service';
 import { PresentationService } from '../core/presentation.service';
 import { flattenDeep, maxDepth } from '../core/utils';
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
-import { skipPropertyNil } from '../core/rx-utils';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { tableOfContentEntries, tableOfContentSlides } from '../theming/table-of-content';
+import { notNil, skipPropertyNil } from '@w11k/rx-ninja';
+import { tableOfContentSlides } from '../theming/table-of-content';
 
 export type Mode = 'slide' | 'presenter';
 
@@ -30,7 +31,7 @@ export class SlideBySlideState {
   constructor() {}
 }
 
-export class SlideBySlideMutator extends Mutator<SlideBySlideState> {
+export class SlideBySlideMutator extends Commands<SlideBySlideState> {
 
   constructor() {
     super();
@@ -55,16 +56,17 @@ export class SlideBySlideMutator extends Mutator<SlideBySlideState> {
 @Injectable({
   providedIn: 'root'
 })
-export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlideState> implements OnDestroy {
+export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideMutator> implements OnDestroy {
 
   constructor(injector: Injector,
+              tydux: TyduxStore,
               private readonly presentation: PresentationService,
               private readonly router: Router) {
-    super('SlideBySlide', new SlideBySlideMutator(), new SlideBySlideState());
+    super(tydux, 'SlideBySlide', new SlideBySlideMutator(), new SlideBySlideState());
 
     this.presentation.select(state => state.slides)
-      .bounded(toAngularComponent(this))
-      .subscribe(slides => this.mutate.setSlides(slides));
+      .pipe(untilComponentDestroyed(this))
+      .subscribe(slides => this.commands.setSlides(slides));
   }
 
   navigateToNext(coordinatesToKeep: number | undefined, mode?: string) {
@@ -100,17 +102,17 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
   }
 
   nextToc(direction: 'forward' | 'backward'): Observable<Slide | undefined> {
-    const currentSlide$ = this
-      .selectNonNil(state => state.currentSlide)
-      .unbounded();
-
-    const tocSlides$ = this
-      .selectNonNil(state => state.slides)
+    const currentSlide$ = this.select(state => state.currentSlide)
       .pipe(
+        filter(notNil),
+      );
+
+    const tocSlides$ = this.select(state => state.slides)
+      .pipe(
+        filter(notNil),
         filter(x => x.length !== 0),
         map(tableOfContentSlides),
-      )
-      .unbounded();
+      );
 
     return combineLatest(currentSlide$, tocSlides$)
       .pipe(
@@ -129,21 +131,21 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
   }
 
   navigateRelative(move: number, coordinatesToKeep: number | undefined): Observable<Slide | undefined> {
-    const currentSlide$ = this
-      .selectNonNil(state => state.currentSlide)
-      .unbounded();
-
-    const slides$ = this
-      .selectNonNil(state => state.slides)
+    const currentSlide$ = this.select(state => state.currentSlide)
       .pipe(
+        filter(notNil)
+      );
+
+    const slides$ = this.select(state => state.slides)
+      .pipe(
+        filter(notNil),
         filter(x => x.length !== 0),
-      )
-      .unbounded();
+      );
 
-    const depth$ = this
-      .selectNonNil(state => state.coordinatesMaxDepth)
-      .unbounded();
-
+    const depth$ = this.select(state => state.coordinatesMaxDepth)
+      .pipe(
+        filter(notNil)
+      );
 
     return combineLatest(slides$, currentSlide$, depth$)
       .pipe(
@@ -181,21 +183,25 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
 
   navigateToFirst(prefix?: string) {
     this.firstSlide()
-      .unbounded()
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        untilComponentDestroyed(this),
+      )
       .subscribe(slide => this.navigateAbsolute(slide, prefix));
   }
 
-  firstSlide(): ObservableSelection<Slide> {
-    return this.selectNonNil(state => state.slides)
+  firstSlide(): Observable<Slide> {
+    return this.select(state => state.slides)
       .pipe(
+        filter(notNil),
         filter(slides => slides.length > 0),
         map(slides => slides[0])
       );
   }
 
-  isValidCoordinate(coordinates: Coordinates): ObservableSelection<boolean> {
-    return this.presentation.selectNonNil(state => state.slides)
+  isValidCoordinate(coordinates: Coordinates): Observable<boolean> {
+    return this.presentation.select(state => state.slides)
+      .pipe(filter(notNil))
       .pipe(
         filter(slides => slides.length > 0),
         map(slides => isValidCoordinate(slides, coordinates))
@@ -211,8 +217,8 @@ export class SlideBySlideService extends Store<SlideBySlideMutator, SlideBySlide
     const mode: Mode = route.url[0].path as Mode;
     const slide = this.coordinatesToSlide(coordinates);
 
-    this.mutate.setCurrentSlide(slide);
-    this.mutate.setCurrentMode(mode);
+    this.commands.setCurrentSlide(slide);
+    this.commands.setCurrentMode(mode);
   }
 
   ngOnDestroy(): void {}
@@ -326,16 +332,12 @@ export class NavigateToOverview implements KeyboardEventProcessor {
 
   init(events$: Observable<KeyboardEvent>) {
 
-    const config$ = this.presentation
-      .select(state => state.config.navigation.overview)
-      .unbounded()
+    const config$ = this.presentation.select(state => state.config.navigation.overview)
       .pipe(
         skipPropertyNil('component')
       );
 
-    const slide$ = this.service
-      .select()
-      .unbounded()
+    const slide$ = this.service.select()
       .pipe(
         withLatestFrom(config$),
         map(([state, config]) => state.slides.find(slide => slide.component === config.component))
@@ -364,9 +366,7 @@ export class TogglePresenter implements KeyboardEventProcessor {
 
   init(events$: Observable<KeyboardEvent>) {
 
-    const slide$ = this.service
-      .select()
-      .unbounded();
+    const slide$ = this.service.select();
 
     events$
       .pipe(

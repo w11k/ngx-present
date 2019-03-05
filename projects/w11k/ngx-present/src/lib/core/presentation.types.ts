@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { Mutator } from '@w11k/tydux';
+import { Commands } from '@w11k/tydux';
 import { mergeDeep } from './utils';
 
 export type SlideComponents = ListOfRecursiveArraysOrValues<Type<any>>;
@@ -80,7 +80,7 @@ export class PresentationState {
   }
 }
 
-export class PresentationMutator extends Mutator<PresentationState> {
+export class PresentationCommands extends Commands<PresentationState> {
 
   constructor() {
     super();

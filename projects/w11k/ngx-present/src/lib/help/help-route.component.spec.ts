@@ -9,7 +9,7 @@ import { MenuToggleIconComponent } from '../theming/menu-toggle-icon.component';
 import { PresentationService } from '../core/presentation.service';
 import { PresentationServiceMock } from '../core/presentation.service.mock';
 import { PresentationState } from '../core/presentation.types';
-import { resetTydux } from '@w11k/tydux/dist/global-state';
+// import { resetTydux } from '@w11k/tydux/dist/global-state';
 
 describe('HelpRouteComponent', () => {
   let component: HelpRouteComponent;
@@ -17,7 +17,7 @@ describe('HelpRouteComponent', () => {
   let presentationServiceMock;
 
   beforeEach(async(() => {
-    resetTydux();
+    // resetTydux();
 
     presentationServiceMock = new PresentationServiceMock(new PresentationState());
 

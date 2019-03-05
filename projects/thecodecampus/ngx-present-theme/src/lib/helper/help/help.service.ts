@@ -1,7 +1,8 @@
-import { Mutator, ObservableSelection, Store } from '@w11k/tydux';
+import { Commands, Facade, TyduxStore } from '@w11k/tydux';
 import { Injectable } from '@angular/core';
 import { Coordinates } from '@w11k/ngx-present';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 export class HelpState {
   [key: string]: {
@@ -9,7 +10,7 @@ export class HelpState {
   }
 }
 
-export class HelpMutator extends Mutator<HelpState> {
+export class HelpMutator extends Commands<HelpState> {
   setOpen(id: string, open: boolean) {
     this.state = {
       ...this.state,
@@ -24,13 +25,13 @@ export class HelpMutator extends Mutator<HelpState> {
 @Injectable({
   providedIn: 'root'
 })
-export class HelpService extends Store<HelpMutator, HelpState> {
+export class HelpService extends Facade<HelpState, HelpMutator> {
 
   private registry = new Map<string, number>();
   private readonly separator = '.';
 
-  constructor() {
-    super('MoreDetails', new HelpMutator(), new HelpState());
+  constructor(tydux: TyduxStore) {
+    super(tydux, 'MoreDetails', new HelpMutator(), new HelpState());
   }
 
   register(slideCoordinates: Coordinates): Coordinates {
@@ -53,14 +54,14 @@ export class HelpService extends Store<HelpMutator, HelpState> {
   }
 
   open(slideCoordinates: Coordinates) {
-    this.mutate.setOpen(slideCoordinates.join(this.separator), true);
+    this.commands.setOpen(slideCoordinates.join(this.separator), true);
   }
 
   close(slideCoordinates: Coordinates) {
-    this.mutate.setOpen(slideCoordinates.join(this.separator), false);
+    this.commands.setOpen(slideCoordinates.join(this.separator), false);
   }
 
-  isOpen(detailsCoordinates: Coordinates): ObservableSelection<boolean> {
+  isOpen(detailsCoordinates: Coordinates): Observable<boolean> {
     return super
       .select(state => state[detailsCoordinates.join(this.separator)])
       .pipe(map(subState => {

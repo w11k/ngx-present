@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { switchMap } from 'rxjs/operators';
 import { Slide } from '../core/presentation.types';
 import { OverviewService, OverviewState } from './overview.service';
@@ -28,16 +28,18 @@ export class OverviewRouteComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.presentation
       .select(state => state.slides)
-      .bounded(toAngularComponent(this))
       .pipe(
         // map(slides => flattenDeep(slides))
-        switchMap(slides => flattenDeepWithDelay(slides, 20))
+        switchMap(slides => flattenDeepWithDelay(slides, 20)),
+        untilComponentDestroyed(this),
       )
       .subscribe(slides => this.slides = slides);
 
     this.service
-      .select()
-      .bounded(toAngularComponent(this))
+      .select(x => x)
+      .pipe(
+        untilComponentDestroyed(this)
+      )
       .subscribe(view => {
         this.view = view;
         this.zoomFactor = (100 - (view.zoom + 1)) / view.zoom;

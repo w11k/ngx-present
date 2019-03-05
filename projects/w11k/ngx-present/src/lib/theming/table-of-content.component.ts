@@ -2,12 +2,13 @@ import { Component, Input, OnDestroy } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { UIEntry } from './table-of-content-view.component';
 import { PresentationService } from '../core/presentation.service';
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
+
 import { map } from 'rxjs/operators';
 import { filterDeep, limitDepth, mapDeep } from '../core/utils';
 import { coordinatesToString } from '../slide-by-slide/slide-by-slide.functions';
 import { DecoratorMetadata, tableOfContentMetadata } from './table-of-content';
 import { NgxPresentConfig, Slide } from '../core/presentation.types';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 
 @Component({
   selector: 'ngx-present-table-of-content',
@@ -35,8 +36,10 @@ export class TableOfContentComponent implements OnDestroy {
 
   constructor(private readonly service: PresentationService) {
 
-    const presentation$ = this.service.select()
-      .bounded(toAngularComponent(this));
+    const presentation$ = this.service.select(x => x)
+      .pipe(
+        untilComponentDestroyed(this),
+      );
 
     combineLatest(presentation$, this.showCoordinates$, this.coordinatesSeparator$, this.depth$)
       .pipe(

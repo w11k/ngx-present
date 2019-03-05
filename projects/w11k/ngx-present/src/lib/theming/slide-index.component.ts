@@ -4,7 +4,8 @@ import { map } from 'rxjs/operators';
 import { ActivatedSlide } from '../slide/slide.service';
 import { coordinatesToString } from '../slide-by-slide/slide-by-slide.functions';
 import { PresentationService } from '../core/presentation.service';
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+
 
 @Component({
   selector: 'ngx-present-slide-index',
@@ -17,7 +18,8 @@ export class SlideIndexComponent implements OnDestroy {
               private readonly presentation: PresentationService) {
 
     const config$ = this.presentation.select(state => state.config)
-      .bounded(toAngularComponent(this));
+      .pipe(
+        untilComponentDestroyed(this),);
 
     const coordinates$ = this.activatedSlide.slide.pipe(
       map(slide => slide.coordinates),

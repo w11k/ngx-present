@@ -1,4 +1,4 @@
-import { Mutator, Store } from '@w11k/tydux';
+import { Commands, Facade, TyduxStore } from '@w11k/tydux';
 import { Injectable } from '@angular/core';
 
 export class OverviewState {
@@ -10,7 +10,7 @@ export class OverviewState {
 }
 
 
-export class OverviewMutator extends Mutator<OverviewState> {
+export class OverviewMutator extends Commands<OverviewState> {
 
   constructor() {
     super();
@@ -49,25 +49,25 @@ export class OverviewMutator extends Mutator<OverviewState> {
 @Injectable({
   providedIn: 'root'
 })
-export class OverviewService extends Store<OverviewMutator, OverviewState> {
+export class OverviewService extends Facade<OverviewState, OverviewMutator> {
 
-  constructor() {
-    super('TenThousandFoot', new OverviewMutator(), new OverviewState());
+  constructor(tydux: TyduxStore) {
+    super(tydux, 'TenThousandFoot', new OverviewMutator(), new OverviewState());
   }
 
   zoomIn() {
-    this.mutate.zoomIn();
+    this.commands.zoomIn();
   }
 
   resetZoom() {
-    this.mutate.resetZoom();
+    this.commands.resetZoom();
   }
 
   zoomOut() {
-    this.mutate.zoomOut();
+    this.commands.zoomOut();
   }
 
   toggleLineBreakOnFirstLevel() {
-    this.mutate.toggleLineBreakOnFirstLevel();
+    this.commands.toggleLineBreakOnFirstLevel();
   }
 }

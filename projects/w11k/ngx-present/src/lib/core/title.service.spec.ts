@@ -4,13 +4,13 @@ import { AdvancedTitleService } from './title.service';
 import { PresentationService } from './presentation.service';
 import { PresentationServiceMock } from './presentation.service.mock';
 import { PresentationState } from './presentation.types';
-import { resetTydux } from '@w11k/tydux/dist/global-state';
+// import { resetTydux } from '@w11k/tydux/dist/global-state';
 
 describe('AdvancedTitleService', () => {
   let presentationServiceMock;
 
   beforeEach(() => {
-    resetTydux();
+    // resetTydux();
 
     presentationServiceMock = new PresentationServiceMock(new PresentationState());
 

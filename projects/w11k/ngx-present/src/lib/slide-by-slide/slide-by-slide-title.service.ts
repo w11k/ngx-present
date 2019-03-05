@@ -1,28 +1,32 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { PresentationService } from '../core/presentation.service';
 import { SlideBySlideService } from './slide-by-slide.service';
-import { toAngularComponent } from '@w11k/tydux/dist/angular-integration';
 import { combineLatest } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { coordinatesToString } from './slide-by-slide.functions';
-import { skipNil } from '../core/rx-utils';
+import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { AdvancedTitleService } from '../core/title.service';
+import { skipNil } from '@w11k/rx-ninja';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SlideBySlideTitleService {
+export class SlideBySlideTitleService implements OnDestroy {
   constructor(private readonly title: AdvancedTitleService,
               private readonly presentation: PresentationService,
               private readonly slideBySlide: SlideBySlideService) {}
 
-  setupTitleSync(prefix: string, terminator: OnDestroy) {
+  setupTitleSync(prefix: string) {
     const config$ = this.presentation.select(state => state.config)
-      .bounded(toAngularComponent(terminator));
+      .pipe(
+        untilComponentDestroyed(this),
+      );
 
     const slide$ = this.slideBySlide.select(state => state.currentSlide)
-      .pipe(skipNil)
-      .bounded(toAngularComponent(terminator));
+      .pipe(
+        skipNil,
+        untilComponentDestroyed(this)
+      );
 
     combineLatest(slide$, config$)
       .pipe(
@@ -32,4 +36,8 @@ export class SlideBySlideTitleService {
       )
       .subscribe(title => this.title.prefixTitle(title));
   }
+
+  ngOnDestroy(): void {
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { SlideBySlideTitleService } from './slide-by-slide-title.service';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { SlideBySlideTitleService } from './slide-by-slide-title.service';
 export class SlideBySlideTitleServiceMock implements Partial<SlideBySlideTitleService> {
   constructor() {}
 
-  setupTitleSync(prefix: string, terminator: OnDestroy) {
+  setupTitleSync(prefix: string) {
 
   }
 }
