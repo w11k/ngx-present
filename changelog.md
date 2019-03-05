@@ -1,5 +1,18 @@
 # ngx-present Changelog
 
+## 1.0.2
+
+* restore lost changes introduced in 0.11.0
+
+## 1.0.1
+
+* fix dependencies
+
+## 1.0.0
+
+* same functionality as 0.11.0
+* updated dependencies: @w11k/tydux
+
 ## 0.11.0
 
 * refactor navigation: toc instead of section and now with alt, arrows just slide-by-slide
