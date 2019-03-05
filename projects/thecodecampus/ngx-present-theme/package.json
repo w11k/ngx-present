@@ -18,17 +18,17 @@
     "@ngx-prism/core": "^2.0.1",
     "@thecodecampus/angular-material-theme": "^2.0.0",
     "ngx-animate": "^1.0.1",
-    "ngx-markdown": "^6.1.0",
+    "ngx-markdown": "^7.1.4",
     "lodash-es": "^4.17.10",
     "prismjs": "^1.15.0",
     "prism-themes": "1.0.1",
     "web-animations-js": "^2.0.0"
   },
   "peerDependencies": {
-    "@angular/common": "^6.1.0",
-    "@angular/core": "^6.1.0",
-    "@angular/material": "6.4.7",
-    "@angular/platform-browser": "^6.1.0",
+    "@angular/common": "^7.0.0",
+    "@angular/core": "^7.0.0",
+    "@angular/material": "^7.0.0",
+    "@angular/platform-browser": "^7.0.0",
     "@w11k/ngx-present": "^1.0.0"
   }
 }
