@@ -5,7 +5,7 @@ import { switchMap } from 'rxjs/operators';
 import { Slide } from '../core/presentation.types';
 import { OverviewService, OverviewState } from './overview.service';
 import { PresentationService } from '../core/presentation.service';
-import { flattenDeepWithDelay } from '../core/utils';
+import { flattenDelayedWithAnimationFrame } from '../core/utils';
 import { Router } from '@angular/router';
 
 @Component({
@@ -29,8 +29,7 @@ export class OverviewRouteComponent implements OnInit, OnDestroy {
     this.presentation
       .select(state => state.slides)
       .pipe(
-        // map(slides => flattenDeep(slides))
-        switchMap(slides => flattenDeepWithDelay(slides, 20)),
+        switchMap(slides => flattenDelayedWithAnimationFrame(slides)),
         untilComponentDestroyed(this),
       )
       .subscribe(slides => this.slides = slides);

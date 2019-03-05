@@ -1,5 +1,4 @@
-import { from, Observable, of } from 'rxjs';
-import { concatMap, delay as rxDelay, scan } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 export function maxDepth<T>(list: ListOfRecursiveArraysOrValues<T>): number {
   if (list.length === 0) {
@@ -100,40 +99,29 @@ export function mergeDeep<S1 extends { [key: string]: any }, S2 extends { [key: 
   return target;
 }
 
-/**
- * Deep flattens a list or recursive arrays or values. For each element in the top level list (parameter list)
- * the resulting observable will emit a new value with all previous values and the current one. Between each emit
- * there will be a delay (parameter delay).
- *
- * Example 1:
- * list: [1, 2, 3]
- * delay: 1000
- *
- * marble diagram of return value:
- * - equals 1 second
- * [1]-[1,2]-[1,2,3]|
- *
- * Example 2:
- * list: [1, [2, 3, 4], [5, 6, 7]]
- * delay: 1000
- *
- * marble diagram of return value:
- * - equals 1 second
- * [1]-[1,2,3,4]-[1,2,3,4,5,6,7]|
- *
- *
- * @param list list of nested values to flatten
- * @param delay milliseconds to wait before publish next value, default: array.length
- */
-export function flattenDeepWithDelay<T>(list: ListOfRecursiveArraysOrValues<T>, delay?: number): Observable<T[]> {
-  return from(list)
-    .pipe(
-      scan((acc, lvl1) => {
-        return [...acc, ...flattenDeep(lvl1)];
-      }, [] as T[]),
-      // delay each event
-      concatMap( x => of(x).pipe(rxDelay(delay || x.length))),
-    );
+export function flattenDelayedWithAnimationFrame<T>(list: ListOfRecursiveArraysOrValues<T>): Observable<T[]> {
+  const flatList = flattenDeep(list);
+
+  const observable = new Observable<T[]>((subscriber) => {
+    const k = 5;
+    let i = k;
+
+    const next = () => {
+      subscriber.next(flatList.slice(0, i));
+      i = i + k;
+
+      if (i > flatList.length) {
+        cancelAnimationFrame(frame);
+        subscriber.complete();
+      } else {
+        frame = requestAnimationFrame(next);
+      }
+    };
+
+    let frame = requestAnimationFrame(next);
+  });
+
+  return observable;
 }
 
 export function limitDepth<T>(list: ListOfRecursiveArraysOrValues<T>, depth: number | undefined): ListOfRecursiveArraysOrValues<T> {
