@@ -49,8 +49,6 @@
     "@angular/platform-browser": "^7.2.7",
     "@angular/platform-browser-dynamic": "^7.2.7",
     "@angular/router": "^7.2.7",
-    "@thecodecampus/ngx-present-theme": "./projects/thecodecampus/ngx-present-theme",
-    "@w11k/ngx-present": "./projects/w11k/ngx-present",
     "@w11k/rx-ninja": "^1.8.2",
     "@w11k/tydux": "^11.0.0",
     "@w11k/tydux-angular": "^11.0.0",
@@ -60,7 +58,18 @@
     "redux": "^4.0.1",
     "rimraf": "2.6.2",
     "rxjs": "~6.4.0",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "@ngx-prism/core": "^2.0.1",
+    "@thecodecampus/angular-material-theme": "^2.0.0",
+    "ngx-animate": "^1.0.1",
+    "ngx-markdown": "^7.1.4",
+    "lodash-es": "^4.17.10",
+    "prismjs": "^1.15.0",
+    "web-animations-js": "^2.0.0",
+    "@angular/cdk": "^7.0.0",
+    "@angular/material": "^7.0.0",
+    "@w11k/ngx-componentdestroyed": "^4.0.0",
+    "material-design-icons-iconfont": "^4.0.5"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",
