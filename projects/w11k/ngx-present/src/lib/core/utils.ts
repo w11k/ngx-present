@@ -41,12 +41,12 @@ export function flattenDeep<T>(value: ListOfRecursiveArraysOrValues<T>, result: 
   return result;
 }
 
-export function mapDeep<T, U>(value: ListOfRecursiveArraysOrValues<T>, mapper: (x: T) => U): ListOfRecursiveArraysOrValues<U> {
-  return value.map(lvl1 => {
-    if (Array.isArray(lvl1)) {
-      return mapDeep(lvl1, mapper);
+export function mapDeep<T, U>(level0: ListOfRecursiveArraysOrValues<T>, mapper: (x: T) => U): ListOfRecursiveArraysOrValues<U> {
+  return level0.map(level1 => {
+    if (Array.isArray(level1)) {
+      return mapDeep(level1, mapper);
     } else {
-      return mapper(lvl1);
+      return mapper(level1);
     }
   });
 }

@@ -185,13 +185,13 @@ describe('module utils', () => {
 
   describe('function mapDeep', () => {
     it('should return empty array for empty array', () => {
-      const actual = mapDeep([] as number[], x => x.toFixed(0));
+      const actual = mapDeep<number, string>([], (x) => x.toFixed(0));
 
       expect(actual).toEqual([]);
     });
 
     it('should return flat array for flat array', () => {
-      const actual = mapDeep([1, 2, 3], x => x.toFixed(0));
+      const actual = mapDeep<number, string>([1, 2, 3], x => x.toFixed(0));
 
       expect(actual).toEqual(['1', '2', '3']);
     });
