@@ -1,5 +1,9 @@
 # ngx-present Changelog
 
+## 1.0.4
+
+* no changes compared to 1.0.3, just to be able to publish complete version (1.0.3 is missing some files)  
+
 ## 1.0.3
 
 * update dependencies (requires Angular 7 now)
