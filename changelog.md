@@ -1,5 +1,11 @@
 # ngx-present Changelog
 
+## 1.0.3
+
+* update dependencies (requires Angular 7 now)
+* improve overview
+* fix not complete npm publish of 1.0.2
+
 ## 1.0.2
 
 * restore lost changes introduced in 0.11.0
