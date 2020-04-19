@@ -1,6 +1,6 @@
 {
   "name": "@w11k/ngx-present-demo",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "Open Source, Angular Based Presentation Tool",
   "author": "W11K GmbH, Germany",
   "contributors": [
@@ -36,7 +36,8 @@
     "test:lib": "ng test ngx-present",
     "test:theme": "ng test ngx-present-theme",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "bump": "bump --commit \"bump version to v\" package.json package-lock.json projects/w11k/ngx-present/package.json projects/thecodecampus/ngx-present-theme/package.json "
   },
   "private": true,
   "dependencies": {
@@ -76,8 +77,8 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "@types/prismjs": "^1.9.1",
-    "codelyzer": "^5.2.2",
     "chai": "^4.1.2",
+    "codelyzer": "^5.2.2",
     "cpx": "1.5.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
@@ -89,13 +90,14 @@
     "ng-mocks": "^9.2.0",
     "ng-packagr": "^9.1.1",
     "protractor": "~5.4.0",
+    "redux-devtools-extension": "^2.13.8",
     "rimraf": "2.6.2",
     "ts-node": "~7.0.0",
     "tsickle": "0.38.1",
     "tslib": "^1.11.1",
     "tslint": "~5.11.0",
-    "redux-devtools-extension": "^2.13.8",
     "typescript": "~3.8.3",
+    "version-bump-prompt": "6.0.3",
     "webpack-bundle-analyzer": "2.13.1"
   }
 }

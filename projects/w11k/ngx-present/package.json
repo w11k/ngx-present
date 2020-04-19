@@ -1,8 +1,16 @@
 {
   "name": "@w11k/ngx-present",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "Angular based Presentation Tool",
-  "keywords": ["Angular", "Presentation", "Present", "PowerPoint", "Browser", "Reveal.JS", "Slides"],
+  "keywords": [
+    "Angular",
+    "Presentation",
+    "Present",
+    "PowerPoint",
+    "Browser",
+    "Reveal.JS",
+    "Slides"
+  ],
   "license": "MIT",
   "author": "W11K GmbH, Germany",
   "contributors": [
