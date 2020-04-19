@@ -137,7 +137,7 @@
           },
           "configurations": {
             "production": {
-              "project": "projects/w11k/ngx-present/ng-package.prod.json"
+              "tsConfig": "projects/w11k/ngx-present/tsconfig.lib.prod.json"
             }
           }
         },
@@ -177,7 +177,7 @@
           },
           "configurations": {
             "production": {
-              "project": "projects/thecodecampus/ngx-present-theme/ng-package.prod.json"
+              "tsConfig": "projects/thecodecampus/ngx-present-theme/tsconfig.lib.prod.json"
             }
           }
         },
