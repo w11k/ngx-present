@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Commands, Facade, TyduxStore } from '@w11k/tydux';
+import { Commands, Facade } from '@w11k/tydux';
 
 export class OverviewState {
   readonly defaultZoom = 6;
@@ -51,7 +51,7 @@ export class OverviewMutator extends Commands<OverviewState> {
 })
 export class OverviewService extends Facade<OverviewState, OverviewMutator> {
 
-  constructor(tydux: TyduxStore) {
+  constructor() {
     super('TenThousandFoot', new OverviewState(), new OverviewMutator());
   }
 

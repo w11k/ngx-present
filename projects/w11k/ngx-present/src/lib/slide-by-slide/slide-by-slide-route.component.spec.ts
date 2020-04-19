@@ -1,14 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SlideBySlideRouteComponent } from './slide-by-slide-route.component';
+import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng-mocks';
 import { SlideComponent } from '../slide/slide.component';
-import { SlideBySlideService, SlideBySlideState } from './slide-by-slide.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { SlideBySlideServiceMock } from './slide-by-slide.service.mock';
-// import { resetTydux } from '@w11k/tydux/dist/global-state';
+
+import { SlideBySlideRouteComponent } from './slide-by-slide-route.component';
 import { SlideBySlideTitleService } from './slide-by-slide-title.service';
 import { SlideBySlideTitleServiceMock } from './slide-by-slide-title.service-mock';
+import { SlideBySlideService, SlideBySlideState } from './slide-by-slide.service';
+import { SlideBySlideServiceMock } from './slide-by-slide.service.mock';
 
 describe('SlideBySlideRouteComponent', () => {
   let component: SlideBySlideRouteComponent;
@@ -16,8 +15,6 @@ describe('SlideBySlideRouteComponent', () => {
   let slideBySlideServiceMock: SlideBySlideServiceMock;
 
   beforeEach(async(() => {
-    // resetTydux();
-
     slideBySlideServiceMock = new SlideBySlideServiceMock(new SlideBySlideState());
 
     TestBed.configureTestingModule({

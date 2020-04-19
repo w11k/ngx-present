@@ -10,7 +10,6 @@ import { MenuToggleIconComponent } from '../theming/menu-toggle-icon.component';
 import { HelpContentComponent } from './help-content.component';
 
 import { HelpRouteComponent } from './help-route.component';
-// import { resetTydux } from '@w11k/tydux/dist/global-state';
 
 describe('HelpRouteComponent', () => {
   let component: HelpRouteComponent;
@@ -18,8 +17,6 @@ describe('HelpRouteComponent', () => {
   let presentationServiceMock;
 
   beforeEach(async(() => {
-    // resetTydux();
-
     presentationServiceMock = new PresentationServiceMock(new PresentationState());
 
     TestBed.configureTestingModule({

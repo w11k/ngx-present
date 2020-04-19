@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { Observable } from 'rxjs';
 
 import { EventService, KEYBOARD_EVENT_PROCESSOR_TOKEN, KeyboardEventProcessor } from './event.service';
-import { Observable } from 'rxjs';
 
 class MockEventProcessor implements KeyboardEventProcessor {
   init(events$: Observable<KeyboardEvent>): void {}
@@ -18,7 +18,7 @@ describe('EventService', () => {
       ]
     });
 
-    service = TestBed.get(EventService);
+    service = TestBed.inject(EventService);
   });
 
   it('should be created', () => {

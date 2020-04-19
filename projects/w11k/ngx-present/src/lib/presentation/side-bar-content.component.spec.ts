@@ -4,7 +4,6 @@ import { MatListItem, MatNavList } from '@angular/material/list';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng-mocks';
-// import { resetTydux } from '@w11k/tydux/dist/global-state';
 import { PresentationService } from '../core/presentation.service';
 import { PresentationServiceMock } from '../core/presentation.service.mock';
 import { PresentationState } from '../core/presentation.types';
@@ -18,8 +17,6 @@ describe('SideBarContentComponent', () => {
   let presentationServiceMock: PresentationServiceMock;
 
   beforeEach(async(() => {
-    // resetTydux();
-
     presentationServiceMock = new PresentationServiceMock(new PresentationState());
 
     TestBed.configureTestingModule({

@@ -1,7 +1,7 @@
 import { Injectable, Injector, OnDestroy } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { skipNil, skipPropertyNil } from '@w11k/rx-ninja';
-import { Commands, Facade, TyduxStore } from '@w11k/tydux';
+import { Commands, Facade } from '@w11k/tydux';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { filter, map, take, takeUntil, withLatestFrom } from 'rxjs/operators';
 import { isNotEditable, KeyboardEventProcessor, nonNavigationEvent } from '../core/event.service';
@@ -58,7 +58,6 @@ export class SlideBySlideMutator extends Commands<SlideBySlideState> {
 export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideMutator> implements OnDestroy {
 
   constructor(injector: Injector,
-              tydux: TyduxStore,
               private readonly presentation: PresentationService,
               private readonly router: Router) {
     super('SlideBySlide', new SlideBySlideState(), new SlideBySlideMutator());

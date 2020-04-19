@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Coordinates } from '@w11k/ngx-present';
-import { Commands, Facade, TyduxStore } from '@w11k/tydux';
+import { Commands, Facade } from '@w11k/tydux';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -30,7 +30,7 @@ export class HelpService extends Facade<HelpState, HelpCommands> {
   private registry = new Map<string, number>();
   private readonly separator = '.';
 
-  constructor(tydux: TyduxStore) {
+  constructor() {
     super('MoreDetails', new HelpState(), new HelpCommands());
   }
 

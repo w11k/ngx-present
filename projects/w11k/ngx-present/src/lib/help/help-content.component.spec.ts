@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng-mocks';
 
 import { HelpContentComponent } from './help-content.component';
-// import { resetTydux } from '@w11k/tydux/dist/global-state';
 
 
 describe('HelpContentComponent', () => {
@@ -12,8 +11,6 @@ describe('HelpContentComponent', () => {
   let fixture: ComponentFixture<HelpContentComponent>;
 
   beforeEach(async(() => {
-    // resetTydux();
-
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
