@@ -25,6 +25,7 @@
   "dependencies": {
     "@angular/cdk": "^9.0.0",
     "@angular/material": "^9.0.0",
+    "@w11k/rx-ninja": "^4.1.0",
     "@w11k/tydux": "^13.5.6",
     "@w11k/tydux-angular": "^13.5.6",
     "redux": "^4.0.5",
@@ -36,6 +37,7 @@
     "@angular/core": "^9.0.0",
     "@angular/platform-browser": "^9.0.0",
     "@angular/router": "^9.0.0",
+    "core-js": "^3.6.5",
     "rxjs": "^6.5.0"
   }
 }

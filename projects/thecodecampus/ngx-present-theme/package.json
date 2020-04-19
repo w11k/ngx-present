@@ -22,12 +22,11 @@
     "@thecodecampus/angular-material-theme": "^2.2.0",
     "ngx-animate": "^1.0.1",
     "ngx-markdown": "^9.0.0",
-    "lodash-es": "^4.17.15",
     "prismjs": "^1.20.0",
-    "prism-themes": "^1.4.0",
-    "web-animations-js": "^2.3.2"
+    "prism-themes": "^1.4.0"
   },
   "peerDependencies": {
+    "@angular/animations": "^9.0.0",
     "@angular/common": "^9.0.0",
     "@angular/core": "^9.0.0",
     "@angular/material": "^9.0.0",

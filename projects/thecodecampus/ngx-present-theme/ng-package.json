@@ -9,9 +9,7 @@
     "@thecodecampus/angular-material-theme",
     "ngx-animate",
     "ngx-markdown",
-    "lodash-es",
     "prismjs",
-    "prism-themes",
-    "web-animations-js"
+    "prism-themes"
   ]
 }
