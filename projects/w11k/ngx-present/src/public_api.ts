@@ -6,7 +6,7 @@
  */
 
 export * from './lib/ngx-present.module';
-export * from './lib/ngx-present.routes';
+export * from './lib/ngx-present-root.module';
 export * from './lib/core/event.service';
 export * from './lib/core/page-title.directive';
 export * from './lib/core/presentation.service';
