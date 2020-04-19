@@ -1,13 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ExportRouteComponent } from './export-route.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MockComponent } from 'ng-mocks';
 import { PresentationService } from '../core/presentation.service';
 import { PresentationServiceMock } from '../core/presentation.service.mock';
-import { MatIcon, MatToolbar } from '@angular/material';
-import { MockComponent } from 'ng-mocks';
-import { SlideComponent } from '../slide/slide.component';
 import { PresentationState } from '../core/presentation.types';
+import { SlideComponent } from '../slide/slide.component';
 import { MenuToggleIconComponent } from '../theming/menu-toggle-icon.component';
+
+import { ExportRouteComponent } from './export-route.component';
 
 describe('ExportRouteComponent', () => {
   let component: ExportRouteComponent;

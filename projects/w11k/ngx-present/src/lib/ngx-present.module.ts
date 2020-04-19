@@ -1,24 +1,32 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { NGX_PRESENT_CONFIG, SLIDES } from './core/presentation.service';
+import { TyduxModule } from '@w11k/tydux-angular';
 import { KEYBOARD_EVENT_PROCESSOR_TOKEN, ToggleSideNav } from './core/event.service';
-import { OverviewRouteComponent } from './overview/overview-route.component';
-import { ExportRouteComponent } from './export/export-route.component';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatDialogModule,
-  MatIconModule,
-  MatListModule,
-  MatSidenavModule,
-  MatSlideToggleModule,
-  MatToolbarModule
-} from '@angular/material';
-import { ContainerComponent } from './presentation/container.component';
-import { HelpContentComponent } from './help/help-content.component';
 import { PageTitleDirective } from './core/page-title.directive';
+import { NGX_PRESENT_CONFIG, SLIDES } from './core/presentation.service';
 import { NgxPresentConfig, SlideComponents } from './core/presentation.types';
+import { SlideLinkDirective } from './core/slide-link.directive';
+import { TrimPipe } from './core/trim.pipe';
+import { DynamicComponent } from './dynamic/dynamic.component';
+import { ExportRouteComponent } from './export/export-route.component';
+import { HelpContentComponent } from './help/help-content.component';
+import { HelpDialogComponent } from './help/help-dialog.component';
+import { HelpRouteComponent } from './help/help-route.component';
+import { ngxPresentRoutes } from './ngx-present.routes';
+import { OverviewRouteComponent } from './overview/overview-route.component';
+import { ContainerComponent } from './presentation/container.component';
+import { SideBarContentComponent } from './presentation/side-bar-content.component';
+import { PresenterRouteComponent } from './presenter/presenter-route.component';
+import { PresenterViewComponent } from './presenter/presenter-view.component';
 import { SlideBySlideRouteComponent } from './slide-by-slide/slide-by-slide-route.component';
 import {
   NavigateSectionBackward,
@@ -29,28 +37,19 @@ import {
   NavigateToOverview,
   TogglePresenter,
 } from './slide-by-slide/slide-by-slide.service';
-import { DynamicComponent } from './dynamic/dynamic.component';
 import { SlideComponent } from './slide/slide.component';
-import { HelpRouteComponent } from './help/help-route.component';
-import { SideBarContentComponent } from './presentation/side-bar-content.component';
-import { HelpDialogComponent } from './help/help-dialog.component';
-import { SlideLinkDirective } from './core/slide-link.directive';
-import { TrimPipe } from './core/trim.pipe';
+import { SpeakerNotesDirective } from './speaker-notes/speaker-notes.directive';
+import { HelpDialogIconComponent } from './theming/help-dialog-icon.component';
 import { MenuToggleIconComponent } from './theming/menu-toggle-icon.component';
 import { SlideIndexComponent } from './theming/slide-index.component';
-import { HelpDialogIconComponent } from './theming/help-dialog-icon.component';
-import { PresenterRouteComponent } from './presenter/presenter-route.component';
-import { PresenterViewComponent } from './presenter/presenter-view.component';
-import { TableOfContentComponent } from './theming/table-of-content.component';
-import { SpeakerNotesDirective } from './speaker-notes/speaker-notes.directive';
 import { TableOfContentViewComponent } from './theming/table-of-content-view.component';
-import { TyduxModule } from '@w11k/tydux-angular';
+import { TableOfContentComponent } from './theming/table-of-content.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    TyduxModule.forRootWithoutConfig(),
-    RouterModule,
+    TyduxModule,
+    RouterModule.forChild(ngxPresentRoutes),
     MatCardModule,
     MatToolbarModule,
     MatSidenavModule,
@@ -58,7 +57,7 @@ import { TyduxModule } from '@w11k/tydux-angular';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
   ],
   declarations: [
     SlideBySlideRouteComponent,

@@ -7,10 +7,12 @@
     </ng-container>
 
     <ng-container *ngIf="isNested(x)">
-      <a routerLink [ngxPresentSlideLink]="x[0].component">
-        {{x[0].name}}
-      </a>
-      <ng-container *ngIf="x.length > 1">
+      <ng-container *ngIf="first(x) as y">
+        <a routerLink [ngxPresentSlideLink]="y.component">
+          {{y.name}}
+        </a>
+      </ng-container>
+      <ng-container *ngIf="(x.length > 1)">
         <ngx-present-table-of-content-view [entries]="x.slice(1)">
         </ngx-present-table-of-content-view>
       </ng-container>

@@ -1,23 +1,22 @@
-import { Coordinates, Slide, Slides } from '../core/presentation.types';
+import { Injectable, Injector, OnDestroy } from '@angular/core';
+import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { skipNil, skipPropertyNil } from '@w11k/rx-ninja';
 import { Commands, Facade, TyduxStore } from '@w11k/tydux';
-import { filter, map, take, withLatestFrom } from 'rxjs/operators';
+import { combineLatest, Observable, Subject } from 'rxjs';
+import { filter, map, take, takeUntil, withLatestFrom } from 'rxjs/operators';
+import { isNotEditable, KeyboardEventProcessor, nonNavigationEvent } from '../core/event.service';
+import { PresentationService } from '../core/presentation.service';
+import { Coordinates, Slide, Slides } from '../core/presentation.types';
+import { flattenDeep, maxDepth } from '../core/utils';
+import { tableOfContentSlides } from '../theming/table-of-content';
 import {
   calculateCoordinates,
   compareCoordinates,
   coordinateToSlideMap,
   equalCoordinates,
   isValidCoordinate,
-  routeParamsToCoordinate
+  routeParamsToCoordinate,
 } from './slide-by-slide.functions';
-import { combineLatest, Observable } from 'rxjs';
-import { Injectable, Injector, OnDestroy } from '@angular/core';
-import { isNotEditable, KeyboardEventProcessor, nonNavigationEvent } from '../core/event.service';
-import { PresentationService } from '../core/presentation.service';
-import { flattenDeep, maxDepth } from '../core/utils';
-import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { notNil, skipPropertyNil } from '@w11k/rx-ninja';
-import { tableOfContentSlides } from '../theming/table-of-content';
 
 export type Mode = 'slide' | 'presenter';
 
@@ -62,10 +61,10 @@ export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideM
               tydux: TyduxStore,
               private readonly presentation: PresentationService,
               private readonly router: Router) {
-    super(tydux, 'SlideBySlide', new SlideBySlideMutator(), new SlideBySlideState());
+    super('SlideBySlide', new SlideBySlideState(), new SlideBySlideMutator());
 
     this.presentation.select(state => state.slides)
-      .pipe(untilComponentDestroyed(this))
+      .pipe(takeUntil(this.onDestroy$))
       .subscribe(slides => this.commands.setSlides(slides));
   }
 
@@ -104,12 +103,12 @@ export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideM
   nextToc(direction: 'forward' | 'backward'): Observable<Slide | undefined> {
     const currentSlide$ = this.select(state => state.currentSlide)
       .pipe(
-        filter(notNil),
+        skipNil(),
       );
 
     const tocSlides$ = this.select(state => state.slides)
       .pipe(
-        filter(notNil),
+        skipNil(),
         filter(x => x.length !== 0),
         map(tableOfContentSlides),
       );
@@ -133,18 +132,18 @@ export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideM
   navigateRelative(move: number, coordinatesToKeep: number | undefined): Observable<Slide | undefined> {
     const currentSlide$ = this.select(state => state.currentSlide)
       .pipe(
-        filter(notNil)
+        skipNil()
       );
 
     const slides$ = this.select(state => state.slides)
       .pipe(
-        filter(notNil),
+        skipNil(),
         filter(x => x.length !== 0),
       );
 
     const depth$ = this.select(state => state.coordinatesMaxDepth)
       .pipe(
-        filter(notNil)
+        skipNil()
       );
 
     return combineLatest(slides$, currentSlide$, depth$)
@@ -185,7 +184,7 @@ export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideM
     this.firstSlide()
       .pipe(
         take(1),
-        untilComponentDestroyed(this),
+        takeUntil(this.onDestroy$),
       )
       .subscribe(slide => this.navigateAbsolute(slide, prefix));
   }
@@ -193,7 +192,7 @@ export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideM
   firstSlide(): Observable<Slide> {
     return this.select(state => state.slides)
       .pipe(
-        filter(notNil),
+        skipNil(),
         filter(slides => slides.length > 0),
         map(slides => slides[0])
       );
@@ -201,8 +200,8 @@ export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideM
 
   isValidCoordinate(coordinates: Coordinates): Observable<boolean> {
     return this.presentation.select(state => state.slides)
-      .pipe(filter(notNil))
       .pipe(
+        skipNil(),
         filter(slides => slides.length > 0),
         map(slides => isValidCoordinate(slides, coordinates))
       );
@@ -221,7 +220,11 @@ export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideM
     this.commands.setCurrentMode(mode);
   }
 
-  ngOnDestroy(): void {}
+  private readonly onDestroy$ = new Subject<void>();
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+  }
 }
 
 @Injectable()

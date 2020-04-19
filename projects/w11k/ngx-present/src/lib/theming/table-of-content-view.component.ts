@@ -17,7 +17,16 @@ export class TableOfContentViewComponent {
     return !Array.isArray(x) && x !== undefined;
   }
 
-  isNested(x: RecursiveArray<UIEntry> | UIEntry | undefined): x is UIEntry {
+  isNested(x: RecursiveArray<UIEntry> | UIEntry | undefined): x is ListOfRecursiveArraysOrValues<UIEntry> {
     return Array.isArray(x) && x !== undefined;
+  }
+
+  first(x: RecursiveArray<UIEntry> | undefined): UIEntry | undefined {
+    if (x !== undefined && !Array.isArray(x[0])) {
+      return x[0];
+    }
+    else {
+      return undefined;
+    }
   }
 }

@@ -1,14 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SideBarContentComponent } from './side-bar-content.component';
-import { MockComponent } from 'ng-mocks';
-import { MatDivider, MatListItem, MatNavList, MatSlideToggle } from '@angular/material';
-import { TableOfContentComponent } from '../theming/table-of-content.component';
+import { MatDivider } from '@angular/material/divider';
+import { MatListItem, MatNavList } from '@angular/material/list';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockComponent } from 'ng-mocks';
 // import { resetTydux } from '@w11k/tydux/dist/global-state';
 import { PresentationService } from '../core/presentation.service';
 import { PresentationServiceMock } from '../core/presentation.service.mock';
 import { PresentationState } from '../core/presentation.types';
+import { TableOfContentComponent } from '../theming/table-of-content.component';
+
+import { SideBarContentComponent } from './side-bar-content.component';
 
 describe('SideBarContentComponent', () => {
   let component: SideBarContentComponent;

@@ -1,8 +1,8 @@
 import { Injectable, InjectionToken, Injector } from '@angular/core';
-import { PresentationService } from './presentation.service';
 import { Observable, Subject } from 'rxjs';
 
 import { filter } from 'rxjs/operators';
+import { PresentationService } from './presentation.service';
 
 
 export function nonNavigationEvent (event: KeyboardEvent): boolean {
@@ -10,7 +10,7 @@ export function nonNavigationEvent (event: KeyboardEvent): boolean {
 }
 
 export function isNotEditable(event: KeyboardEvent): boolean {
-  const srcElement: Element | null = event.srcElement;
+  const srcElement = event.srcElement;
 
   if (srcElement instanceof HTMLElement) {
     const tagName = srcElement.tagName;

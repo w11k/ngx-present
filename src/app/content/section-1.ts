@@ -9,7 +9,7 @@ import { TableOfContentEntry } from '@w11k/ngx-present';
     <tcc-master-section-title>
       Inline Content
     </tcc-master-section-title>
-      
+
     <tcc-speaker-notes *ngxPresentSpeakerNotes>
       <pre markdown>
         * Note 1
@@ -37,7 +37,7 @@ export class InlineContentTitleComponent {}
           </ul>
         </li>
       </ul>
-      
+
       <ul>
         <li>First</li>
         <li>Second</li>
@@ -75,23 +75,6 @@ export class InlineHtmlComponent {}
 })
 export class InlineMarkdownComponent {}
 
-@Component({
-  template: `
-    <tcc-master-regular headline="Inline Code Snippet">
-      <tcc-code language="typescript" ngPreserveWhitespaces>const foo = 'bar';
-
-// limitations:
-// 1) angular template compiler has a problem with single curly brackets
-//    therefore we can not define complex code snippets inline
-// 2) if we want to highlight html we have to escape html-special-characters
-//
-// therefor most of the time it is easier to define the code in a property 
-// of the component class and use data-binding</tcc-code>
-    </tcc-master-regular>
-  `
-})
-export class InlineCodeSnippetComponent {}
-
 @TableOfContentEntry({
   linkName: 'Sub Section'
 })
@@ -108,6 +91,5 @@ export const section1 = [
   InlineContentTitleComponent,
   InlineHtmlComponent,
   InlineMarkdownComponent,
-  InlineCodeSnippetComponent,
   [SubSectionTitleComponent],
 ];

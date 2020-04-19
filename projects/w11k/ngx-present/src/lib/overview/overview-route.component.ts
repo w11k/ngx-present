@@ -1,19 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-
-import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
-import { switchMap } from 'rxjs/operators';
-import { Slide } from '../core/presentation.types';
-import { OverviewService, OverviewState } from './overview.service';
-import { PresentationService } from '../core/presentation.service';
-import { flattenDelayedWithAnimationFrame } from '../core/utils';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { switchMap } from 'rxjs/operators';
+import { PresentationService } from '../core/presentation.service';
+import { Slide } from '../core/presentation.types';
+import { flattenDelayedWithAnimationFrame } from '../core/utils';
+import { OverviewService, OverviewState } from './overview.service';
 
 @Component({
   selector: 'ngx-present-overview-route',
   templateUrl: './overview-route.component.html',
   styleUrls: ['./overview-route.component.scss']
 })
-export class OverviewRouteComponent implements OnInit, OnDestroy {
+export class OverviewRouteComponent extends OnDestroyMixin implements OnInit {
   public slides: Slide[] | undefined;
   public zoomFactor: number;
   public view: OverviewState | undefined;
@@ -21,7 +21,7 @@ export class OverviewRouteComponent implements OnInit, OnDestroy {
   constructor(private readonly service: OverviewService,
               private readonly router: Router,
               private readonly presentation: PresentationService) {
-
+    super();
     this.zoomFactor = service.state.defaultZoom;
   }
 
@@ -87,7 +87,4 @@ export class OverviewRouteComponent implements OnInit, OnDestroy {
 
     return true;
   }
-
-  ngOnDestroy() {}
-
 }

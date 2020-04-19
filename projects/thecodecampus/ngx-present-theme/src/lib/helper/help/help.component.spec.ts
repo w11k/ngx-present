@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatIcon } from '@angular/material/icon';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedSlide } from '@w11k/ngx-present';
+import { MockComponent } from 'ng-mocks';
+import { of } from 'rxjs';
 
 import { TccHelpComponent } from './help.component';
-import { MockComponent } from 'ng-mocks';
-import { MatIcon } from '@angular/material';
 import { HelpService } from './help.service';
 import { HelpServiceMock } from './help.service-mock';
-import { ActivatedSlide } from '@w11k/ngx-present';
-import { of } from 'rxjs';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TccHelpComponent', () => {
   let component: TccHelpComponent;

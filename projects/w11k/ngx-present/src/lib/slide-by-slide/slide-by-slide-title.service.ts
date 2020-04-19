@@ -1,20 +1,22 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { PresentationService } from '../core/presentation.service';
-import { SlideBySlideService } from './slide-by-slide.service';
+import { Injectable } from '@angular/core';
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { skipNil } from '@w11k/rx-ninja';
 import { combineLatest } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
-import { coordinatesToString } from './slide-by-slide.functions';
-import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { PresentationService } from '../core/presentation.service';
 import { AdvancedTitleService } from '../core/title.service';
-import { skipNil } from '@w11k/rx-ninja';
+import { coordinatesToString } from './slide-by-slide.functions';
+import { SlideBySlideService } from './slide-by-slide.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SlideBySlideTitleService implements OnDestroy {
+export class SlideBySlideTitleService extends OnDestroyMixin {
   constructor(private readonly title: AdvancedTitleService,
               private readonly presentation: PresentationService,
-              private readonly slideBySlide: SlideBySlideService) {}
+              private readonly slideBySlide: SlideBySlideService) {
+    super();
+  }
 
   setupTitleSync(prefix: string) {
     const config$ = this.presentation.select(state => state.config)
@@ -24,7 +26,7 @@ export class SlideBySlideTitleService implements OnDestroy {
 
     const slide$ = this.slideBySlide.select(state => state.currentSlide)
       .pipe(
-        skipNil,
+        skipNil(),
         untilComponentDestroyed(this)
       );
 
@@ -36,8 +38,4 @@ export class SlideBySlideTitleService implements OnDestroy {
       )
       .subscribe(title => this.title.prefixTitle(title));
   }
-
-  ngOnDestroy(): void {
-  }
-
 }

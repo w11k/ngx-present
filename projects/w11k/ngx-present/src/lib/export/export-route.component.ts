@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Slide } from '../core/presentation.types';
+import { Component, OnInit } from '@angular/core';
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { map } from 'rxjs/operators';
 import { PresentationService } from '../core/presentation.service';
-import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { Slide } from '../core/presentation.types';
 import { flattenDeep } from '../core/utils';
 
 @Component({
@@ -10,11 +10,13 @@ import { flattenDeep } from '../core/utils';
   templateUrl: './export-route.component.html',
   styleUrls: ['./export-route.component.scss']
 })
-export class ExportRouteComponent implements OnInit, OnDestroy {
+export class ExportRouteComponent extends OnDestroyMixin implements OnInit {
 
   public slides: Slide[] | undefined;
 
-  constructor(private readonly presentation: PresentationService) { }
+  constructor(private readonly presentation: PresentationService) {
+    super();
+  }
 
   ngOnInit() {
     this.presentation
@@ -25,6 +27,4 @@ export class ExportRouteComponent implements OnInit, OnDestroy {
       )
       .subscribe(slides => this.slides = slides);
   }
-
-  ngOnDestroy() {}
 }

@@ -2,7 +2,5 @@
      [class.prism-theme-dark]="prismTheme === 'dark'"
      [class.prism-theme-light]="prismTheme === 'light'">
   <p *ngIf="headline">{{headline}}</p>
-  <ngx-prism [language]="language" [code]="code | trim">
-    <ng-content></ng-content>
-  </ngx-prism>
+  <tcc-prism [language]="language" [code]="code | trim"></tcc-prism>
 </div>

@@ -1,14 +1,14 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { BehaviorSubject, combineLatest } from 'rxjs';
-import { UIEntry } from './table-of-content-view.component';
-import { PresentationService } from '../core/presentation.service';
 
 import { map } from 'rxjs/operators';
+import { PresentationService } from '../core/presentation.service';
+import { NgxPresentConfig, Slide } from '../core/presentation.types';
 import { filterDeep, limitDepth, mapDeep } from '../core/utils';
 import { coordinatesToString } from '../slide-by-slide/slide-by-slide.functions';
 import { DecoratorMetadata, tableOfContentMetadata } from './table-of-content';
-import { NgxPresentConfig, Slide } from '../core/presentation.types';
-import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { UIEntry } from './table-of-content-view.component';
 
 @Component({
   selector: 'ngx-present-table-of-content',
@@ -16,7 +16,7 @@ import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
     <ngx-present-table-of-content-view [entries]="entries"></ngx-present-table-of-content-view>
   `
 })
-export class TableOfContentComponent implements OnDestroy {
+export class TableOfContentComponent extends OnDestroyMixin {
 
   private readonly showCoordinates$ = new BehaviorSubject<boolean | undefined>(undefined);
 
@@ -35,6 +35,7 @@ export class TableOfContentComponent implements OnDestroy {
   private readonly depth$ = new BehaviorSubject<number | undefined>(undefined);
 
   constructor(private readonly service: PresentationService) {
+    super();
 
     const presentation$ = this.service.select(x => x)
       .pipe(
@@ -63,8 +64,6 @@ export class TableOfContentComponent implements OnDestroy {
   }
 
   public entries: ListOfRecursiveArraysOrValues<UIEntry | undefined> | undefined;
-
-  ngOnDestroy(): void {}
 }
 
 function slideToUiEntryMapper(config: NgxPresentConfig,

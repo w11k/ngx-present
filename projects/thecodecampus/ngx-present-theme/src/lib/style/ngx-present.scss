@@ -1,19 +1,18 @@
-$material-design-icons-font-path: '~material-design-icons-iconfont/dist/fonts/';
-@import '~material-design-icons-iconfont/src/material-design-icons';
-
 @import '~@thecodecampus/angular-material-theme/src/styling/theme';
 @import "variables";
 
+// we had to move these prism-theme classes out of the mixin to compile with new sass
+// shouldn't make a big difference in usage
+.prism-theme-dark {
+  @import '~prismjs/themes/prism-tomorrow';
+}
+
+.prism-theme-light {
+  @import '~prism-themes/themes/prism-vs';
+}
+
 @mixin ngx-present-tcc-theme {
   @include tcc-angular-material-theme();
-
-  .prism-theme-dark {
-    @import '~prismjs/themes/prism-tomorrow';
-  }
-
-  .prism-theme-light {
-    @import '~prism-themes/themes/prism-vs';
-  }
 
   :root {
     --tcc_orange: #{$tcc-color-orange};

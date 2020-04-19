@@ -1,20 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PresentationService } from '../core/presentation.service';
-import { filter, map, switchMap } from 'rxjs/operators';
-import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { skipNil } from '@w11k/rx-ninja';
 import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { PresentationService } from '../core/presentation.service';
 import { Slide } from '../core/presentation.types';
 import { SlideAndModeResolver } from '../core/slide-and-mode-resolver.service';
-import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { SlideBySlideTitleService } from '../slide-by-slide/slide-by-slide-title.service';
-import { notNil } from '@w11k/rx-ninja';
+import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
 
 @Component({
   selector: 'ngx-present-presenter-route',
   templateUrl: './presenter-route.component.html'
 })
-export class PresenterRouteComponent implements OnInit, OnDestroy {
+export class PresenterRouteComponent extends OnDestroyMixin implements OnInit {
   public currentSlide$: Observable<Slide>;
   public preview1$: Observable<Slide | undefined>;
   public preview2$: Observable<Slide | undefined>;
@@ -24,10 +24,11 @@ export class PresenterRouteComponent implements OnInit, OnDestroy {
               private readonly presentation: PresentationService,
               private readonly slides: SlideBySlideService,
               private readonly title: SlideBySlideTitleService) {
+    super();
 
     this.currentSlide$ = this.slides.select((state => state.currentSlide))
       .pipe(
-        filter(notNil),
+        skipNil(),
         untilComponentDestroyed(this)
       );
 
@@ -63,6 +64,4 @@ export class PresenterRouteComponent implements OnInit, OnDestroy {
         }
       });
   }
-
-  ngOnDestroy(): void {}
 }

@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { HelpContentComponent } from './help-content.component';
+import { MatIcon } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng-mocks';
-import { MatIcon } from '@angular/material';
+
+import { HelpContentComponent } from './help-content.component';
 // import { resetTydux } from '@w11k/tydux/dist/global-state';
 
 

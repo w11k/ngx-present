@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ContainerComponent } from './container.component';
+import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MockComponent } from 'ng-mocks';
+import { EventService } from '../core/event.service';
+import { EventServiceMock } from '../core/event.service.mock';
 import { PresentationService } from '../core/presentation.service';
 import { PresentationServiceMock } from '../core/presentation.service.mock';
-import { EventService } from '../core/event.service';
-import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material';
-import { EventServiceMock } from '../core/event.service.mock';
-import { MockComponent } from 'ng-mocks';
-import { SideBarContentComponent } from './side-bar-content.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { PresentationState } from '../core/presentation.types';
+
+import { ContainerComponent } from './container.component';
+import { SideBarContentComponent } from './side-bar-content.component';
 
 describe('ContainerComponent', () => {
   let component: ContainerComponent;

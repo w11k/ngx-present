@@ -1,13 +1,7 @@
 import { Injectable, InjectionToken, Injector } from '@angular/core';
 import { Facade, TyduxStore } from '@w11k/tydux';
 import { componentsToSlideTree } from './presentation.functions';
-import {
-  NgxPresentConfig,
-  PresentationCommands,
-  PresentationState,
-  SlideComponents,
-  Slides,
-} from './presentation.types';
+import { NgxPresentConfig, PresentationCommands, PresentationState, SlideComponents, Slides } from './presentation.types';
 
 
 // causing a strange compiler error: generates invalid d.ts file
@@ -27,7 +21,7 @@ export class PresentationService extends Facade<PresentationState, PresentationC
 
 
   constructor(tydux: TyduxStore, injector: Injector) {
-    super(tydux, 'Presentation', new PresentationCommands(), new PresentationState());
+    super('Presentation', new PresentationState(), new PresentationCommands());
 
     const slideComponents: SlideComponents = injector.get(SLIDES);
     const config: RecursivePartial<NgxPresentConfig> = injector.get(NGX_PRESENT_CONFIG);

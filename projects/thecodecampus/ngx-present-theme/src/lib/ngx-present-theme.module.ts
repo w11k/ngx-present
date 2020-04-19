@@ -1,28 +1,32 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TccMasterRegularComponent } from './master/regular/tcc-master-regular.component';
-import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
-import { TccMasterTitleComponent } from './master/title/tcc-master-title.component';
-import { TccMasterSectionTitleComponent } from './master/section-title/tcc-master-section-title.component';
+import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PrismModule } from '@ngx-prism/core';
-import { MarkdownModule, MarkedOptions, MarkedRenderer } from 'ngx-markdown';
 import { NgxPresentModule } from '@w11k/ngx-present';
-import { TccCodeComponent } from './helper/code/code.component';
-import { TccSpeakerNotesComponent } from './helper/speaker-notes/speaker-notes.component';
-import { TccHelpComponent } from './helper/help/help.component';
+import * as marked from 'marked';
+import { MarkdownModule, MarkedOptions, MarkedRenderer } from 'ngx-markdown';
 
 import * as Prism from 'prismjs';
-import * as marked from 'marked';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-typescript';
-import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-kotlin';
+import 'prismjs/components/prism-scss';
+import 'prismjs/components/prism-typescript';
+import { TccCodeComponent } from './helper/code/code.component';
+import { TccHelpComponent } from './helper/help/help.component';
+import { TccPrismThemeDirective } from './helper/prism-theme.directive';
+import { TccPrismComponent } from './helper/prism/prism.component';
+import { TccSpeakerNotesComponent } from './helper/speaker-notes/speaker-notes.component';
+import { TccMasterRegularComponent } from './master/regular/tcc-master-regular.component';
+import { TccMasterSectionTitleComponent } from './master/section-title/tcc-master-section-title.component';
+import { TccMasterTitleComponent } from './master/title/tcc-master-title.component';
 
 // expose Prism as global variable for ngx-markdown
+// using imports here instead of scripts in angular.json to be tree-shakable
 (window as any).Prism = Prism;
 (window as any).marked = marked;
 
@@ -45,7 +49,6 @@ export function markedOptionsFactory(): MarkedOptions {
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    PrismModule,
     NgxPresentModule,
     MarkdownModule.forRoot({
       markedOptions: {
@@ -58,18 +61,20 @@ export function markedOptionsFactory(): MarkedOptions {
     TccMasterRegularComponent,
     TccMasterTitleComponent,
     TccMasterSectionTitleComponent,
+    TccPrismComponent,
     TccCodeComponent,
     TccSpeakerNotesComponent,
     TccHelpComponent,
+    TccPrismThemeDirective,
   ],
   exports: [
     MarkdownModule,
-    PrismModule,
 
     TccMasterRegularComponent,
     TccMasterTitleComponent,
     TccMasterSectionTitleComponent,
     TccCodeComponent,
+    TccPrismThemeDirective,
     TccSpeakerNotesComponent,
     TccHelpComponent,
   ]

@@ -1,8 +1,8 @@
-import { Commands, Facade, TyduxStore } from '@w11k/tydux';
 import { Injectable } from '@angular/core';
 import { Coordinates } from '@w11k/ngx-present';
-import { map } from 'rxjs/operators';
+import { Commands, Facade, TyduxStore } from '@w11k/tydux';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export class HelpState {
   [key: string]: {
@@ -10,7 +10,7 @@ export class HelpState {
   }
 }
 
-export class HelpMutator extends Commands<HelpState> {
+export class HelpCommands extends Commands<HelpState> {
   setOpen(id: string, open: boolean) {
     this.state = {
       ...this.state,
@@ -25,13 +25,13 @@ export class HelpMutator extends Commands<HelpState> {
 @Injectable({
   providedIn: 'root'
 })
-export class HelpService extends Facade<HelpState, HelpMutator> {
+export class HelpService extends Facade<HelpState, HelpCommands> {
 
   private registry = new Map<string, number>();
   private readonly separator = '.';
 
   constructor(tydux: TyduxStore) {
-    super(tydux, 'MoreDetails', new HelpMutator(), new HelpState());
+    super('MoreDetails', new HelpState(), new HelpCommands());
   }
 
   register(slideCoordinates: Coordinates): Coordinates {

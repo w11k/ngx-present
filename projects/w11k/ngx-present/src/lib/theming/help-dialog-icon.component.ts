@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { HelpDialogComponent } from '../help/help-dialog.component';
-import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'ngx-present-help-dialog-icon',

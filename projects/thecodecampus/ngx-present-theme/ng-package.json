@@ -6,7 +6,6 @@
     "entryFile": "src/public_api.ts"
   },
   "whitelistedNonPeerDependencies": [
-    "@ngx-prism/core",
     "@thecodecampus/angular-material-theme",
     "ngx-animate",
     "ngx-markdown",

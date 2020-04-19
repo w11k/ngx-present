@@ -1,12 +1,12 @@
-import { Directive, ElementRef, Input, OnDestroy, Optional, Type } from '@angular/core';
-import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { Directive, ElementRef, Input, Optional, Type } from '@angular/core';
 import { Router, RouterLinkWithHref } from '@angular/router';
-import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { skipNil } from '@w11k/rx-ninja';
+import { fromEvent, ReplaySubject } from 'rxjs';
 
 import { filter, map, take, withLatestFrom } from 'rxjs/operators';
-import { fromEvent, ReplaySubject } from 'rxjs';
+import { SlideBySlideService } from '../slide-by-slide/slide-by-slide.service';
 import { Slide } from './presentation.types';
-import { notNil } from '@w11k/rx-ninja';
 
 function isMouseEvent(event: any): event is MouseEvent {
   return event instanceof MouseEvent;
@@ -19,7 +19,7 @@ function isMouseEvent(event: any): event is MouseEvent {
 @Directive({
   selector: '[ngxPresentSlideLink]'
 })
-export class SlideLinkDirective implements OnDestroy {
+export class SlideLinkDirective extends OnDestroyMixin {
 
   private readonly slide$ = new ReplaySubject<Slide>(1);
 
@@ -27,6 +27,7 @@ export class SlideLinkDirective implements OnDestroy {
               private readonly router: Router,
               private readonly element: ElementRef,
               @Optional() private readonly routerLinkDirective: RouterLinkWithHref) {
+    super();
 
     if (routerLinkDirective) {
       this.slide$
@@ -69,7 +70,7 @@ export class SlideLinkDirective implements OnDestroy {
   public set ngxPresentSlideLink(component: Type<any>) {
     this.service.select((state => state.slides))
       .pipe(
-        filter(notNil),
+        skipNil(),
         untilComponentDestroyed(this))
       .pipe(
         map(slides => slides.find(slide => slide.component === component)),
@@ -78,6 +79,4 @@ export class SlideLinkDirective implements OnDestroy {
       )
       .subscribe(slide => this.slide$.next(slide));
   }
-
-  ngOnDestroy(): void {}
 }

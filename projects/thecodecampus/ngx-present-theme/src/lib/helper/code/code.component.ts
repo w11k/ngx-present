@@ -1,6 +1,6 @@
-import { Component, Input, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 import { PresentationService } from '@w11k/ngx-present';
-import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
 
 @Component({
   selector: 'tcc-code',
@@ -8,7 +8,7 @@ import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
   styleUrls: ['./code.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class TccCodeComponent implements OnDestroy {
+export class TccCodeComponent extends OnDestroyMixin {
   @Input()
   public language: string | undefined;
 
@@ -21,12 +21,13 @@ export class TccCodeComponent implements OnDestroy {
   public prismTheme: string | undefined;
 
   constructor(private readonly presentation: PresentationService) {
+    super();
+
     this.presentation
       .select(state => state.config.code.theme)
       .pipe(
-        untilComponentDestroyed(this),)
+        untilComponentDestroyed(this),
+      )
       .subscribe(theme => this.prismTheme = theme);
   }
-
-  ngOnDestroy() {}
 }

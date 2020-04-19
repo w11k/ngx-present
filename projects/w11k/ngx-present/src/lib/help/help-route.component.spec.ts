@@ -1,14 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { HelpRouteComponent } from './help-route.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatToolbar } from '@angular/material/toolbar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng-mocks';
-import { MatIcon, MatToolbar } from '@angular/material';
-import { HelpContentComponent } from './help-content.component';
-import { MenuToggleIconComponent } from '../theming/menu-toggle-icon.component';
 import { PresentationService } from '../core/presentation.service';
 import { PresentationServiceMock } from '../core/presentation.service.mock';
 import { PresentationState } from '../core/presentation.types';
+import { MenuToggleIconComponent } from '../theming/menu-toggle-icon.component';
+import { HelpContentComponent } from './help-content.component';
+
+import { HelpRouteComponent } from './help-route.component';
 // import { resetTydux } from '@w11k/tydux/dist/global-state';
 
 describe('HelpRouteComponent', () => {

@@ -1,10 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
-
-import { untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
-import { ActivatedSlide, Coordinates } from '@w11k/ngx-present';
-import { map, shareReplay, switchMap, take } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Component } from '@angular/core';
+
+import { OnDestroyMixin, untilComponentDestroyed } from '@w11k/ngx-componentdestroyed';
+import { ActivatedSlide, Coordinates } from '@w11k/ngx-present';
+import { Observable } from 'rxjs';
+import { map, shareReplay, switchMap, take } from 'rxjs/operators';
 import { HelpService } from './help.service';
 
 @Component({
@@ -25,7 +25,7 @@ import { HelpService } from './help.service';
     ]),
   ],
 })
-export class TccHelpComponent implements OnDestroy {
+export class TccHelpComponent extends OnDestroyMixin {
 
   isOpen = false;
 
@@ -33,6 +33,8 @@ export class TccHelpComponent implements OnDestroy {
 
   constructor(private readonly service: HelpService,
               private readonly activatedSlide: ActivatedSlide) {
+    super();
+
     this.id$ = this.activatedSlide.slide
       .pipe(
         map(x => this.service.register(x.coordinates)),
@@ -62,6 +64,7 @@ export class TccHelpComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    super.ngOnDestroy();
     this.id$
       .pipe(take(1))
       .subscribe(id => this.service.deregister(id));
