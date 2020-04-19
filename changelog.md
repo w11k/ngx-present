@@ -1,5 +1,46 @@
 # ngx-present Changelog
 
+## 2.0.0
+
+### Features & Improvements
+
+* update to Angular 9
+* tested only with Angular 9 and Ivy
+* make integration easier (see breaking change)
+
+### Breaking Changes
+
+#### Initialization Moved to Separate Angular Module ```NgxPresentRootModule```
+
+* Why 
+  * reduce boilerplate in ```AppModule```
+  * make updates of nested dependencies easier
+* How
+  * In your ```AppModule``` replace module imports like
+    ```
+    NgxPresentModule.withSlides(slides, config),
+    TccNgxPresentThemeModule,
+    TyduxModule.forRootWithConfig(configFactory),
+    RouterModule.forRoot(routes, { useHash: true }),
+    ``` 
+    with
+    ```
+    NgxPresentRootModule.forRoot(slides, config),
+    TccNgxPresentThemeModule,
+    ```
+    So no need to import and configure ```RouterModule``` and ```TyduxModule``` anymore.
+  * Remove tydux configFactory in ```AppModule```
+
+If you want to have more control over the routing and tydux,
+feel free to replace ```NgxPresentRootModule``` with your own implementation.
+It is just a container module to collect config and configure dependencies.
+Take a look at the code.
+
+#### Other Breaking Changes
+
+* ```CodeComponent``` does not allow to pass the code as content anymore. Please use the input.
+
+
 ## 1.0.4
 
 * no changes compared to 1.0.3, just to be able to publish complete version (1.0.3 is missing some files)  
