@@ -7,7 +7,6 @@
   },
   "whitelistedNonPeerDependencies": [
     "@thecodecampus/angular-material-theme",
-    "ngx-animate",
     "ngx-markdown",
     "prismjs",
     "prism-themes"

@@ -20,7 +20,6 @@
   },
   "dependencies": {
     "@thecodecampus/angular-material-theme": "^2.2.0",
-    "ngx-animate": "^1.0.1",
     "ngx-markdown": "^9.0.0",
     "prismjs": "^1.20.0",
     "prism-themes": "^1.4.0"

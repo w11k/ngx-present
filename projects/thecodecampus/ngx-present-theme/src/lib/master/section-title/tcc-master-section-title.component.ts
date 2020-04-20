@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { bounceIn } from 'ngx-animate/lib';
 import { transition, trigger, useAnimation } from '@angular/animations';
+import { Component, Input } from '@angular/core';
+import { bounceIn } from '../../helper/animations';
 
 @Component({
   selector: 'tcc-master-section-title',
