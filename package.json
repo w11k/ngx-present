@@ -30,7 +30,7 @@
     "build:stats": "ng build --prod --stats-json",
     "publish:lib": "npm publish dist/w11k/ngx-present",
     "publish:theme": "npm publish dist/thecodecampus/ngx-present-theme",
-    "publish": "npm run build:lib && npm run build:theme && npm run test:lib && npm run test:theme && npm run publish:lib && npm run publish:theme",
+    "publish": "rimraf ./dist && npm run build:lib && npm run build:theme && npm run publish:lib && npm run publish:theme",
     "bundle-report": "webpack-bundle-analyzer dist/demo-app/stats.json",
     "test": "ng test ngx-present --watch=false && ng test ngx-present-theme --watch=false",
     "test:lib": "ng test ngx-present",
