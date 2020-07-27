@@ -1,5 +1,12 @@
 # ngx-present Changelog
 
+## 3.0.0
+
+### Features & Improvements
+
+* update to Angular 10
+* tested only with Angular 10 and Ivy
+
 ## 2.0.0
 
 ### Features & Improvements
