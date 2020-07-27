@@ -1,6 +1,3 @@
-/// <reference path="./types.d.ts" />
-
-
 /*
  * Public API Surface of @w11k/ngx-present
  */
@@ -27,4 +24,4 @@ export { TableOfContentComponent } from './lib/theming/table-of-content.componen
 export { SpeakerNotesDirective } from './lib/speaker-notes/speaker-notes.directive';
 
 // TODO: move to testing.ts and find a way to build testing.ts as additional entryPoint
-export { StoreMock} from './test.utils';
+export { StoreMock } from './test.utils';

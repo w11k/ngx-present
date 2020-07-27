@@ -1,6 +1,7 @@
-import { Coordinates, Slide, Slides } from '../core/presentation.types';
 import { Params } from '@angular/router';
+import { Coordinates, Slide, Slides } from '../core/presentation.types';
 import { max, min } from '../core/utils';
+import { RecursiveArray } from '../types';
 
 export function calculateCoordinates(slides: Slide[],
                                      currentSlide: Slide,

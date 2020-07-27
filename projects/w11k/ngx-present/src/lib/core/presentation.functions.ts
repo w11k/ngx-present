@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import { RecursiveArray } from '../types';
 import { Coordinates, Slide, SlideComponents, Slides } from './presentation.types';
 
 export function componentToSlide(component: Type<any>, coordinates: Coordinates, index: number): Slide {

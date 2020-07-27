@@ -7,6 +7,7 @@ import { PresentationService } from '../core/presentation.service';
 import { NgxPresentConfig, Slide } from '../core/presentation.types';
 import { filterDeep, limitDepth, mapDeep } from '../core/utils';
 import { coordinatesToString } from '../slide-by-slide/slide-by-slide.functions';
+import { ListOfRecursiveArraysOrValues } from '../types';
 import { DecoratorMetadata, tableOfContentMetadata } from './table-of-content';
 import { UIEntry } from './table-of-content-view.component';
 

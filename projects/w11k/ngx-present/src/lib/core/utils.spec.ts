@@ -1,3 +1,4 @@
+import { RecursiveArray } from '../types';
 import { flattenDeep, limitDepth, mapDeep, max, maxDepth, min } from './utils';
 
 describe('module utils', () => {

@@ -25,7 +25,7 @@ export class HelpCommands extends Commands<HelpState> {
 @Injectable({
   providedIn: 'root'
 })
-export class HelpService extends Facade<HelpState, HelpCommands> {
+export class HelpService extends Facade<HelpCommands> {
 
   private registry = new Map<string, number>();
   private readonly separator = '.';

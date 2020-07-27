@@ -1,5 +1,6 @@
 import { Type } from '@angular/core';
 import { Commands } from '@w11k/tydux';
+import { ListOfRecursiveArraysOrValues, RecursivePartial } from '../types';
 import { mergeDeep } from './utils';
 
 export type SlideComponents = ListOfRecursiveArraysOrValues<Type<any>>;

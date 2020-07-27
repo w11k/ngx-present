@@ -1,4 +1,5 @@
 import { Component, Input, Type } from '@angular/core';
+import { ListOfRecursiveArraysOrValues, RecursiveArray } from '../types';
 
 export interface UIEntry {
   component: Type<any>;

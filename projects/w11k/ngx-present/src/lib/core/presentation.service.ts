@@ -1,5 +1,6 @@
 import { Injectable, InjectionToken, Injector } from '@angular/core';
 import { Facade } from '@w11k/tydux';
+import { RecursivePartial } from '../types';
 import { componentsToSlideTree } from './presentation.functions';
 import { NgxPresentConfig, PresentationCommands, PresentationState, SlideComponents } from './presentation.types';
 
@@ -9,7 +10,7 @@ export const SLIDES = new InjectionToken<SlideComponents>('SLIDES');
 @Injectable({
   providedIn: 'root'
 })
-export class PresentationService extends Facade<PresentationState, PresentationCommands> {
+export class PresentationService extends Facade<PresentationCommands> {
 
   constructor(injector: Injector) {
     super('Presentation', new PresentationState(), new PresentationCommands());

@@ -25,8 +25,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -204,5 +203,8 @@
       }
     }
   },
-  "defaultProject": "demo-app"
+  "defaultProject": "demo-app",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -14,6 +14,7 @@ import {
   NavigateToOverview,
   TogglePresenter
 } from './slide-by-slide/slide-by-slide.service';
+import { RecursivePartial } from './types';
 
 export function configFactory(): TyduxConfiguration {
   return {
@@ -40,7 +41,7 @@ export const defaultAppRoutes: Routes = [
   ],
 })
 export class NgxPresentRootModule {
-  static forRoot(slides: SlideComponents, config: RecursivePartial<NgxPresentConfig> = {}): ModuleWithProviders {
+  static forRoot(slides: SlideComponents, config: RecursivePartial<NgxPresentConfig> = {}): ModuleWithProviders<NgxPresentRootModule> {
     return {
       ngModule: NgxPresentRootModule,
       providers: [

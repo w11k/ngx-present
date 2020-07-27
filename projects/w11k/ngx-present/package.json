@@ -31,7 +31,8 @@
     "redux": "^4.0.5",
     "@w11k/ngx-componentdestroyed": "^5.0.2",
     "material-design-icons-iconfont": "^5.0.1"
-  },
+  ,    "tslib": "^2.0.0"
+},
   "peerDependencies": {
     "@angular/common": "^9.0.0",
     "@angular/core": "^9.0.0",

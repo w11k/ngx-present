@@ -55,7 +55,7 @@ export class SlideBySlideMutator extends Commands<SlideBySlideState> {
 @Injectable({
   providedIn: 'root'
 })
-export class SlideBySlideService extends Facade<SlideBySlideState, SlideBySlideMutator> implements OnDestroy {
+export class SlideBySlideService extends Facade<SlideBySlideMutator> implements OnDestroy {
 
   constructor(injector: Injector,
               private readonly presentation: PresentationService,

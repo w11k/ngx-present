@@ -1,4 +1,5 @@
 import { Observable } from 'rxjs';
+import { ListOfRecursiveArraysOrValues } from '../types';
 
 export function maxDepth<T>(list: ListOfRecursiveArraysOrValues<T>): number {
   if (list.length === 0) {

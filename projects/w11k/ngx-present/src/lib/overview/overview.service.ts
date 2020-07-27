@@ -49,7 +49,7 @@ export class OverviewMutator extends Commands<OverviewState> {
 @Injectable({
   providedIn: 'root'
 })
-export class OverviewService extends Facade<OverviewState, OverviewMutator> {
+export class OverviewService extends Facade<OverviewMutator> {
 
   constructor() {
     super('TenThousandFoot', new OverviewState(), new OverviewMutator());
