@@ -1,6 +1,6 @@
 {
   "name": "@thecodecampus/ngx-present-theme",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "theCodeCampus theme for @w11k/ngx-present",
   "keywords": [
     "ngx-present",
@@ -22,9 +22,9 @@
     "@thecodecampus/angular-material-theme": "^2.2.0",
     "ngx-markdown": "^9.0.0",
     "prismjs": "^1.20.0",
-    "prism-themes": "^1.4.0"
-  ,    "tslib": "^2.0.0"
-},
+    "prism-themes": "^1.4.0",
+    "tslib": "^2.0.0"
+  },
   "peerDependencies": {
     "@angular/animations": "^9.0.0",
     "@angular/common": "^9.0.0",
