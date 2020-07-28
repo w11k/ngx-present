@@ -1,5 +1,11 @@
 # ngx-present Changelog
 
+## 3.0.1
+
+### Bugfixes
+
+* fix dependencies to Angular 10 and redux-devtools-extension
+
 ## 3.0.0
 
 ### Features & Improvements
