@@ -23,12 +23,13 @@
     "url": "https://github.com/w11k/ngx-present.git"
   },
   "dependencies": {
-    "@angular/cdk": "^9.0.0",
-    "@angular/material": "^9.0.0",
+    "@angular/cdk": "^10.0.0",
+    "@angular/material": "^10.0.0",
     "@w11k/rx-ninja": "^4.1.0",
-    "@w11k/tydux": "^13.5.6",
-    "@w11k/tydux-angular": "^13.5.6",
+    "@w11k/tydux": "^14.4.1",
+    "@w11k/tydux-angular": "^14.4.1",
     "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
     "@w11k/ngx-componentdestroyed": "^5.0.2",
     "material-design-icons-iconfont": "^5.0.1",
     "tslib": "^2.0.0"
