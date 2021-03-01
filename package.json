@@ -59,7 +59,7 @@
     "core-js": "^3.6.5",
     "material-design-icons-iconfont": "^5.0.1",
     "ngx-markdown": "^10.1.0",
-    "prismjs": "^1.20.0",
+    "prismjs": "^1.23.0",
     "prism-themes": "^1.4.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
